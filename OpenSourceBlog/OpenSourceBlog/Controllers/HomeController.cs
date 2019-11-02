@@ -13,6 +13,13 @@ namespace OpenSourceBlog.Controllers
             return View();
         }
 
+        public ActionResult Archive()
+        {
+            ViewBag.Message = "Archived blog posts.";
+
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
