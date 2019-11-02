@@ -32,7 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,10 +44,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IAspNetUserRepository.cs" />
-    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostCategory.cs" />
+    <Compile Include="Models\PostComment.cs" />
+    <Compile Include="Models\PostNotify.cs" />
+    <Compile Include="Models\PostTag.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Right.cs" />
+    <Compile Include="Models\RightRole.cs" />
+    <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\StopWord.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.Config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

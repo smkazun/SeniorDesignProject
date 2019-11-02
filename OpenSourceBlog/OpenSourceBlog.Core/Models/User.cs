@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace OpenSourceBlog.OpenSourceBlog.Core.Models
+namespace OpenSourceBlog.Core.Models
 {
-    public class AspNetUser
+    public class User
     {
         public string Id { get; set; }
         public string Email { get; set; }
