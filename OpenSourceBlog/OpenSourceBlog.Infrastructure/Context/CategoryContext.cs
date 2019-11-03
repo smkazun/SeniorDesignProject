@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using OpenSourceBlog.Core.Models;
 
 namespace OpenSourceBlog.Infrastructure.Context
 {
-    public class BlogContext : DbContext
+    public class CategoryContext : DbContext
     {
-        public BlogContext() : base("name=DefaultConnection")
+        public CategoryContext() : base("name=DefaultConnection")
         {
 
         }
@@ -17,6 +20,7 @@ namespace OpenSourceBlog.Infrastructure.Context
         //    throw new UnintentionalCodeFirstException();
         //}
 
-        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
+
 }
