@@ -623,6 +623,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\_ManageUsers.cshtml" />
     <Content Include="Views\Admin\ManageUsers.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
