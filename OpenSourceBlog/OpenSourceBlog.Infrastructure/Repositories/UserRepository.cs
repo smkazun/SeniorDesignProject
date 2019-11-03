@@ -2,29 +2,31 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
+using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        UserContext context = new UserContext();
-        public Task<List<object>> SelectAll()
+        private UserContext context = new UserContext();
+        public IEnumerable<User> GetUsers()
         {
-            return context.Users.ToListAsync();
+            return context.Users.ToList();
         }
 
-        public Task<object> SelectByUserName(string username)
+        public Task<User> GetByUserName(string username)
         {
             return context.Users.FindAsync(username);
         }
 
-        public void Insert(User user)
+        public void Create(User user)
         {
-            context.Users.Add(user);
+            //ToDo Create a user properly, but should already been done through Identity
         }
 
         public void Update(User user)
@@ -35,11 +37,6 @@ namespace OpenSourceBlog.Infrastructure.Repositories
         public void Delete(string username)
         {
             //ToDo Delete properly from database
-        }
-
-        public void Save()
-        {
-            
         }
     }
 }
