@@ -8,9 +8,9 @@ namespace OpenSourceBlog.Core.Models
 {
     public class PostTag
     {
-        public int PostTagID { get; set; }
-        public System.Guid BlogID { get; set; }
-        public System.Guid PostID { get; set; }
+        public int PostTagId { get; set; }
+        public System.Guid BlogId { get; set; }
+        public System.Guid PostId { get; set; }
         public string Tag { get; set; }
     }
 }

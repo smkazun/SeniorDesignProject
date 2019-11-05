@@ -10,36 +10,35 @@ using System.Linq;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
-    public class BlogRepository : IBlogRepository
+    public class BlogRepository : IRepository<Blog, int>
     {
-        private BlogContext context = new BlogContext();
-
-        public void Create(Blog b)
+        private readonly BlogContext ctx = new BlogContext();
+        public IEnumerable<Blog> GetAll()
         {
-            context.Blogs.Add(b);
-            context.SaveChanges();
+            return ctx.Blogs.ToList();
         }
 
-        public void Update(Blog b)
+        public Blog Get(int id)
         {
-            context.Entry(b).State = System.Data.Entity.EntityState.Modified;
+            return ctx.Blogs.Find(id);
         }
 
-        public void Delete(int Id)
+        public void Create(Blog entity)
         {
-            Blog b = (Blog) context.Blogs.Find(Id);
-            context.Blogs.Remove(b);
-            context.SaveChanges();
+            ctx.Blogs.Add(entity);
+            ctx.SaveChanges();
         }
 
-        public IEnumerable<Blog> GetBlogs()
+        public void Update(int id, Blog entityNew)
         {
-            return context.Blogs.ToList();
+            throw new NotImplementedException();
         }
 
-        public Blog GetByRowId(int Id)
+        public void Delete(int id)
         {
-            return context.Blogs.Find(Id);
+            Blog b = Get(id);
+            ctx.Blogs.Remove(b);
+            ctx.SaveChanges();
         }
     }
 }

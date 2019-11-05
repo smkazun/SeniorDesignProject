@@ -8,9 +8,7 @@ namespace OpenSourceBlog.Core.Models
 {
     public class Role
     {
-        public string UserId { get; set; }
-        public string RoleId { get; set; }
-
-        public virtual Role AspNetRole { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }

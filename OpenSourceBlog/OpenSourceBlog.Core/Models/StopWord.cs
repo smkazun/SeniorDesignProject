@@ -8,8 +8,8 @@ namespace OpenSourceBlog.Core.Models
 {
     public class StopWord
     {
-        public int StopWordRowID { get; set; }
-        public System.Guid BlogID { get; set; }
+        public int StopWordRowId { get; set; }
+        public System.Guid BlogId { get; set; }
         public string StopWord1 { get; set; }
     }
 }

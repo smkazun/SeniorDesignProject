@@ -23,7 +23,7 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void CheckGetByRowId()
         {
-            Blog result = repo.GetByRowId(1);
+            Blog result = repo.Get(1);
             Assert.IsNotNull(result);
         }
     }
