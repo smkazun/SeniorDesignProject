@@ -8,8 +8,8 @@ namespace OpenSourceBlog.Core.Models
 {
     public class Profile
     {
-        public int ProfileID { get; set; }
-        public System.Guid BlogID { get; set; }
+        public int ProfileId { get; set; }
+        public System.Guid BlogId { get; set; }
         public string UserName { get; set; }
         public string SettingName { get; set; }
         public string SettingValue { get; set; }

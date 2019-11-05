@@ -8,8 +8,8 @@ namespace OpenSourceBlog.Core.Models
 {
     public class Right
     {
-        public int RightRowID { get; set; }
-        public System.Guid BlogID { get; set; }
+        public int RightRowId { get; set; }
+        public System.Guid BlogId { get; set; }
         public string RightName { get; set; }
     }
 }

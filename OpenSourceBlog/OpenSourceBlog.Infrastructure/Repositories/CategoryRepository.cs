@@ -1,46 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
 using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
-    public class CategoryRepository : IRepository<Category, string>
+    public class CategoryRepository : IRepository<Category, int>
     {
-        private readonly CategoryContext context = new CategoryContext();
+        private readonly CategoryContext ctx = new CategoryContext();
 
         public IEnumerable<Category> GetAll()
         {
-            return context.Categories.ToList();
+            return ctx.Categories.ToList();
         }
 
-        public Category Get(string id)
+        public Category Get(int id)
         {
-            //ToDo string or int?
-            return context.Categories.Find(id);
+            return ctx.Categories.Find(id);
         }
 
         public void Create(Category entity)
         {
-            context.Categories.Add(entity);
-            context.SaveChanges();
+            ctx.Categories.Add(entity);
+            ctx.SaveChanges();
         }
 
-        public void Update(string id, Category entityNew)
+        public void Update(int id, Category entityNew)
         {
             //ToDo Update and change the old data to new data
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
-            //ToDo string or int?
             Category c = Get(id);
-            context.Categories.Remove(c);
-            context.SaveChanges();
+            ctx.Categories.Remove(c);
+            ctx.SaveChanges();
         }
     }
 }

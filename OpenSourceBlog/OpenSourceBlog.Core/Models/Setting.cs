@@ -8,8 +8,8 @@ namespace OpenSourceBlog.Core.Models
 {
     public class Setting
     {
-        public int SettingRowID { get; set; }
-        public System.Guid BlogID { get; set; }
+        public int SettingRowId { get; set; }
+        public System.Guid BlogId { get; set; }
         public string SettingName { get; set; }
         public string SettingValue { get; set; }
     }

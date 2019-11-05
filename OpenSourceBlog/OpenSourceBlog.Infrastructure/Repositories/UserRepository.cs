@@ -11,32 +11,31 @@ using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IRepository<User, string>
     {
-        private UserContext context = new UserContext();
-        public IEnumerable<User> GetUsers()
+        //ToDo UserRepository using userManager
+        private readonly UserContext ctx = new UserContext();
+        public IEnumerable<User> GetAll()
         {
-            return context.Users.ToList();
+            throw new NotImplementedException();
         }
 
-        public Task<User> GetByUserName(string username)
+        public User Get(string id)
         {
-            return context.Users.FindAsync(username);
+            throw new NotImplementedException();
+        }
+        public void Create(User entity)
+        {
+            throw new NotImplementedException();
+        }
+        public void Update(string id, User entityNew)
+        {
+            throw new NotImplementedException();
         }
 
-        public void Create(User user)
+        public void Delete(string id)
         {
-            //ToDo Create a user properly, but should already been done through Identity
-        }
-
-        public void Update(User user)
-        {
-            context.Entry(user).State = System.Data.Entity.EntityState.Modified;
-        }
-
-        public void Delete(string username)
-        {
-            //ToDo Delete properly from database
+            throw new NotImplementedException();
         }
     }
 }

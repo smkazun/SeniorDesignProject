@@ -10,7 +10,6 @@ namespace OpenSourceBlog.Core.Models
     {
         public string UserId { get; set; }
         public string RoleId { get; set; }
-
         public virtual Role AspNetRole { get; set; }
     }
 }

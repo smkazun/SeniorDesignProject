@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,19 +9,28 @@ namespace OpenSourceBlog.Core.Models
 {
     public class Post
     {
-        public int PostRowID { get; set; }
-        public System.Guid BlogID { get; set; }
-        public System.Guid PostID { get; set; }
+        [Key]
+        [Required]
+        public int PostRowId { get; set; }
+        [Required]
+        public System.Guid BlogId { get; set; }
+        [Required]
+        public System.Guid PostId { get; set; }
+        [MaxLength(255)]
         public string Title { get; set; }
+        [MaxLength]
         public string Description { get; set; }
+        [MaxLength]
         public string PostContent { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public Nullable<System.DateTime> DateModified { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        [MaxLength(50)]
         public string Author { get; set; }
-        public Nullable<bool> IsPublished { get; set; }
-        public Nullable<bool> IsCommentEnabled { get; set; }
-        public Nullable<int> Raters { get; set; }
-        public Nullable<float> Rating { get; set; }
+        public bool? IsPublished { get; set; }
+        public bool? IsCommentEnabled { get; set; }
+        public int? Raters { get; set; }
+        public float? Rating { get; set; }
+        [MaxLength(255)]
         public string Slug { get; set; }
         public bool IsDeleted { get; set; }
     }
