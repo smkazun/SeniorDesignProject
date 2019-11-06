@@ -15,6 +15,6 @@ namespace OpenSourceBlog.Infrastructure.Context
         //{
         //    throw new UnintentionalCodeFirstException();
         //}
-        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

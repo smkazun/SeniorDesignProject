@@ -13,22 +13,22 @@ namespace OpenSourceBlog.Infrastructure.Repositories
     {
         //ToDo UserRepository using userManager
         private readonly UserContext ctx = new UserContext();
-        public IEnumerable<User> GetAll()
+        public IEnumerable<AspNetUser> GetAll()
         {
             return ctx.AspNetUsers.ToList();
         }
 
-        public User Get(string id)
+        public AspNetUser Get(string id)
         {
             throw new NotImplementedException();
         }
 
-        public void Create(User user)
+        public void Create(AspNetUser user)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(User user)
+        public void Update(AspNetUser user)
         {
             throw new NotImplementedException();
         }

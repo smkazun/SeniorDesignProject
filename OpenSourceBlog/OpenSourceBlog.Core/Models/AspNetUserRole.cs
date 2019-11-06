@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OpenSourceBlog.Core.Models
 {
-    public class UserRole
+    public class AspNetUserRole
     {
         public string UserId { get; set; }
         public string RoleId { get; set; }
-        public virtual Role AspNetRole { get; set; }
+        public virtual AspNetRole AspNetRole { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void GetAll()
         {
-            IEnumerable<User> result = repo.GetAll();
+            IEnumerable<AspNetUser> result = repo.GetAll();
             Assert.IsNotNull(result);
         }
         
