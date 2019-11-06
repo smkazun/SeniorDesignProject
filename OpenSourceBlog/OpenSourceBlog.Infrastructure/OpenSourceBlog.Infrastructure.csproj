@@ -52,20 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\BlogContext.cs" />
-    <Compile Include="Context\CategoryContext.cs" />
-    <Compile Include="Context\PageContext.cs" />
-    <Compile Include="Context\PostCategoryContext.cs" />
-    <Compile Include="Context\PostCommentContext.cs" />
-    <Compile Include="Context\PostContext.cs" />
-    <Compile Include="Context\PostNotifyContext.cs" />
-    <Compile Include="Context\PostTagContext.cs" />
-    <Compile Include="Context\ProfileContext.cs" />
-    <Compile Include="Context\RightContext.cs" />
-    <Compile Include="Context\RightRoleContext.cs" />
+    <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Context\RoleContext.cs" />
-    <Compile Include="Context\SettingContext.cs" />
-    <Compile Include="Context\StopWordContext.cs" />
     <Compile Include="Initialize\BlogInitializeDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
