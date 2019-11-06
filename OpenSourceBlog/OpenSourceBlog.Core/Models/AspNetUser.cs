@@ -26,13 +26,13 @@ namespace OpenSourceBlog.Core.Models
         [Required]
         public bool PhoneNumberConfirmed { get; set; }
         public bool TwoFactorEnabled { get; set; }
-        [Required]
         public DateTime? LockoutEndDateUtc { get; set; }
         [Required]
         public bool LockoutEnabled { get; set; }
         [Required]
         public int AccessFailedCount { get; set; }
         [Required]
+        [MaxLength(256)]
         public string UserName { get; set; }
     }
 }
