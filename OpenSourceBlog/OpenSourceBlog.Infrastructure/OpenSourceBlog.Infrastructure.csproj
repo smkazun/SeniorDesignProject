@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Context\RoleContext.cs" />
-    <Compile Include="Initialize\BlogInitializeDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
