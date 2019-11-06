@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
 using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
-    public class PostRepository : IRepository<Post, int>
+    public class RightRepository : IRepository<Right, int>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
-
-        public IEnumerable<Post> GetAll()
+        public IEnumerable<Right> GetAll()
         {
-            return ctx.Posts.ToList();
+            return ctx.Rights.ToList();
         }
 
-        public Post Get(int id)
+        public Right Get(int id)
         {
-            return ctx.Posts.Find(id);
+            return ctx.Rights.Find(id);
         }
 
-        public void Create(Post entity)
+        public void Create(Right entity)
         {
-            ctx.Posts.Add(entity);
+            ctx.Rights.Add(entity);
             ctx.SaveChanges();
         }
 
-        public void Update(int id, Post entityNew)
+        public void Update(int id, Right entityNew)
         {
             //ToDo Update and change the old data to new data
             throw new NotImplementedException();
@@ -35,8 +36,8 @@ namespace OpenSourceBlog.Infrastructure.Repositories
 
         public void Delete(int id)
         {
-            Post p = Get(id);
-            ctx.Posts.Remove(p);
+            Right r = Get(id);
+            ctx.Rights.Remove(r);
             ctx.SaveChanges();
         }
     }

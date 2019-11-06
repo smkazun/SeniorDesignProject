@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenSourceBlog.Core.Models;
 using OpenSourceBlog.Infrastructure.Repositories;
@@ -10,6 +11,7 @@ namespace OpenSourceBlog.Test
     public class PostRepositoryTest : IRepositoryTest
     {
         private PostRepository repo;
+
         [TestInitialize]
         public void TestSetup()
         {

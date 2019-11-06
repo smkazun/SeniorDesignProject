@@ -1,42 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
 using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
-    public class PostRepository : IRepository<Post, int>
+    public class PageRepository : IRepository<Page, int>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
-
-        public IEnumerable<Post> GetAll()
+        public IEnumerable<Page> GetAll()
         {
-            return ctx.Posts.ToList();
+            return ctx.Pages.ToList();
         }
 
-        public Post Get(int id)
+        public Page Get(int id)
         {
-            return ctx.Posts.Find(id);
+            return ctx.Pages.Find(id);
         }
 
-        public void Create(Post entity)
+        public void Create(Page entity)
         {
-            ctx.Posts.Add(entity);
+            ctx.Pages.Add(entity);
             ctx.SaveChanges();
         }
 
-        public void Update(int id, Post entityNew)
+        public void Update(int id, Page entityNew)
         {
-            //ToDo Update and change the old data to new data
-            throw new NotImplementedException();
+            //ToDo Update and change
         }
 
         public void Delete(int id)
         {
-            Post p = Get(id);
-            ctx.Posts.Remove(p);
+            Page p = Get(id);
+            ctx.Pages.Remove(p);
             ctx.SaveChanges();
         }
     }
