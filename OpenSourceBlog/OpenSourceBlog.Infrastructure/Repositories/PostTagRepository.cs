@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {

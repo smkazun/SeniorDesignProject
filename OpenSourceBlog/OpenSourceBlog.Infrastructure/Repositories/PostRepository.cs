@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {

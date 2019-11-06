@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
@@ -29,6 +29,7 @@ namespace OpenSourceBlog.Infrastructure.Repositories
         public void Update(int id, Category entityNew)
         {
             //ToDo Update and change the old data to new data
+            throw new NotImplementedException();
         }
 
         public void Delete(int id)

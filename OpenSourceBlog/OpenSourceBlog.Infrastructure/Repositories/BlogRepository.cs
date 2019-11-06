@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure.Context;
 
 using System.Configuration;
 using System.Linq;
