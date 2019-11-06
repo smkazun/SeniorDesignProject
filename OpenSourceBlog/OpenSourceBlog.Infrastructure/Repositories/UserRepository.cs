@@ -17,24 +17,29 @@ namespace OpenSourceBlog.Infrastructure.Repositories
         private readonly UserContext ctx = new UserContext();
         public IEnumerable<User> GetAll()
         {
+            //ToDo
             throw new NotImplementedException();
         }
 
         public User Get(string id)
         {
+            //ToDo
             throw new NotImplementedException();
         }
         public void Create(User entity)
         {
+            //ToDo
             throw new NotImplementedException();
         }
         public void Update(string id, User entityNew)
         {
+            //ToDo
             throw new NotImplementedException();
         }
 
         public void Delete(string id)
         {
+            //ToDo
             throw new NotImplementedException();
         }
     }

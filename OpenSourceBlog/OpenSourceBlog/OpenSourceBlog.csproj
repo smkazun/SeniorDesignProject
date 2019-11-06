@@ -639,6 +639,16 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenSourceBlog.Core\OpenSourceBlog.Core.csproj">
+      <Project>{ec19048f-ebf8-49c2-991f-a37a3d2d87c0}</Project>
+      <Name>OpenSourceBlog.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenSourceBlog.Infrastructure\OpenSourceBlog.Infrastructure.csproj">
+      <Project>{7a981f40-d0ad-4b04-9a7d-04744b6df851}</Project>
+      <Name>OpenSourceBlog.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
