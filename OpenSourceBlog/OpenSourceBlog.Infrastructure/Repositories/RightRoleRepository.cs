@@ -1,33 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
 using OpenSourceBlog.Infrastructure.Context;
 
 namespace OpenSourceBlog.Infrastructure.Repositories
 {
-    public class PostRepository : IRepository<Post, int>
+    public class RightRoleRepository : IRepository<RightRole, int>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
 
-        public IEnumerable<Post> GetAll()
+        public IEnumerable<RightRole> GetAll()
         {
-            return ctx.Posts.ToList();
+            return ctx.RightRoles.ToList();
         }
 
-        public Post Get(int id)
+        public RightRole Get(int id)
         {
-            return ctx.Posts.Find(id);
+            return ctx.RightRoles.Find(id);
         }
 
-        public void Create(Post entity)
+        public void Create(RightRole entity)
         {
-            ctx.Posts.Add(entity);
+            ctx.RightRoles.Add(entity);
             ctx.SaveChanges();
         }
 
-        public void Update(int id, Post entityNew)
+        public void Update(int id, RightRole entityNew)
         {
             //ToDo Update and change the old data to new data
             throw new NotImplementedException();
@@ -35,8 +37,8 @@ namespace OpenSourceBlog.Infrastructure.Repositories
 
         public void Delete(int id)
         {
-            Post p = Get(id);
-            ctx.Posts.Remove(p);
+            RightRole rr = Get(id);
+            ctx.RightRoles.Remove(rr);
             ctx.SaveChanges();
         }
     }

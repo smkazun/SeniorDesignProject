@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OpenSourceBlog.Core.Models;
 
 namespace OpenSourceBlog.Infrastructure.Context
 {
-    public partial class UserContext : DbContext
+    public class UserContext : IdentityDbContext
     {
         public UserContext() : base("name=DefaultConnection")
         {

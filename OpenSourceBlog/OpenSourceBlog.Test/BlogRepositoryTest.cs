@@ -8,7 +8,7 @@ using OpenSourceBlog.Infrastructure.Repositories;
 namespace OpenSourceBlog.Test
 {
     [TestClass]
-    public class BlogRepositoryTest
+    public class BlogRepositoryTest : IRepositoryTest
     {
         private BlogRepository repo;
         [TestInitialize]
@@ -16,12 +16,32 @@ namespace OpenSourceBlog.Test
         {
             repo = new BlogRepository();
         }
-
         [TestMethod]
-        public void CheckGetByRowId()
+        public void GetAll()
+        {
+            IEnumerable<Blog> result = repo.GetAll();
+            Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void Get()
         {
             Blog result = repo.Get(1);
             Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void Create()
+        {
+            throw new NotImplementedException();
+        }
+        [TestMethod]
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
+        [TestMethod]
+        public void Delete()
+        {
+            throw new NotImplementedException();
         }
     }
 }
