@@ -8,7 +8,7 @@ namespace OpenSourceBlog.Infrastructure.Repositories
 {
     public class PostRepository : IRepository<Post, int>
     {
-        private readonly PostContext ctx = new PostContext();
+        private readonly ApplicationContext ctx = new ApplicationContext();
 
         public IEnumerable<Post> GetAll()
         {

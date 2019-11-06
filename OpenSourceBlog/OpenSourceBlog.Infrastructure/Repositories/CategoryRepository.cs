@@ -8,7 +8,7 @@ namespace OpenSourceBlog.Infrastructure.Repositories
 {
     public class CategoryRepository : IRepository<Category, int>
     {
-        private readonly CategoryContext ctx = new CategoryContext();
+        private readonly ApplicationContext ctx = new ApplicationContext();
 
         public IEnumerable<Category> GetAll()
         {
