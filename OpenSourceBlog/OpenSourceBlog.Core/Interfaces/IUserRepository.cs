@@ -9,10 +9,10 @@ namespace OpenSourceBlog.Core.Interfaces
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetAll();
-        User Get(string id);
-        void Create(User user);
-        void Update(User user);
+        IEnumerable<AspNetUser> GetAll();
+        AspNetUser Get(string id);
+        void Create(AspNetUser user);
+        void Update(AspNetUser user);
         void Delete(string id);
     }
 }

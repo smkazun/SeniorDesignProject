@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OpenSourceBlog.Core.Models
 {
-    public class User
+    public class AspNetUser
     {
         [Key]
         [Required]

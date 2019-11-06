@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenSourceBlog.Core.Models
 {
-    public class Role
+    public class AspNetRole
     {
         [Key]
         [Required]

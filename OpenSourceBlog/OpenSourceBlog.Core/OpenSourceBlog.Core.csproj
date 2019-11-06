@@ -59,9 +59,9 @@
     <Compile Include="Models\RightRole.cs" />
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\StopWord.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

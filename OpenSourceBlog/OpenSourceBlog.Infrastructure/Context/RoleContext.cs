@@ -20,6 +20,6 @@ namespace OpenSourceBlog.Infrastructure.Context
         //    throw new UnintentionalCodeFirstException();
         //}
 
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<AspNetRole> Roles { get; set; }
     }
 }
