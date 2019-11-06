@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure.Initialize;
 using OpenSourceBlog.Infrastructure.Repositories;
 
 namespace OpenSourceBlog.Test
@@ -15,8 +14,6 @@ namespace OpenSourceBlog.Test
         [TestInitialize]
         public void TestSetup()
         {
-            //BlogInitializeDB db = new BlogInitializeDB();
-            //System.Data.Entity.Database.SetInitializer(db);
             repo = new BlogRepository();
         }
 
