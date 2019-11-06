@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using OpenSourceBlog.Core.Models;
 
-namespace OpenSourceBlog.Infrastructure.Context
+namespace OpenSourceBlog.Infrastructure
 {
     public class ApplicationContext : DbContext
     {
@@ -28,8 +23,8 @@ namespace OpenSourceBlog.Infrastructure.Context
         public DbSet<RightRole> RightRoles { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<StopWord> StopWords { get; set; }
-        //public DbSet<User> Users { get; set; }
-        //public DbSet<UserRole> UserRoles { get; set; }
-        //public DbSet<Role> Roles { get; set; }
+        public DbSet<AspNetUser> AspNetUsers { get; set; }
+        public DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+        public DbSet<AspNetRole> AspNetRoles { get; set; }
     }
 }

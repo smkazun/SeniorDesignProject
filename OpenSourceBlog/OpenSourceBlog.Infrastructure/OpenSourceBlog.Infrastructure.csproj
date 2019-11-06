@@ -58,8 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\ApplicationContext.cs" />
-    <Compile Include="Context\RoleContext.cs" />
+    <Compile Include="ApplicationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\StopWordRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Context\UserContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenSourceBlog.Core\OpenSourceBlog.Core.csproj">
