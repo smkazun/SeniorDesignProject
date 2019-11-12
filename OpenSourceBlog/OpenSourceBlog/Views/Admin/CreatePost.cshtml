@@ -1,0 +1,21 @@
+﻿
+@{
+  
+}
+
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+
+<h2>Create Post</h2>
+
+<h3>Title</h3>
+<form method="post">
+    <fieldset>
+        <input type="text" name="post_title" id="post_title" rows="2" cols="100" value="@Request.Form["post_title"]"/>
+        <h3>Content</h3>
+        <textarea name="blog_content" id="blog_content" class="ckeditor_textarea" value="@Request.Form["blog_content"]">
+                This is my textarea to be replaced with CKEditor.
+        </textarea>
+        <input type="submit" class="btn btn-primary"></input>
+    </fieldset>
+</form>
