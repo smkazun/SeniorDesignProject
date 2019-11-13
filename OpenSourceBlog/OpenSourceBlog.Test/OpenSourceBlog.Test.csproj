@@ -61,6 +61,7 @@
     <Compile Include="IRepositoryTest.cs" />
     <Compile Include="PostRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CategoryRepositoryTest.cs" />
     <Compile Include="UserRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
