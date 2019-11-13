@@ -17,8 +17,7 @@ namespace OpenSourceBlog
             this.email = email;
         }
 
-        //void for now
-        public void getGravatar()
+        public string getMd5()
         {
             //create md5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
@@ -35,15 +34,20 @@ namespace OpenSourceBlog
                 email = sb.ToString();
                 url += email;
             }
-
-            HttpPostRequest();
+            return email;
         }
 
-        private void HttpPostRequest()
+        //void for now
+        public void getGravatar()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             //TODO handle PNG image response
+        }
+
+        public void changeEmail(string email)
+        {
+            this.email = email;
         }
     }
 }
