@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenSourceBlog.Core.Models;
 using OpenSourceBlog.Infrastructure.Repositories;
@@ -32,16 +33,11 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void Create()
         {
-            Post result = repo.Get(1);
-            if (result != null)
-            {
-                return;
-            }
             Post p = new Post();
-            p.PostRowId = 1;
+            //p.PostRowId = 1; this is not needed as the
+            //database will auto increment accordingly
             p.BlogId = Guid.Parse("71acc52b-040c-4456-8820-dd21f6122fbc");
-            Guid PostId = new Guid();
-            p.PostId = PostId;
+            p.PostId = Guid.NewGuid();
             p.Title = "Welcome to the Open Source .NET Blog using MS SQL";
             p.Description = "Description";
             p.PostContent = "<p>Sample blog post</p>";
@@ -51,11 +47,11 @@ namespace OpenSourceBlog.Test
             p.IsPublished = false;
             p.IsCommentEnabled = false;
             repo.Create(p);
-            result = repo.Get(1);
+            Post result = repo.Get(repo.GetAll().Count());
             Assert.IsNotNull(result);
-            Assert.AreEqual(PostId, result.PostId);
+            Assert.AreEqual(p.PostId, result.PostId);
         }
-        [TestMethod]
+        
         public void Update()
         {
             throw new NotImplementedException();
@@ -63,8 +59,8 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void Delete()
         {
-            repo.Delete(1);
-            Post result = repo.Get(1);
+            repo.Delete(2);
+            Post result = repo.Get(2);
             Assert.IsNull(result);
         }
     }
