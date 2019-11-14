@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OpenSourceBlog.Models;
@@ -17,15 +18,17 @@ namespace OpenSourceBlog.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _appRoleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager appRoleManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            AppRoleManager = appRoleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -49,6 +52,19 @@ namespace OpenSourceBlog.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        protected ApplicationRoleManager AppRoleManager
+        {
+            get
+            {
+                return _appRoleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+
+            private set
+            {
+                _appRoleManager = value;
             }
         }
 
@@ -156,6 +172,8 @@ namespace OpenSourceBlog.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                   
+                    var roleResult = await UserManager.AddToRoleAsync(user.Id, "Users");
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

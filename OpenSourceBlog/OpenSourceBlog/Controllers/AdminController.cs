@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace OpenSourceBlog.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
 
