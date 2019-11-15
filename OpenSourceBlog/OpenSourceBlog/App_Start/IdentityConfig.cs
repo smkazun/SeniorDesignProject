@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using OpenSourceBlog.Models;
+using System.Configuration;
+using System.Net.Mail;
 
 namespace OpenSourceBlog
 {
@@ -18,8 +20,12 @@ namespace OpenSourceBlog
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            
+            SmtpClient client = new SmtpClient();
+            return client.SendMailAsync(ConfigurationManager.AppSettings["SupportEmailAddr"],
+                                        message.Destination,
+                                        message.Subject,
+                                        message.Body);
         }
     }
 
@@ -35,14 +41,15 @@ namespace OpenSourceBlog
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser> store, IIdentityMessageService emailService)
             : base(store)
         {
+            this.EmailService = emailService;
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()), new EmailService());
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
