@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace OpenSourceBlog.Core.Models
 {
@@ -21,6 +22,7 @@ namespace OpenSourceBlog.Core.Models
         [MaxLength]
         public string Description { get; set; }
         [MaxLength]
+        [AllowHtml]
         public string PostContent { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
