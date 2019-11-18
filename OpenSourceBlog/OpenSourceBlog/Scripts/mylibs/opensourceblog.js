@@ -1,3 +1,3 @@
 ﻿$(function () {
-    $('#ckeditor_textarea').ckeditor();
+    $('.ckeditor_textarea').ckeditor();
 });
