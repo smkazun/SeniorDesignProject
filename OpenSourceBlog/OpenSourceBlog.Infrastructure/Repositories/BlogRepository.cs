@@ -12,6 +12,7 @@ namespace OpenSourceBlog.Infrastructure.Repositories
     public class BlogRepository : IRepository<Blog, int>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
+
         public IEnumerable<Blog> GetAll()
         {
             return ctx.Blogs.ToList();
