@@ -71,9 +71,11 @@
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Repositories\RightRepository.cs" />
     <Compile Include="Repositories\RightRoleRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\StopWordRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UserRoleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenSourceBlog.Core\OpenSourceBlog.Core.csproj">

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceBlog.Infrastructu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceBlog.Test", "OpenSourceBlog.Test\OpenSourceBlog.Test.csproj", "{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravatar.NET", "Gravatar.NET\Gravatar.NET.csproj", "{16CF5298-A255-44D8-ABB6-7C62E726077C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16CF5298-A255-44D8-ABB6-7C62E726077C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16CF5298-A255-44D8-ABB6-7C62E726077C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16CF5298-A255-44D8-ABB6-7C62E726077C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16CF5298-A255-44D8-ABB6-7C62E726077C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,103 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
+<body>
+
+    @Html.Partial("_NavBar")
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Open Source Blog</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#postSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Posts</a>
+                    <ul class="collapse list-unstyled" id="postSubmenu">
+                        <li class="nav-item">@Html.ActionLink("Create Post", "Create", "Posts", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("View Posts", "Index", "Posts", null, new { @class = "nav-link" })</li>
+                        
+                    </ul>
+                </li>
+                </ul>
+                <!-- <li>
+         <a href="#">About</a>
+     </li>
+     <li>
+         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+         <ul class="collapse list-unstyled" id="pageSubmenu">
+             <li>
+                 <a href="#">Page 1</a>
+             </li>
+             <li>
+                 <a href="#">Page 2</a>
+             </li>
+             <li>
+                 <a href="#">Page 3</a>
+             </li>
+         </ul>
+     </li> -->
+                
+            
+
+        </nav>
+        <!-- Page Content -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Sidebar</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/opensourceblog")
+    @RenderSection("scripts", required: false)
+<script>
+    $(document).ready(function () {
+
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+
+        $('#sidebarCollapse').on('click', function () {
+            // open or close navbar
+            $('#sidebar').toggleClass('active');
+            // close dropdowns
+            $('.collapse.in').toggleClass('in');
+            // and also adjust aria-expanded attributes we use for the open/closed arrows
+            // in our CSS
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+    });
+</script>
+</body>
+</html>
+
