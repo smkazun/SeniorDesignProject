@@ -15,7 +15,16 @@ namespace OpenSourceBlog.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            List<Post> fullList = db.Posts.ToList();
+            List<Post> resultList = new List<Post>();
+
+            //display published posts only
+            for (int i = 0; i < fullList.Count; i++)
+                if (fullList[i].IsPublished == true)
+                    resultList.Add(fullList[i]);
+
+            return View(resultList);
+            //return View(db.Posts.ToList());
         }
 
         public ActionResult Archive()

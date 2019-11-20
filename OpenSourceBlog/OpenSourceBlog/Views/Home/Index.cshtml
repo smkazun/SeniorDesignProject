@@ -41,29 +41,29 @@
 
     @foreach (var item in Model)
     {
-    <div class="box">
-        <h1>
-            @Html.DisplayFor(modelItem => item.Title)
-        </h1>
-        <p>
-            By @Html.DisplayFor(modelItem => item.Author)
-        </p>
-        <p>
-            <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
-        </p>
-        <p>
-            <i>Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
-        </p>
-        <p>
-            Rating: @Html.DisplayFor(modelItem => item.Rating)
-        </p>
-        <p>
-            @Html.DisplayFor(modelItem => item.Description)
-        </p>
-        <p>
-            @Html.Raw(item.PostContent)
-        </p>
-    </div> 
+        <div class="box">
+            <h1>
+                @Html.DisplayFor(modelItem => item.Title)
+            </h1>
+            <p>
+                By @Html.DisplayFor(modelItem => item.Author)
+            </p>
+            <p>
+                <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+            </p>
+            <p>
+                <i>Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
+            </p>
+            <p>
+                Rating: @Html.DisplayFor(modelItem => item.Rating)
+            </p>
+            <p>
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+            <p>
+                @Html.Raw(item.PostContent)
+            </p>
+        </div>
     }
 
 </div>
