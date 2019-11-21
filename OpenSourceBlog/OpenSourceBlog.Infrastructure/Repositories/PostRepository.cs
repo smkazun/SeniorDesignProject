@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
@@ -26,10 +27,10 @@ namespace OpenSourceBlog.Infrastructure.Repositories
             ctx.SaveChanges();
         }
 
-        public void Update(int id, Post entityNew)
+        public void Update(Post entity)
         {
-            //ToDo Update and change the old data to new data
-            throw new NotImplementedException();
+            ctx.Entry(entity).State = EntityState.Modified;
+            ctx.SaveChanges();
         }
 
         public void Delete(int id)

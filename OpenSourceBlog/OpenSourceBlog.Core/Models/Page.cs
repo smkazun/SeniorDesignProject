@@ -17,11 +17,8 @@ namespace OpenSourceBlog.Core.Models
         public System.Guid PageId { get; set; }
         [MaxLength(255)]
         public string Title { get; set; }
-        [MaxLength]
         public string Description { get; set; }
-        [MaxLength]
         public string PageContent { get; set; }
-        [MaxLength]
         public string Keywords { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }

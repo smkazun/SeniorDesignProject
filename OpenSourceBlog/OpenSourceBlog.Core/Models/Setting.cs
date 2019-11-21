@@ -17,7 +17,6 @@ namespace OpenSourceBlog.Core.Models
         [Required]
         [MaxLength(50)]
         public string SettingName { get; set; }
-        [MaxLength]
         public string SettingValue { get; set; }
     }
 }

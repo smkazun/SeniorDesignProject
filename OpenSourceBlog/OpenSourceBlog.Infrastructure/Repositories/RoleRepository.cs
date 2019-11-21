@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +29,10 @@ namespace OpenSourceBlog.Infrastructure.Repositories
             ctx.SaveChanges();
         }
 
-        public void Update(string id, AspNetRole entityNew)
+        public void Update(AspNetRole entity)
         {
-            throw new NotImplementedException();
+            ctx.Entry(entity).State = EntityState.Modified;
+            ctx.SaveChanges();
         }
 
         public void Delete(string id)

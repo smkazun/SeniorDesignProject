@@ -4,6 +4,7 @@ using OpenSourceBlog.Core.Interfaces;
 using OpenSourceBlog.Core.Models;
 
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 
 
@@ -29,9 +30,10 @@ namespace OpenSourceBlog.Infrastructure.Repositories
             ctx.SaveChanges();
         }
 
-        public void Update(int id, Blog entityNew)
+        public void Update(Blog entity)
         {
-            throw new NotImplementedException();
+            ctx.Entry(entity).State = EntityState.Modified;
+            ctx.SaveChanges();
         }
 
         public void Delete(int id)

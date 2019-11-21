@@ -15,9 +15,7 @@ namespace OpenSourceBlog.Core.Models
         public System.Guid PostId { get; set; }
         [MaxLength(255)]
         public string Title { get; set; }
-        [MaxLength]
         public string Description { get; set; }
-        [MaxLength]
         [AllowHtml]
         public string PostContent { get; set; }
         public DateTime? DateCreated { get; set; }
