@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,10 +29,10 @@ namespace OpenSourceBlog.Infrastructure.Repositories
             ctx.SaveChanges();
         }
 
-        public void Update(int id, RightRole entityNew)
+        public void Update(RightRole entity)
         {
-            //ToDo Update and change the old data to new data
-            throw new NotImplementedException();
+            ctx.Entry(entity).State = EntityState.Modified;
+            ctx.SaveChanges();
         }
 
         public void Delete(int id)

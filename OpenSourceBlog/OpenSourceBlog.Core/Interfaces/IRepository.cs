@@ -11,7 +11,7 @@ namespace OpenSourceBlog.Core.Interfaces
         IEnumerable<T> GetAll();
         T Get(U id);
         void Create(T entity);
-        void Update(U id, T entityNew);
+        void Update(T entity);
         void Delete(U id);
     }
 }

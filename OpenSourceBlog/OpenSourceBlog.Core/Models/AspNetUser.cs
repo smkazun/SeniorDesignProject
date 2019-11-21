@@ -17,11 +17,8 @@ namespace OpenSourceBlog.Core.Models
         public string Email { get; set; }
         [Required]
         public bool EmailConfirmed { get; set; }
-        [MaxLength]
         public string PasswordHash { get; set; }
-        [MaxLength]
         public string SecurityStamp { get; set; }
-        [MaxLength]
         public string PhoneNumber { get; set; }
         [Required]
         public bool PhoneNumberConfirmed { get; set; }

@@ -28,7 +28,7 @@ namespace OpenSourceBlog.Infrastructure.Repositories
             ctx.SaveChanges();
         }
 
-        public void Update(string id, AspNetUserRole entityNew)
+        public void Update(AspNetUserRole entity)
         {
             throw new NotImplementedException();
         }
