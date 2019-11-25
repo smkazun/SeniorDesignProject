@@ -12,6 +12,7 @@ using OpenSourceBlog.Infrastructure.Repositories;
 
 namespace OpenSourceBlog.Controllers
 {
+    [Authorize]
     public class PostsController : Controller
     {
         //private ApplicationContext db = new ApplicationContext();
