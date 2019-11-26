@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure;
-using OpenSourceBlog.Infrastructure.Repositories;
+using OpenSourceBlog.Database;
+using OpenSourceBlog.Database.Models;
+using OpenSourceBlog.Database.Repositories;
 
 namespace OpenSourceBlog.Controllers
 {

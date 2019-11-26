@@ -63,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CategoryRepositoryTest.cs" />
     <Compile Include="RightRepositoryTest.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="UserRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,13 +71,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenSourceBlog.Core\OpenSourceBlog.Core.csproj">
-      <Project>{ec19048f-ebf8-49c2-991f-a37a3d2d87c0}</Project>
-      <Name>OpenSourceBlog.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenSourceBlog.Infrastructure\OpenSourceBlog.Infrastructure.csproj">
-      <Project>{7a981f40-d0ad-4b04-9a7d-04744b6df851}</Project>
-      <Name>OpenSourceBlog.Infrastructure</Name>
+    <ProjectReference Include="..\OpenSourceBlog\OpenSourceBlog.csproj">
+      <Project>{8be54947-c099-414a-9847-2d48981c542e}</Project>
+      <Name>OpenSourceBlog</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
