@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure;
+using OpenSourceBlog.Database;
+using OpenSourceBlog.Database.Models;
+using OpenSourceBlog.Database.Repositories;
 
 
 namespace OpenSourceBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationContext db = new ApplicationContext();
+        //private ApplicationContext db = new ApplicationContext();
+        private PostRepository db = new PostRepository();
 
         public ActionResult Index()
         {
-            List<Post> fullList = db.Posts.ToList();
+            List<Post> fullList = (List<Post>) db.GetAll();
             List<Post> resultList = new List<Post>();
 
             //display published posts only

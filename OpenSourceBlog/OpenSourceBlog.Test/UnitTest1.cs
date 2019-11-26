@@ -7,25 +7,25 @@ using OpenSourceBlog.Database.Repositories;
 namespace OpenSourceBlog.Test
 {
     [TestClass]
-    public class BlogRepositoryTest : IRepositoryTest
+    public class UnitTest1 : IRepositoryTest
     {
-        private BlogRepository repo;
+        private PostRepository repo;
+
         [TestInitialize]
         public void TestSetup()
         {
-            repo = new BlogRepository();
+            repo = new PostRepository();
         }
         [TestMethod]
         public void GetAll()
         {
-            IEnumerable<Blog> result = repo.GetAll();
+            IEnumerable<Post> result = repo.GetAll();
             Assert.IsNotNull(result);
         }
         [TestMethod]
         public void Get()
         {
-            Blog result = repo.Get(1);
-            Assert.IsNotNull(result);
+            throw new NotImplementedException();
         }
         [TestMethod]
         public void Create()

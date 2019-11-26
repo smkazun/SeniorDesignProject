@@ -178,6 +178,41 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Database\ApplicationContext.cs" />
+    <Compile Include="Database\Interfaces\IRepository.cs" />
+    <Compile Include="Database\Interfaces\IUserRepository.cs" />
+    <Compile Include="Database\Models\AspNetRole.cs" />
+    <Compile Include="Database\Models\AspNetUser.cs" />
+    <Compile Include="Database\Models\AspNetUserRole.cs" />
+    <Compile Include="Database\Models\Blog.cs" />
+    <Compile Include="Database\Models\Category.cs" />
+    <Compile Include="Database\Models\Page.cs" />
+    <Compile Include="Database\Models\Post.cs" />
+    <Compile Include="Database\Models\PostCategory.cs" />
+    <Compile Include="Database\Models\PostComment.cs" />
+    <Compile Include="Database\Models\PostNotify.cs" />
+    <Compile Include="Database\Models\PostTag.cs" />
+    <Compile Include="Database\Models\Profile.cs" />
+    <Compile Include="Database\Models\Right.cs" />
+    <Compile Include="Database\Models\RightRole.cs" />
+    <Compile Include="Database\Models\Setting.cs" />
+    <Compile Include="Database\Models\StopWord.cs" />
+    <Compile Include="Database\Repositories\BlogRepository.cs" />
+    <Compile Include="Database\Repositories\CategoryRepository.cs" />
+    <Compile Include="Database\Repositories\PageRepository.cs" />
+    <Compile Include="Database\Repositories\PostCategoryRepository.cs" />
+    <Compile Include="Database\Repositories\PostCommentRepository.cs" />
+    <Compile Include="Database\Repositories\PostNotifyRepository.cs" />
+    <Compile Include="Database\Repositories\PostRepository.cs" />
+    <Compile Include="Database\Repositories\PostTagRepository.cs" />
+    <Compile Include="Database\Repositories\ProfileRepository.cs" />
+    <Compile Include="Database\Repositories\RightRepository.cs" />
+    <Compile Include="Database\Repositories\RightRoleRepository.cs" />
+    <Compile Include="Database\Repositories\RoleRepository.cs" />
+    <Compile Include="Database\Repositories\SettingRepository.cs" />
+    <Compile Include="Database\Repositories\StopWordRepository.cs" />
+    <Compile Include="Database\Repositories\UserRepository.cs" />
+    <Compile Include="Database\Repositories\UserRoleRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -647,16 +682,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OpenSourceBlog.Core\OpenSourceBlog.Core.csproj">
-      <Project>{ec19048f-ebf8-49c2-991f-a37a3d2d87c0}</Project>
-      <Name>OpenSourceBlog.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenSourceBlog.Infrastructure\OpenSourceBlog.Infrastructure.csproj">
-      <Project>{7a981f40-d0ad-4b04-9a7d-04744b6df851}</Project>
-      <Name>OpenSourceBlog.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

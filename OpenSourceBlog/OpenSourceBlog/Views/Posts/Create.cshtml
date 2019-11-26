@@ -1,4 +1,4 @@
-﻿@model OpenSourceBlog.Core.Models.Post
+﻿@model OpenSourceBlog.Database.Models.Post
 
 @{
     ViewBag.Title = "Create";
@@ -18,7 +18,7 @@
 {
     @Html.AntiForgeryToken()
 
-        var emptyPost = (OpenSourceBlog.Core.Models.Post)ViewData["mypost"];
+        var emptyPost = (OpenSourceBlog.Database.Models.Post)ViewData["mypost"];
     <div class="form-horizontal">
         <h4>Post</h4>
         <hr />
