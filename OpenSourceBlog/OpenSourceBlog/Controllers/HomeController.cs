@@ -21,9 +21,12 @@ namespace OpenSourceBlog.Controllers
             List<Post> resultList = new List<Post>();
 
             //display published posts only
-            for (int i = 0; i < fullList.Count; i++)
+            for (int i = fullList.Count-1; i > -1; i--)
                 if (fullList[i].IsPublished == true)
                     resultList.Add(fullList[i]);
+            //for (int i = 0; i < fullList.Count; i++)
+            //    if (fullList[i].IsPublished == true)
+            //        resultList.Add(fullList[i]);
 
             return View(resultList);
             //return View(db.Posts.ToList());

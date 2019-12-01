@@ -49,17 +49,18 @@
                 By @Html.DisplayFor(modelItem => item.Author)
             </p>
             <p>
-                <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+                <i>Created: @Html.DisplayFor(modelItem => item.DateCreated)
+                Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
             </p>
             <p>
-                <i>Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
+                
             </p>
-            <p>
+            @*<p>
                 Rating: @Html.DisplayFor(modelItem => item.Rating)
-            </p>
-            <p>
-                @Html.DisplayFor(modelItem => item.Description)
-            </p>
+            </p>*@
+        <p>
+            <i>Description: @Html.DisplayFor(modelItem => item.Description)</i>
+        </p>
             <p>
                 @Html.Raw(item.PostContent)
             </p>
