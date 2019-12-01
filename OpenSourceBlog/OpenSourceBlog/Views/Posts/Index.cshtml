@@ -21,7 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
@@ -32,17 +32,17 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateModified)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Author)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsPublished)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.IsCommentEnabled)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Raters)
         </th>
         <th>
@@ -50,10 +50,10 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Slug)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.IsDeleted)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -68,7 +68,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
@@ -79,17 +79,17 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Author)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsPublished)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.IsCommentEnabled)
         </td>
-        @*<td>
+        <td>
             @Html.DisplayFor(modelItem => item.Raters)
         </td>
         <td>
@@ -97,14 +97,14 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Slug)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDeleted)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PostRowId }, new{ @class = "btn btn-secondary"})
-            @*@Html.ActionLink("Details", "Details", new { id=item.PostRowId }) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.PostRowId }, new{ @class = "btn btn-secondary"})
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PostRowId}, new{ @class = "btn btn-primary"})
+            @Html.ActionLink("Details", "Details", new { id=item.PostRowId}, new{  @class = "btn btn-primary"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.PostRowId}, new{  @class = "btn btn-primary"})
         </td>
     </tr>
 }
