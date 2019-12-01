@@ -22,7 +22,7 @@ namespace OpenSourceBlog.Controllers
 
             //display published posts only
             for (int i = fullList.Count-1; i > -1; i--)
-                if (fullList[i].IsPublished == true)
+                if (fullList[i].IsPublished == true && fullList[i].BlogId == GlobalVariables.BlogId)
                     resultList.Add(fullList[i]);
             //for (int i = 0; i < fullList.Count; i++)
             //    if (fullList[i].IsPublished == true)
