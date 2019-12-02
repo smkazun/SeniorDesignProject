@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OpenSourceBlog
 {
-    public static class GlobalVariables
+    public static class GlobalVars
     {
         public static Guid BlogId => Guid.Parse("71acc52b-040c-4456-8820-dd21f6122fbc");
     }

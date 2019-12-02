@@ -22,7 +22,7 @@ namespace OpenSourceBlog.Controllers
 
             //display published posts only
             for (int i = fullList.Count-1; i > -1; i--)
-                if (fullList[i].IsPublished == true && fullList[i].BlogId == GlobalVariables.BlogId)
+                if (fullList[i].IsPublished == true && fullList[i].BlogId == GlobalVars.BlogId)
                     resultList.Add(fullList[i]);
             //for (int i = 0; i < fullList.Count; i++)
             //    if (fullList[i].IsPublished == true)
@@ -34,9 +34,13 @@ namespace OpenSourceBlog.Controllers
 
         public ActionResult Archive()
         {
-            ViewBag.Message = "Archived blog posts.";
+            List<Post> fullList = (List<Post>)db.GetAll();
+            List<Post> resultList = new List<Post>();
+            for (int i = fullList.Count - 1; i > -1; i--)
+                if (fullList[i].IsDeleted == true && fullList[i].BlogId == GlobalVars.BlogId)
+                    resultList.Add(fullList[i]);
 
-            return View();
+            return View(resultList);
         }
 
         public ActionResult About()
@@ -46,7 +50,7 @@ namespace OpenSourceBlog.Controllers
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -63,7 +63,7 @@ namespace OpenSourceBlog.Controllers
             }
             Post emptyPost = new Post()
             {
-                BlogId = GlobalVariables.BlogId,
+                BlogId = GlobalVars.BlogId,
                 PostId = Guid.NewGuid()
             };
             ViewData["mypost"] = emptyPost;
