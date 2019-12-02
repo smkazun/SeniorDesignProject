@@ -1,13 +1,13 @@
-﻿﻿@model IEnumerable<OpenSourceBlog.Database.Models.Post>
+﻿@using OpenSourceBlog.Database.Models
+﻿@model IEnumerable<Post>
 @{
     ViewBag.Title = "Home Page";
 }
-
 <div class="jumbotron">
     <h1>BETTERBLOGENGINE.NET</h1>
 </div>
-
-<!---<div class="row">
+<!---
+<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -15,33 +15,31 @@
             enables a clean separation of concerns and gives you full control over markup
             for enjoyable, agile development.
         </p>
-        <p><a class="btn btn-secondary" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p>
+            <a class="btn btn-secondary" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a>
+        </p>
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>
         <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-secondary" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <p>
+            <a class="btn btn-secondary" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a>
+        </p>
     </div>
     <div class="col-md-4">
         <h2>Web Hosting</h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-secondary" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <p>
+            <a class="btn btn-secondary" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a>
+        </p>
     </div>
 </div>-->
 
-<style>
-    .box {
-        background-color: whitesmoke;
-        color: black;
-        margin: 20px;
-        padding: 20px;
-    }
-</style>
 <div class="row">
 
     @foreach (var item in Model)
     {
-        <div class="box">
+        <div class="Postbox">
             <h1>
                 @Html.DisplayFor(modelItem => item.Title)
             </h1>
@@ -49,22 +47,22 @@
                 By @Html.DisplayFor(modelItem => item.Author)
             </p>
             <p>
-                <i>Created: @Html.DisplayFor(modelItem => item.DateCreated)
-                Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
-            </p>
-            <p>
-                
+                <i>Created: @Html.DisplayFor(modelItem => item.DateCreated)</i>
+                @*if the modified time is not empty then display it*@
+                @if (!item.DateModified.ToString().Equals(String.Empty))
+                {
+                    <i>Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
+                }
             </p>
             @*<p>
-                Rating: @Html.DisplayFor(modelItem => item.Rating)
-            </p>*@
-        <p>
-            <i>Description: @Html.DisplayFor(modelItem => item.Description)</i>
-        </p>
+                    Rating: @Html.DisplayFor(modelItem => item.Rating)
+                </p>*@
+            <p>
+                <i>Description: @Html.DisplayFor(modelItem => item.Description)</i>
+            </p>
             <p>
                 @Html.Raw(item.PostContent)
             </p>
         </div>
     }
-
 </div>
