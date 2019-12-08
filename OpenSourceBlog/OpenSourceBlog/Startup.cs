@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Linq;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using OpenSourceBlog.Models;
@@ -21,35 +23,41 @@ namespace OpenSourceBlog
             ApplicationDbContext context = new ApplicationDbContext();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-
-            // creating first Admin Role and creating a default Admin User if none exist 
-            if (roleManager.RoleExists("Administrators"))
+            if (!roleManager.RoleExists("Administrators"))
             {
+                //First time running application, create roles
+                var admin = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var editor = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var user = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                admin.Name = "Administrators";
+                roleManager.Create(admin);
+                editor.Name = "Editors";
+                roleManager.Create(editor);
+                user.Name = "Users";
+                roleManager.Create(user);
+            }
 
-                //create admin role
-                //var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                //role.Name = "Admin";
-                //roleManager.Create(role);
-
-                //create defualt admin superuser                 
+            // creating first Admin Role and creating a default Admin User if none exist
+            if (userManager.FindByEmail("admin@gmail.com") == null)
+            {
+                //create default admin superuser                 
                 var user = new ApplicationUser();
                 user.UserName = "admin@gmail.com";
                 user.Email = "admin@gmail.com";
-                
+                user.EmailConfirmed = true;
+
                 string userPWD = "Admin1@";
-                
-                var checkUser = UserManager.Create(user, userPWD);
+
+                var checkUser = userManager.Create(user, userPWD);
 
                 //Add default User to Role Admin 
                 if (checkUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Administrators");
-
+                    var result1 = userManager.AddToRole(user.Id, "Administrators");
                 }
             }
-
         }
     }
 }
