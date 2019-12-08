@@ -25,7 +25,7 @@ namespace OpenSourceBlog
 
 
             // creating first Admin Role and creating a default Admin User if none exist 
-            if (!roleManager.RoleExists("Admin"))
+            if (roleManager.RoleExists("Administrators"))
             {
 
                 //create admin role
@@ -45,7 +45,7 @@ namespace OpenSourceBlog
                 //Add default User to Role Admin 
                 if (checkUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+                    var result1 = UserManager.AddToRole(user.Id, "Administrators");
 
                 }
             }
