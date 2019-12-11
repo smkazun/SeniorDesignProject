@@ -82,12 +82,8 @@
         <div class="form-group d-none">
             @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Author, new
-                {
-                        @*Shaves off the @ in the email to clean it up a bit*@
-                    @class = "form-control",
-                    @Value = @User.Identity.Name.Substring(0, @User.Identity.Name.IndexOf("@"))
-                })
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control",
+                    @Value = @User.Identity.Name.Substring(0, @User.Identity.Name.IndexOf("@", StringComparison.Ordinal))} })
                 @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
             </div>
         </div>
