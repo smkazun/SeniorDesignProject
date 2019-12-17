@@ -15,22 +15,22 @@ This repository provides the latest soure code for our Open Source Blog built us
 * Gravatar API (Profile pictures)
 * 3rd party sign ons (Microsoft, Google)
 * Admin Area
-..* Add a category/tag to a post
-    ..* Manage users
-    ..* Manage rights/roles
-    ..* Manage blog settings
-    ..* Manage individual account/profile settings
-    ..* Approve and deny comments
-    ..* CRUD categories and tags
-    ..* Apply a new theme
+    * Add a category/tag to a post
+        * Manage users
+        * Manage rights/roles
+        * Manage blog settings
+        * Manage individual account/profile settings
+        * Approve and deny comments
+        * CRUD categories and tags
+        * Apply a new theme
 * Normal user (logged in or not)
-    ..* Comment on posts
-    ..* Sort posts by tags
-    ..* Search posts
-    ..* View profiles of Editors/Admins
+    * Comment on posts
+    * Sort posts by tags
+    * Search posts
+    * View profiles of Editors/Admins
 * Different roles
-    ..* Admin - Full access
-    ..* Editor - Full access to posts
+    * Admin - Full access
+    * Editor - Full access to posts
 
 # Installation
 
@@ -47,10 +47,10 @@ Steps:
 2. Open solution in Visual Studio 2017 +
 3. Switch to solution view
 4. Inside OpenSourceBlog edit the Web.config
-    * Edit the connectionString="" to be your Azure database connection string
-    * Edit **ALL** instances of `sdmay20.34@gmail.com` to be your gmail (for sending confirmation emails). Add your password as well.
+    1. Edit the connectionString="" to be your Azure database connection string
+    2. Edit **ALL** instances of `sdmay20.34@gmail.com` to be your gmail (for sending confirmation emails). Add your password as well.
 5. Inside OpenSourceBlog.Test edit the App.config
-    * Edit the connectionString="" to be your Azure database connection string
+    1. Edit the connectionString="" to be your Azure database connection string
 6. Build and run solution to load website in the browser
 7. Click login in the top right
 8. Username: `admin@gmail.com` Password: `Admin1@`
