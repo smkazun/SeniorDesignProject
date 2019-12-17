@@ -6,7 +6,7 @@ This repository provides the latest soure code for our Open Source Blog built us
 * CKEditor 4
 * Microsoft Identity/Owin Authentication
 * Admin Area
-    ..* Create, Read, Update, and Delete (CRUD) Posts
+    * Create, Read, Update, and Delete (CRUD) Posts
 * View posts marked as published on the home page
 * View posts marked as deleted on the archive page
 * Email verification (90% complete)
