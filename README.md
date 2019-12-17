@@ -37,12 +37,12 @@ This repository provides the latest soure code for our Open Source Blog built us
 ### 1. Source Code
 This is the developer option. Use this if you are interested in seeing how things work or would like to implement your own functionality.
 
-#### Environment:
+**Environment:**
 * Visual Studio 2017 +
 * .NET Framework 4.8 +
 * Microsoft SQL Database through [Azure](https://azure.microsoft.com/en-us/)
 
-#### Steps:
+**Steps:**
 1. Clone repository
 2. Open solution in Visual Studio 2017 +
 3. Switch to solution view
