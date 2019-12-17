@@ -37,19 +37,19 @@ This repository provides the latest soure code for our Open Source Blog built us
 ### 1. Source Code
 This is the developer option. Use this if you are interested in seeing how things work or would like to implement your own functionality.
 
-Environment:
+#### Environment:
 * Visual Studio 2017 +
 * .NET Framework 4.8 +
 * Microsoft SQL Database through [Azure](https://azure.microsoft.com/en-us/)
 
-Steps:
+#### Steps:
 1. Clone repository
 2. Open solution in Visual Studio 2017 +
 3. Switch to solution view
-4. Inside OpenSourceBlog edit the Web.config
+4. Inside OpenSourceBlog open the Web.config
     1. Edit the connectionString="" to be your Azure database connection string
     2. Edit **ALL** instances of `sdmay20.34@gmail.com` to be your gmail (for sending confirmation emails). Add your password as well.
-5. Inside OpenSourceBlog.Test edit the App.config
+5. Inside OpenSourceBlog.Test open the App.config
     1. Edit the connectionString="" to be your Azure database connection string
 6. Build and run solution to load website in the browser
 7. Click login in the top right
