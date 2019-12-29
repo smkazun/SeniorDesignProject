@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OpenSourceBlog.Database;
+using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 
@@ -16,7 +17,12 @@ namespace OpenSourceBlog.Controllers
     public class PostsController : Controller
     {
         //private ApplicationContext db = new ApplicationContext();
-        private PostRepository db = new PostRepository();
+        private IPostRepository db;
+
+        public PostsController(IPostRepository db)
+        {
+            this.db = db;
+        }
 
         // GET: Posts
         public ActionResult Index()

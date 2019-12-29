@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class PostCategoryRepository : IRepository<PostCategory, int>
+    public class PostCategoryRepository : IPostCategoryRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
         public IEnumerable<PostCategory> GetAll()

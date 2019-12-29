@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class RightRoleRepository : IRepository<RightRole, int>
+    public class RightRoleRepository : IRightRoleRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
 

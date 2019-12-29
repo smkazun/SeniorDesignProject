@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class UserRoleRepository : IRepository<AspNetUserRole, string>
+    public class UserRoleRepository : IUserRoleRepository
     {
         private readonly  ApplicationContext ctx = new ApplicationContext();
 

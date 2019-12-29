@@ -1,8 +1,9 @@
 using System;
+using OpenSourceBlog.Controllers;
 using OpenSourceBlog.Database.Interfaces;
-using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 using Unity;
+using Unity.Injection;
 
 namespace OpenSourceBlog
 {
@@ -43,7 +44,23 @@ namespace OpenSourceBlog
             // container.LoadConfiguration();
 
             // TODO: Register your type's mappings here.
-            container.RegisterType<IRepository<Blog, int>, BlogRepository>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<IBlogRepository, BlogRepository>();
+            container.RegisterType<ICategoryRepository, CategoryRepository>();
+            container.RegisterType<IPageRepository, PageRepository>();
+            container.RegisterType<IPostCategoryRepository, PostCategoryRepository>();
+            container.RegisterType<IPostCommentRepository, PostCommentRepository>();
+            container.RegisterType<IPostNotifyRepository, PostNotifyRepository>();
+            container.RegisterType<IPostRepository, PostRepository>();
+            container.RegisterType<IPostTagRepository, PostTagRepository>();
+            container.RegisterType<IProfileRepository, ProfileRepository>();
+            container.RegisterType<IRightRepository, RightRepository>();
+            container.RegisterType<IRightRoleRepository, RightRoleRepository>();
+            container.RegisterType<IRoleRepository, RoleRepository>();
+            container.RegisterType<ISettingRepository, SettingRepository>();
+            container.RegisterType<IStopWordRepository, StopWordRepository>();
+            container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IUserRoleRepository, UserRoleRepository>();
         }
     }
 }

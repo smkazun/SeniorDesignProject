@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class StopWordRepository : IRepository<StopWord, int>
+    public class StopWordRepository : IStopWordRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
 

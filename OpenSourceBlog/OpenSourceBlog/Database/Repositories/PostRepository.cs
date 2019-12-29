@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 { 
-    public class PostRepository : IRepository<Post, int>
+    public class PostRepository : IPostRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
 
