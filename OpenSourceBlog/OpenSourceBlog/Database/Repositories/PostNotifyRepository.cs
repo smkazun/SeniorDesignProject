@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class PostNotifyRepository : IRepository<PostNotify, int>
+    public class PostNotifyRepository : IPostNotifyRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
 

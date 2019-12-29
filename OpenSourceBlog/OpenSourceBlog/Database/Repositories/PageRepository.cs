@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class PageRepository : IRepository<Page, int>
+    public class PageRepository : IPageRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
         public IEnumerable<Page> GetAll()

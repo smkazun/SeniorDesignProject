@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class ProfileRepository : IRepository<Profile, int>
+    public class ProfileRepository : IProfileRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
         public IEnumerable<Profile> GetAll()
