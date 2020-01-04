@@ -43,7 +43,7 @@ This is the developer option. Use this if you are interested in seeing how thing
 * Microsoft SQL Database through [Azure](https://azure.microsoft.com/en-us/)
 
 **Steps:**
-1. Clone repository
+1. Clone repository through Visual Studio
 2. Open solution in Visual Studio 2017 +
 3. Switch to solution view
 4. Inside OpenSourceBlog open the Web.config
@@ -52,5 +52,6 @@ This is the developer option. Use this if you are interested in seeing how thing
 5. Inside OpenSourceBlog.Test open the App.config
     1. Edit the connectionString="" to be your Azure database connection string
 6. Build and run solution to load website in the browser
+    1. There are times where you may get an error, if you get this try building the projects individually, cleaning and/or rebuilding the solution.
 7. Click login in the top right
 8. Username: `admin@gmail.com` Password: `Admin1@`
