@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OpenSourceBlog.Database;
+using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 
@@ -13,7 +14,12 @@ namespace OpenSourceBlog.Controllers
     public class HomeController : Controller
     {
         //private ApplicationContext db = new ApplicationContext();
-        private PostRepository db = new PostRepository();
+        private IPostRepository db;
+
+        public HomeController(IPostRepository db)
+        {
+            this.db = db;
+        }
 
         public ActionResult Index()
         {
