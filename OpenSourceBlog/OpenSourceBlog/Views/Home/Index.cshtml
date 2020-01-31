@@ -9,20 +9,20 @@
 
 <div class="row">
     <script>
-        function redirectURL(identifier) {
+        function redirectURL(identifier, targetID) {
             if (identifier == 1)
-                window.location = createPostURL();
+                window.location = createPostURL(targetID);
             if (identifier == 2)
-                window.location = createAuthorURL();
+                window.location = createAuthorURL(targetID);
         }
 
-        function createPostURL() {
-            var URL = "/posts/";
+        function createPostURL(targetID) {
+            var URL = "/posts/details/" + targetID;
             return URL;
         }
 
-        function createAuthorURL() {
-            var URL = "/account/";
+        function createAuthorURL(targetID) {
+            var URL = "/account/" + targetID;
             return URL;
         }
     </script>
@@ -30,10 +30,10 @@
     {
         <div class="Postbox">
             <h1>
-                <a href="#" style="color:#000000;" onclick="redirectURL(1); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
+                <a href="#" style="color:#000000;" onclick="redirectURL(1,1); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
             </h1>
             <p>
-                By <a href="#" onclick="redirectURL(2); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
+                By <a href="#" onclick="redirectURL(2,1); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
 </p>
             <p>
                 <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
@@ -52,7 +52,7 @@
             <hr>
             <p>
                 @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0,400) : item.PostContent)
-                <a href="#" class="font-weight-bold" onclick="redirectURL(1); return false;"> Continue Reading...</a>
+                <a href="#" class="font-weight-bold" onclick="redirectURL(1,1); return false;"> ...Continue Reading</a>
             </p>
         </div>
     }
