@@ -1,130 +1,37 @@
+﻿@using OpenSourceBlog.Database.Models
 ﻿@model OpenSourceBlog.Database.Models.Post
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Home Page";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BlogId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BlogId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostContent)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostContent)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateModified)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsPublished)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsCommentEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsCommentEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Raters)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Raters)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
-    </dl>
+<div class="jumbotron">
+    <h1>BETTERBLOGENGINE.NET</h1>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PostRowId }, new { @class = "btn btn-primary"}) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="row">
+        <div class="Postbox">
+            <h1>
+                @Html.DisplayFor(model => model.Title)
+            </h1>
+            <p>
+                By @Html.DisplayFor(model => model.Author)
+            </p>
+            <p>
+                <i>@Html.DisplayFor(model => model.DateCreated)</i>
+                @*if the modified time is not empty then display it
+        @if (!(model.DateModified.ToString().Equals(String.Empty)))
+        {
+            <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
+        }*@
+            </p>
+            @*<p>
+                    Rating: @Html.DisplayFor(modelItem => item.Rating)
+                </p>*@
+            <p>
+                <i>@Html.DisplayFor(model => model.Description)</i>
+            </p>
+            <hr>
+            <p>
+                @Html.Raw(@Html.DisplayFor(model => model.PostContent))
+            </p>
+        </div>
+</div>
