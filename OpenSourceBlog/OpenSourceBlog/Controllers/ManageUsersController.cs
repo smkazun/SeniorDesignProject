@@ -24,7 +24,21 @@ namespace OpenSourceBlog.Controllers
         // GET: ManageUsers
         public ActionResult Index()
         {
-            return PartialView("~/Views/Admin/ManageUsers/Index.cshtml",db.GetAll());
+            List<AspNetUser> users = (List<AspNetUser>) db.GetAll();
+            List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
+
+            //Loop through ALL users
+            for (int i = 0; i < users.Count; i++)
+            {
+                ManageUsersViewModel u = new ManageUsersViewModel();
+                AspNetUser user = users[i];
+                u.User = user;
+                u.Role = db.GetRoleByUserName(users[i].UserName).Name;
+
+
+                model.Add(u);
+            }
+            return PartialView("~/Views/Admin/ManageUsers/Index.cshtml", model);
         }
 
         // GET: ManageUsers/Details/5
