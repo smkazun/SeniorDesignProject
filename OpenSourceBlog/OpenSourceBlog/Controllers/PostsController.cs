@@ -13,7 +13,7 @@ using OpenSourceBlog.Database.Repositories;
 
 namespace OpenSourceBlog.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PostsController : Controller
     {
         //private ApplicationContext db = new ApplicationContext();
@@ -52,6 +52,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public ActionResult Create()
         {
             return PartialView("_PostCreate");
@@ -61,6 +62,7 @@ namespace OpenSourceBlog.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
         {
@@ -82,6 +84,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -100,6 +103,7 @@ namespace OpenSourceBlog.Controllers
         // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
@@ -115,6 +119,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Posts/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,6 +136,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // POST: Posts/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
