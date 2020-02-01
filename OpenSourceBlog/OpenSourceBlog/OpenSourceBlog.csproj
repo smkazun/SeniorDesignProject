@@ -197,6 +197,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\ICategoryRepository.cs" />
@@ -708,10 +709,10 @@
     <Content Include="Views\Admin\Posts\Edit.cshtml" />
     <Content Include="Views\Admin\Posts\Details.cshtml" />
     <Content Include="Views\Admin\Posts\Delete.cshtml" />
+    <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\ManageUsers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
