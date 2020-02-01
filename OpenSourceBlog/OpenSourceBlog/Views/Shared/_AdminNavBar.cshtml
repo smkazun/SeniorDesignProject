@@ -13,7 +13,6 @@
 <link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
 <body>
 
-   @Html.Partial("_NavBar") 
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
@@ -27,13 +26,14 @@
                     </div>
                 </div>
                 <div class="sidebar-header">
-                  
+                    @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "fas fa-home fa-2x" })
                 </div>
               
                 <!-- sidebar-search  -->
                 <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
+                           
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
