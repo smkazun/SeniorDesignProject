@@ -28,9 +28,13 @@ namespace OpenSourceBlog.Controllers
         public ActionResult Index()
         {
             //return View(db.Posts.ToList());
-            return PartialView("_PostIndex",db.GetAll());
+            return View(db.GetAll());
         }
-
+        public ActionResult PartialIndex()
+        {
+            //return View(db.Posts.ToList());
+            return PartialView("_PostIndex", db.GetAll());
+        }
         // GET: Posts/Details/5
         public ActionResult Details(int? id)
         {
@@ -50,7 +54,7 @@ namespace OpenSourceBlog.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView("_PostCreate");
         }
 
         // POST: Posts/Create
