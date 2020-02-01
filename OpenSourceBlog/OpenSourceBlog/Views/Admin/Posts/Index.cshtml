@@ -1,22 +1,27 @@
 ﻿@model IEnumerable<OpenSourceBlog.Database.Models.Post>
-<div id="main_page_content" class="page-content">
-    <h2>Index</h2>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            @*<th>
+@{
+    ViewBag.Title = "Index";
+}
+
+    <div id="main_page_content" class="page-content">
+        <h2>Admin/Posts/Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                @*<th>
                     @Html.DisplayNameFor(model => model.BlogId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PostId)
                 </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            @*<th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
@@ -28,13 +33,13 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DateModified)
                 </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            @*<th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsPublished)
+                </th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.IsCommentEnabled)
                 </th>
                 <th>
@@ -46,25 +51,25 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Slug)
                 </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th></th>
-        </tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </th>
+                <th></th>
+            </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                @*<td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.BlogId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PostId)
                     </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                @*<td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
@@ -76,13 +81,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DateModified)
                     </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPublished)
-                </td>
-                @*<td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPublished)
+                    </td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.IsCommentEnabled)
                     </td>
                     <td>
@@ -94,17 +99,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Slug)
                     </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.PostRowId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "Details", new { id = item.PostRowId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.PostRowId }, new { @class = "btn btn-primary" })
-                </td>
-            </tr>
-        }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PostRowId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { id = item.PostRowId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PostRowId }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
 
-    </table>
-
-</div>
+        </table>
+        </div>

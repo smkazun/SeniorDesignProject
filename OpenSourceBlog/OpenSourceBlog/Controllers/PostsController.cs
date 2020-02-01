@@ -27,14 +27,9 @@ namespace OpenSourceBlog.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            //return View(db.Posts.ToList());
-            return View(db.GetAll());
+            return PartialView("~/Views/Admin/Posts/Index.cshtml", db.GetAll());
         }
-        public ActionResult PartialIndex()
-        {
-            //return View(db.Posts.ToList());
-            return PartialView("_PostIndex", db.GetAll());
-        }
+
         // GET: Posts/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,14 +43,14 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View("~/Views/Admin/Posts/Details.cshtml",post);
         }
 
         // GET: Posts/Create
         [Authorize]
         public ActionResult Create()
         {
-            return PartialView("_PostCreate");
+            return PartialView("~/Views/Admin/Posts/Create.cshtml");
         }
 
         // POST: Posts/Create
@@ -68,8 +63,6 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Posts.Add(post);
-                //db.SaveChanges();
                 db.Create(post);
                 return RedirectToAction("Index");
             }
@@ -80,7 +73,7 @@ namespace OpenSourceBlog.Controllers
             };
             ViewData["mypost"] = emptyPost;
 
-            return View(post);
+            return View("~/Views/Admin/Posts/Create.cshtml", post);
         }
 
         // GET: Posts/Edit/5
@@ -97,7 +90,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View("~/Views/Admin/Posts/Edit.cshtml", post);
         }
 
         // POST: Posts/Edit/5
@@ -110,12 +103,10 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Entry(post).State = EntityState.Modified;
-                //db.SaveChanges();
                 db.Update(post);
                 return RedirectToAction("Index");
             }
-            return View(post);
+            return View("~/Views/Admin/Posts/Edit.cshtml", post);
         }
 
         // GET: Posts/Delete/5
@@ -126,13 +117,12 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Post post = db.Posts.Find(id);
             Post post = db.Get(Convert.ToInt32(id));
             if (post == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View("~/Views/Admin/Posts/Delete.cshtml", post);
         }
 
         // POST: Posts/Delete/5
@@ -141,9 +131,6 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //Post post = db.Posts.Find(id);
-            //db.Posts.Remove(post);
-            //db.SaveChanges();
             db.Delete(id);
             return RedirectToAction("Index");
         }
@@ -152,7 +139,6 @@ namespace OpenSourceBlog.Controllers
         {
             if (disposing)
             {
-                //db.Dispose();
             }
             base.Dispose(disposing);
         }
