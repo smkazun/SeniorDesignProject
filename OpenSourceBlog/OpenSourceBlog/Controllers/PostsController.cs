@@ -13,10 +13,8 @@ using OpenSourceBlog.Database.Repositories;
 
 namespace OpenSourceBlog.Controllers
 {
-    //[Authorize]
     public class PostsController : Controller
     {
-        //private ApplicationContext db = new ApplicationContext();
         private IPostRepository db;
 
         public PostsController(IPostRepository db)
@@ -24,6 +22,7 @@ namespace OpenSourceBlog.Controllers
             this.db = db;
         }
 
+        [Authorize(Roles = "Administrators,Editors")]
         // GET: Posts
         public ActionResult Index()
         {
@@ -47,7 +46,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Posts/Create
-        [Authorize]
+        [Authorize(Roles = "Administrators,Editors")]
         public ActionResult Create()
         {
             return PartialView("~/Views/Admin/Posts/Create.cshtml");
@@ -57,7 +56,7 @@ namespace OpenSourceBlog.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrators,Editors")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
         {
@@ -77,7 +76,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Posts/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Administrators,Editors")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -96,7 +95,7 @@ namespace OpenSourceBlog.Controllers
         // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "Administrators,Editors")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
@@ -110,7 +109,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Posts/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrators,Editors")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -126,7 +125,7 @@ namespace OpenSourceBlog.Controllers
         }
 
         // POST: Posts/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrators,Editors")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
