@@ -28,7 +28,7 @@ namespace OpenSourceBlog.Controllers
         public ActionResult Index()
         {
             //return View(db.Posts.ToList());
-            return View(db.GetAll());
+            return PartialView("_PostIndex",db.GetAll());
         }
 
         // GET: Posts/Details/5
