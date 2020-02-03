@@ -44,15 +44,24 @@ namespace OpenSourceBlog.Database.Repositories
             return user;
         }
 
-        public AspNetRole GetRoleByUserName(string username)
+        public AspNetRole GetRole(string id)
         {
-            AspNetUser user = FindByUserName(username);
-            string userId = user.Id;
-            AspNetUserRole userRole = ctx.AspNetUserRoles.Find(userId);
+            AspNetUserRole userRole = ctx.AspNetUserRoles.Find(id);
             string roleId = userRole.RoleId;
             AspNetRole role = ctx.AspNetRoles.Find(roleId);
             string roleName = role.Name;
             return role;
         }
+
+        public AspNetRole GetRoleByUserName(string username)
+        {
+            AspNetUser u = FindByUserName(username);
+            AspNetUserRole userRole = ctx.AspNetUserRoles.Find(u.Id);
+            string roleId = userRole.RoleId;
+            AspNetRole role = ctx.AspNetRoles.Find(roleId);
+            string roleName = role.Name;
+            return role;
+        }
+
     }
 }

@@ -710,9 +710,11 @@
     <Content Include="Views\Admin\Posts\Details.cshtml" />
     <Content Include="Views\Admin\Posts\Delete.cshtml" />
     <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
+    <Content Include="Views\Admin\ManageUsers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ManageUsers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
