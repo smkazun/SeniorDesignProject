@@ -54,9 +54,10 @@
             @Html.DisplayFor(modelItem => item.User.UserName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.User.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Details", "Details", new { id = item.User.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.User.Id }, new { @class = "btn btn-primary" })
+            @* @Html.ActionLink("Edit", "Edit", new { id = item.User.Id }, new { @class = "btn btn-primary" }) *@
+            @* @Html.ActionLink("Details", "Details", new { id = item.User.Id }, new { @class = "btn btn-primary" }) *@
+            @* @Html.ActionLink("Delete", "Delete", new { id = item.User.Id }, new { @class = "btn btn-primary" }) *@
+            <button data-url='@Url.Action("Edit","ManageUsers", new { id = item.User.Id } )'class="btn btn-dark nav-link">Edit</button>
         </td>
     </tr>
     }

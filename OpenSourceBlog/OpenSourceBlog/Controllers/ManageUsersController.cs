@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Models;
@@ -33,7 +35,7 @@ namespace OpenSourceBlog.Controllers
                 ManageUsersViewModel u = new ManageUsersViewModel();
                 AspNetUser user = users[i];
                 u.User = user;
-                u.Role = db.GetRoleByUserName(users[i].UserName).Name;
+                u.Role = db.GetRole(users[i].Id).Name;
 
 
                 model.Add(u);
@@ -69,13 +71,20 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
         {
+            ManageUsersViewModel model = new ManageUsersViewModel()
+            {
+                User = aspNetUser,
+                Role = db.GetRole(aspNetUser.Id).Name
+            };
+
             if (ModelState.IsValid)
             {
-                db.Create(aspNetUser);
+                // db.Create(aspNetUser);
+                //ToDo Create a user and role using rolemanage/usermanager
                 return RedirectToAction("Index");
             }
 
-            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml", aspNetUser);
+            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml", model);
         }
 
         // GET: ManageUsers/Edit/5
@@ -86,11 +95,17 @@ namespace OpenSourceBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             AspNetUser aspNetUser = db.Get(id);
-            if (aspNetUser == null)
+            ManageUsersViewModel model = new ManageUsersViewModel()
+            {
+                User = aspNetUser,
+                Role = db.GetRole(aspNetUser.Id).Name
+            };
+
+            if (model.User == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", aspNetUser);
+            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
         // POST: ManageUsers/Edit/5
@@ -100,12 +115,25 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
         {
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            ManageUsersViewModel model = new ManageUsersViewModel()
+            {
+                User = aspNetUser,
+                Role = db.GetRole(aspNetUser.Id).Name
+            };
+
+            //ToDo Edit the user/role using role/user manager
+
             if (ModelState.IsValid)
             {
                 db.Update(aspNetUser);
                 return RedirectToAction("Index");
             }
-            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", aspNetUser);
+            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
         // GET: ManageUsers/Delete/5
@@ -116,11 +144,17 @@ namespace OpenSourceBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             AspNetUser aspNetUser = db.Get(id);
+            ManageUsersViewModel model = new ManageUsersViewModel()
+            {
+                User = aspNetUser,
+                Role = db.GetRole(id).Name
+            };
+
             if (aspNetUser == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Delete.cshtml", aspNetUser);
+            return PartialView("~/Views/Admin/ManageUsers/Delete.cshtml", model);
         }
 
         // POST: ManageUsers/Delete/5
@@ -128,7 +162,8 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            db.Delete(id);
+            //ToDo delete the user using user manager
+            // db.Delete(id);
             return RedirectToAction("Index");
         }
 
