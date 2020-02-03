@@ -113,25 +113,26 @@ namespace OpenSourceBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        public ActionResult Edit(ManageUsersViewModel model)
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-            ManageUsersViewModel model = new ManageUsersViewModel()
-            {
-                User = aspNetUser,
-                Role = db.GetRole(aspNetUser.Id).Name
-            };
-
-            //ToDo Edit the user/role using role/user manager
 
             if (ModelState.IsValid)
             {
-                db.Update(aspNetUser);
-                return RedirectToAction("Index");
+                //ToDo Edit the user/role using role/user manager
+
+                //Remove user from ALL current roles
+                List<string> roles = userManager.GetRoles(model.User.Id).ToList();
+                for(int i = 0; i < roles.Count; i++)
+                {
+                    userManager.RemoveFromRole(model.User.Id, roles[i]);
+                }
+                //Add user to new selected role
+                userManager.AddToRole(model.User.Id, model.Role);
+
+                return Index();
             }
             return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
