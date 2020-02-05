@@ -1,11 +1,63 @@
 ﻿@model OpenSourceBlog.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style>
+    h4{
+        margin-bottom: 0px;
+        text-align: center;
+    }
+
+    .btn-default{
+        border-color: #555555;
+        width: 50%;
+      
+        margin-bottom: 7px;
+  
+        -moz-border-radius: 6px;
+	    border-radius: 6px;
+	    border: 1px solid #965F06;
+        -moz-box-shadow:
+		    0px 1px 1px rgba(000,000,000,0.5),
+		    inset 1px 2px 0px rgba(255,255,255,0.4);
+	    box-shadow:
+		    0px 1px 1px rgba(000,000,000,0.5),
+		    inset 1px 2px 0px rgba(255,255,255,0.4);
+
+    }
+
+    .form{
+        display:flex;
+        justify-content: center; 
+    }
+
+
+    .fa-google{
+        margin-right: 5px;
+    }
+
+    .fa-facebook{
+        margin-right: 10px;
+    }
+
+    .fa-twitter{
+        margin-right: 5px;
+    }
+
+    .fa-windows{
+        margin-right: 4px;
+    }
+
+</style>
+
+
+<h4>Use another service to log in</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
+    if (loginProviders.Count() == 0)
+    {
         <div>
             <p>
                 There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
@@ -13,16 +65,43 @@
             </p>
         </div>
     }
-    else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+    else
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form" }))
+        {
             @Html.AntiForgeryToken()
-            <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+            
+                    
+                    foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <div class="row" align="center">
+
+                            @if (p.Caption == "Google")
+                            {
+                                <i class="fa fa-google"></i>
+                            }
+                            else if (p.Caption == "Facebook")
+                            {
+                                <i class="fa fa-facebook"></i>
+                            }
+                            else if (p.Caption == "Twitter")
+                            {
+                                <i class="fa fa-twitter"></i>
+                            }
+                            else if(p.Caption == "Microsoft")
+                            {
+                                //no graphic for microsoft
+                                //or some error
+                                <i class="fa fa-windows" aria-hidden="true"></i>
+                            }
+
+                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                            <br />
+
+                        </div>
                     }
-                </p>
-            </div>
+                
+            
         }
     }
 }
