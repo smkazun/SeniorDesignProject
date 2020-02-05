@@ -5,11 +5,11 @@
 
 <style>
     body{
-        background: cornsilk;
+        background: #6c7b88;
     }
 
     .registerForm {
-        background-color: indianred;
+         background-color: #b8bfce;
         color: black;
         margin: 0 auto;
         padding: 20px 50px 20px;
@@ -32,6 +32,32 @@
         margin-top: 80px;
         margin-bottom: 5px;
         font-size: 300%;
+        
+    }
+
+    .btn-dark{
+         border-color: #555555;
+      
+        width: 70px;
+        height: 30px;
+        margin-top: 15px;
+        margin-bottom: -15px;
+  
+        -moz-border-radius: 6px;
+	    border-radius: 6px;
+	    border: 1px solid #965F06;
+        -moz-box-shadow:
+		    0px 1px 1px rgba(000,000,000,0.5),
+		    inset 1px 2px 0px rgba(255,255,255,0.4);
+	    box-shadow:
+		    0px 1px 1px rgba(000,000,000,0.5),
+		    inset 1px 2px 0px rgba(255,255,255,0.4);
+
+    }
+
+    h4{
+        margin-bottom: 0px;
+        text-align: center;
     }
 
 </style>
@@ -39,7 +65,7 @@
 
 
 
-<h2 align="center" style="margin-top: 50px;">@ViewBag.Title</h2>
+<h2 align="center" >@ViewBag.Title</h2>
 
 
 <div class="registerForm" id="registerForm" align="center">
@@ -50,21 +76,25 @@
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group" align="center">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
             </div>
         </div>
+        <br style="line-height: 8px;" />
+
         <div class="form-group" align="center">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
             </div>
         </div>
+        <br style="line-height: 8px;" />
+
         <div class="form-group" align="center">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            @*@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
             </div>
         </div>
         <div class="form-group" align="center">
