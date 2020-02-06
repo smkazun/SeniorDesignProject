@@ -8,30 +8,21 @@ using Microsoft.AspNet.Identity;
 
 namespace OpenSourceBlog.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Administrators,Editors")]
     public class AdminController : Controller
     {
 
-        private ApplicationDbContext _context;
-
         public AdminController()
         {
-            _context = new ApplicationDbContext();
+
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-
-        // GET: Admin
-        public ActionResult ManageUsers()
+        // GET: Admin Index Page
+        public ActionResult Index()
         {
             return View();
         }
-        public ActionResult CreatePost()
-        {
-            return View();
-        }
+
+
     }
 }

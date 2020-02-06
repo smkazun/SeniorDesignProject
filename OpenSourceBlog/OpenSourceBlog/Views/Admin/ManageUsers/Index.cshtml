@@ -1,0 +1,78 @@
+﻿@model IEnumerable<OpenSourceBlog.Models.ManageUsersViewModel>
+
+    <div id="main_page_content" class="page-content">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.EmailConfirmed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.PhoneNumberConfirmed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.TwoFactorEnabled)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.UserName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.EmailConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.PhoneNumberConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.TwoFactorEnabled)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Edit", "ManageUsers", new {id = item.User.Id})'>Edit</button>
+                        <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Details", "ManageUsers", new {id = item.User.Id})'>Details</button>
+                        <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Delete", "ManageUsers", new {id = item.User.Id})'>Delete</button>
+                    </td>
+                </tr>
+            }
+        </table>
+        <script>
+            $('.partial-view').on('click', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+
+                var $detailDiv = $('#main_page_content'),
+                    url = $(this).data('url');
+
+                $.get(url, function(data) {
+                    $detailDiv.replaceWith(data);
+                });
+            });
+        </script>
+    </div>
