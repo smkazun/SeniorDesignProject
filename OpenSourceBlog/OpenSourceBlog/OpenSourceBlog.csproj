@@ -710,6 +710,7 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Shared\_AdminNavBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\md5" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
