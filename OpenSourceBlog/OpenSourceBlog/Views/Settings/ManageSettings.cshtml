@@ -15,70 +15,50 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-
-    @for (int i = 0; i < Model.Count(); i++)
+    for (int i = 0; i < Model.Count(); i++)
     {
-        <tr>
-            <td style="border: 5px solid white;">
-                @Html.DisplayFor(m => m[i].Settings.BlogId)
-            </td>
-            <td style="border: 5px solid white;">
-                @Html.DisplayFor(m => m[i].Views.Folder)
-                @Html.DisplayFor(m => m[i].Views.Page)
-            </td>
-            <td style="border: 5px solid white;">
-                @Html.EditorFor(m => m[i].Perm)
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = Model[i].VPermID })
-            </td>
-        </tr>
-    }
+       
+        @Html.HiddenFor(m => m[i].SettingRowId)
 
-
-
-    foreach (var model in Model)
-    {
-        @Html.HiddenFor(m => model.SettingRowId)
-
-        @*BlogId - cant be *@
+       
         <div class="form-group row d-none">
-            @Html.LabelFor(m => model.BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(m => m[i].BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
-                @Html.EditorFor(m => model.BlogId, new { htmlAttributes = new { @class = "form-control", @Value = GlobalVariables.BlogId } })
-                @Html.ValidationMessageFor(m => model.BlogId, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m[i].BlogId, new { htmlAttributes = new { @class = "form-control", @Value = GlobalVariables.BlogId } })
+                @Html.ValidationMessageFor(m => m[i].BlogId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group row d-none">
-            @Html.DisplayFor(m => model.SettingName)
+            @Html.DisplayFor(m => m[i].SettingName)
             <div class="col-md-10">
-                @Html.EditorFor(m => model.SettingName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => model.SettingName, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m[i].SettingName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group row d-none">
-            @Html.DisplayFor(m => model.SettingRowId)
+            @Html.DisplayFor(m => m[i].SettingRowId)
             <div class="col-md-10">
-                @Html.EditorFor(m => model.SettingRowId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => model.SettingRowId, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m[i].SettingRowId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m[i].SettingRowId, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
         <div class="form-group row">
-            @Html.DisplayFor(m => model.SettingName)
+            @Html.DisplayFor(m => m[i].SettingName)
             <div class="col-md-10">
-                @Html.EditorFor(m => model.SettingValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(m => model.SettingValue, "", new { @class = "text-danger" })
+                @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
     }
 
 
     <div class="form-group" align="center">
-        @*<div class="col-md-offset-2 col-md-10"> *@
         <input type="submit" value="Save" class="btn btn-success btn-block" /><br />
 
     </div>

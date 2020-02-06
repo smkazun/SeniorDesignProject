@@ -29,10 +29,8 @@ namespace OpenSourceBlog.Controllers
         // GET: Settings
         public ActionResult Index(string returnUrl)
         {
-            
             ViewBag.ReturnUrl = returnUrl;
             return View(db.GetAll());
-            //return View(settingList);
         }
 
         
@@ -54,9 +52,10 @@ namespace OpenSourceBlog.Controllers
                     db.Update(setting);
                 }
 
-                //db.Update(setting);
                 return RedirectToAction("Index");
             }
+
+            //?
             Setting emptySetting = new Setting()
             {
                 BlogId = GlobalVariables.BlogId,
@@ -68,22 +67,7 @@ namespace OpenSourceBlog.Controllers
         }
         
 
-        // POST: Settings/Update/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Update( Setting setting, string returnUrl)
-        {     
-
-            if (ModelState.IsValid)
-            {
-                db.Update(setting);
-                return RedirectToAction("ManageSettings");
-            }
-            //return View(setting);
-            return RedirectToLocal(returnUrl);
-        }
-
-
+        
 
         //helper method
         private ActionResult RedirectToLocal(string returnUrl)
