@@ -1,0 +1,89 @@
+﻿@model List<OpenSourceBlog.Database.Models.Setting>
+@{
+    ViewBag.Title = "ManageSettings";
+    Layout = "~/Views/Shared/_AdminNavBar.cshtml";
+}
+
+<h2>Manage Settings</h2>
+
+
+@using (Html.BeginForm("ManageSettings", "Settings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    //var emptySetting = (OpenSourceBlog.Database.Models.Setting)ViewData["sitesetting"];
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <tr>
+            <td style="border: 5px solid white;">
+                @Html.DisplayFor(m => m[i].Settings.BlogId)
+            </td>
+            <td style="border: 5px solid white;">
+                @Html.DisplayFor(m => m[i].Views.Folder)
+                @Html.DisplayFor(m => m[i].Views.Page)
+            </td>
+            <td style="border: 5px solid white;">
+                @Html.EditorFor(m => m[i].Perm)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = Model[i].VPermID })
+            </td>
+        </tr>
+    }
+
+
+
+    foreach (var model in Model)
+    {
+        @Html.HiddenFor(m => model.SettingRowId)
+
+        @*BlogId - cant be *@
+        <div class="form-group row d-none">
+            @Html.LabelFor(m => model.BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(m => model.BlogId, new { htmlAttributes = new { @class = "form-control", @Value = GlobalVariables.BlogId } })
+                @Html.ValidationMessageFor(m => model.BlogId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row d-none">
+            @Html.DisplayFor(m => model.SettingName)
+            <div class="col-md-10">
+                @Html.EditorFor(m => model.SettingName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => model.SettingName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row d-none">
+            @Html.DisplayFor(m => model.SettingRowId)
+            <div class="col-md-10">
+                @Html.EditorFor(m => model.SettingRowId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => model.SettingRowId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            @Html.DisplayFor(m => model.SettingName)
+            <div class="col-md-10">
+                @Html.EditorFor(m => model.SettingValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => model.SettingValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+
+    <div class="form-group" align="center">
+        @*<div class="col-md-offset-2 col-md-10"> *@
+        <input type="submit" value="Save" class="btn btn-success btn-block" /><br />
+
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
