@@ -4,10 +4,31 @@
     Layout = "~/Views/Shared/_AdminNavBar.cshtml";
 }
 
+<style>
+
+    .settingValue{
+     
+    }
+
+    .settingsForm{
+    
+        
+    }
+
+    .displayname{
+        margin-left: 10px;
+        color:red;
+    }
+
+</style>
+
+
+
+
 <h2>Manage Settings</h2>
 
 
-@using (Html.BeginForm("ManageSettings", "Settings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("ManageSettings", "Settings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal settingsForm", role = "form" }))
 {
     //var emptySetting = (OpenSourceBlog.Database.Models.Setting)ViewData["sitesetting"];
     @Html.AntiForgeryToken()
@@ -24,7 +45,7 @@
         <div class="form-group row d-none">
             @Html.LabelFor(m => m[i].BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
-                @Html.EditorFor(m => m[i].BlogId, new { htmlAttributes = new { @class = "form-control", @Value = GlobalVariables.BlogId } })
+                @Html.EditorFor(m => m[i].BlogId, new { htmlAttributes = new { @class = "form-group row form-control", @Value = GlobalVariables.BlogId } })
                 @Html.ValidationMessageFor(m => m[i].BlogId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -32,7 +53,7 @@
         <div class="form-group row d-none">
             @Html.DisplayFor(m => m[i].SettingName)
             <div class="col-md-10">
-                @Html.EditorFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "form-group row form-control" } })
                 @Html.ValidationMessageFor(m => m[i].SettingName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,16 +61,17 @@
         <div class="form-group row d-none">
             @Html.DisplayFor(m => m[i].SettingRowId)
             <div class="col-md-10">
-                @Html.EditorFor(m => m[i].SettingRowId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(m => m[i].SettingRowId, new { htmlAttributes = new { @class = "form-group row form-control" } })
                 @Html.ValidationMessageFor(m => m[i].SettingRowId, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
-        <div class="form-group row">
-            @Html.DisplayFor(m => m[i].SettingName)
+        <div class="form-group row test" align="center">
+            @Html.DisplayFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "displayname" } })
+
             <div class="col-md-10">
-                @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue" } })
                 @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
             </div>
         </div>
