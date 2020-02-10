@@ -3,70 +3,9 @@
     ViewBag.Title = "Register";
 }
 
-<style>
-    body{
-        background: #6c7b88;
-    }
-
-    .registerForm {
-         background-color: #b8bfce;
-        color: black;
-        margin: 0 auto;
-        padding: 20px 50px 20px;
-        width: 200px;
-
-        @* Border popout*@
-        -moz-border-radius: 6px;
-	    border-radius: 6px;
-	    border: 1px solid #965F06;
-	    -moz-box-shadow:
-		    0px 1px 1px rgba(000,000,000,0.5),
-		    inset 1px 2px 0px rgba(255,255,255,0.4);
-	    box-shadow:
-		    0px 1px 1px rgba(000,000,000,0.5),
-		    inset 1px 2px 0px rgba(255,255,255,0.4);
-    }
-
-    h2{
-        color: black;
-        margin-top: 80px;
-        margin-bottom: 5px;
-        font-size: 300%;
-        
-    }
-
-    .btn-dark{
-         border-color: #555555;
-      
-        width: 70px;
-        height: 30px;
-        margin-top: 15px;
-        margin-bottom: -15px;
-  
-        -moz-border-radius: 6px;
-	    border-radius: 6px;
-	    border: 1px solid #965F06;
-        -moz-box-shadow:
-		    0px 1px 1px rgba(000,000,000,0.5),
-		    inset 1px 2px 0px rgba(255,255,255,0.4);
-	    box-shadow:
-		    0px 1px 1px rgba(000,000,000,0.5),
-		    inset 1px 2px 0px rgba(255,255,255,0.4);
-
-    }
-
-    h4{
-        margin-bottom: 0px;
-        text-align: center;
-    }
-
-</style>
-
-
-
+<link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
 
 <h2 align="center" >@ViewBag.Title</h2>
-
 
 <div class="registerForm" id="registerForm" align="center">
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
