@@ -47,23 +47,23 @@ namespace OpenSourceBlog
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            app.UseMicrosoftAccountAuthentication(
-                clientId: "1e63c15e-65f4-4b88-890c-1b5099ac998c",
-                clientSecret: "XCeb6kQLTFGA8L7Pz_2sUEJ.=PqGEe[_");
+            //app.UseMicrosoftAccountAuthentication(
+              //  clientId: "",
+                //clientSecret: "");
 
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "512951682690736",
-               appSecret: "3d64fe234eaa9b5ff1c6c8d1350fc364");
+            /*app.UseFacebookAuthentication(
+               appId: "",
+               appSecret: "");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "688928483300-psha0gijv4ti0vhf48g59orht53bkj1a.apps.googleusercontent.com",
-                ClientSecret = "Aqno2nfuRCKJ0qu0UGBnq1Sg"
-            });
+                ClientId = "",
+                ClientSecret = ""
+            }); */
         }
     }
 }
