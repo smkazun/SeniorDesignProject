@@ -63,5 +63,34 @@ namespace OpenSourceBlog.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult leastRecentSort()
+        {
+            List<Post> unsortedList = (List<Post>)db.GetAll();
+            List<Post> sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+
+            return View("Index", sortedList);
+        }
+        
+        [HttpGet]
+        public ActionResult mostRecentSort()
+        {
+            List<Post> unsortedList = (List<Post>)db.GetAll();
+            List<Post> sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+            
+            return View("Index", sortedList);
+        }
+
+        [HttpGet]
+        public ActionResult highestRatedSort()
+        {
+            List<Post> unsortedList = (List<Post>)db.GetAll();
+            List<Post> sortedList = unsortedList.OrderBy(x => x.Rating).Where(x => x.IsPublished == true).ToList();
+
+            return View("Index", sortedList);
+        }
+
     }
+
 }

@@ -31,6 +31,21 @@
             return URL;
         }
     </script>
+
+    @Html.ActionLink("Most Recent", "mostRecentSort", "Home")
+    @Html.ActionLink("Least Recent", "leastRecentSort", "Home")
+    @Html.ActionLink("Highest Rated", "highestRatedSort", "Home") 
+
+    @*
+        <select onchange="location = this.options[this.selectedIndex].value;">
+            <option value="#">Select an option</option>
+            <option value="1">Most Recent</option>
+            <option value="2">Least Recent</option>
+            <option value="3">Popular</option>
+        </select>
+    *@
+
+
     @foreach (var item in Model)
     {
         <div class="Postbox">
@@ -40,7 +55,7 @@
             <div>
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
                 By <a href="#" onclick="redirectURL(2,1); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
-                    <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+                <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@
                 @if (!item.DateModified.ToString().Equals(String.Empty))
                 {
@@ -51,7 +66,7 @@
                     Rating: @Html.DisplayFor(modelItem => item.Rating)
                 </p>*@
             <p><p></p>
-                <i>@Html.DisplayFor(modelItem => item.Description)</i>
+            <i>@Html.DisplayFor(modelItem => item.Description)</i>
             </p>
             <hr>
             <p>
