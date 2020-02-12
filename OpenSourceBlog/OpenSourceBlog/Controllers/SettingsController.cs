@@ -49,7 +49,28 @@ namespace OpenSourceBlog.Controllers
             {
                 foreach(Setting setting in settings)
                 {
-                    db.Update(setting);
+
+                    //hashtable
+
+                    if(setting.SettingName.Equals("BlogName") && setting.SettingValue.Equals(typeof(string)))
+
+                    if (setting.SettingName.Equals("BlogDescription") && setting.SettingValue.Equals(typeof(string)))
+
+                    if (setting.SettingName.Equals("PostsPerPage"))
+                            {
+                               if( setting.SettingValue.Equals(typeof(int)))
+                                {
+                                    db.Update(setting);
+                                }
+                                else
+                                {
+                                    //error
+                                }
+                            }
+                   
+                    if (setting.SettingName.Equals("Language") && setting.SettingValue.Equals(typeof(string)))
+
+                                    db.Update(setting);
                 }
 
                 return RedirectToAction("Index");
@@ -78,6 +99,7 @@ namespace OpenSourceBlog.Controllers
             }
             return RedirectToAction("Index", "Settings");
         }
+
 
     }
 }
