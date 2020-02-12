@@ -10,6 +10,14 @@
     img.rounded-corners {
         border-radius: 50%
     }
+
+    .verticalLine{
+        
+         border-left: thin solid #000000;
+         margin-left: 3px;
+         margin-right: 3px;
+         margin-top: 3px;
+    }
 </style>
 
 <article class="news-article">
@@ -31,11 +39,15 @@
             return URL;
         }
     </script>
+    <div class="row">
+        @Html.ActionLink("Most Recent", "mostRecentSort", "Home")
+        <div class="verticalLine"></div>
+        @Html.ActionLink("Least Recent", "leastRecentSort", "Home")
+        <div class="verticalLine"></div>
+        @Html.ActionLink("Highest Rated", "highestRatedSort", "Home")
 
-    @Html.ActionLink("Most Recent", "mostRecentSort", "Home")
-    @Html.ActionLink("Least Recent", "leastRecentSort", "Home")
-    @Html.ActionLink("Highest Rated", "highestRatedSort", "Home") 
-
+    </div>
+   
     @*
         <select onchange="location = this.options[this.selectedIndex].value;">
             <option value="#">Select an option</option>
