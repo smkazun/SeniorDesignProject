@@ -6,32 +6,45 @@
 <div class="jumbotron">
     <h1>BETTERBLOGENGINE.NET</h1>
 </div>
+<style>
+    img.rounded-corners {
+        border-radius: 50%
+    }
+</style>
 
-<div class="row">
-        <div class="Postbox">
-            <h1>
-                @Html.DisplayFor(model => model.Title)
-            </h1>
-            <p>
-                By @Html.DisplayFor(model => model.Author)
-            </p>
-            <p>
-                <i>@Html.DisplayFor(model => model.DateCreated)</i>
+<article class="news-article">
+    <div class="Postbox">
+        <h1>
+            @Html.DisplayFor(model => model.Title)
+        </h1>
+        <p>
+            <div>
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
+                By @Html.DisplayFor(model => model.Author)  <i>@Html.DisplayFor(model => model.DateCreated)</i>
                 @*if the modified time is not empty then display it
-        @if (!(model.DateModified.ToString().Equals(String.Empty)))
-        {
-            <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
-        }*@
-            </p>
-            @*<p>
-                    Rating: @Html.DisplayFor(modelItem => item.Rating)
-                </p>*@
-            <p>
-                <i>@Html.DisplayFor(model => model.Description)</i>
-            </p>
-            <hr>
-            <p>
-                @Html.Raw(@Html.DisplayFor(model => model.PostContent))
-            </p>
+                @if (!(model.DateModified.ToString().Equals(String.Empty)))
+                {
+                    <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
+                }*@
+            </div>
+        </p>
+        @*<p>
+            Rating: @Html.DisplayFor(modelItem => item.Rating)
+        </p>*@
+        <p><p></p>
+            <i>@Html.DisplayFor(model => model.Description)</i>
+        </p>
+        <hr>
+        <p>
+            @Html.Raw(@Html.DisplayFor(model => model.PostContent))
+        </p>
+        <hr>
+        <script src="md5.js"></script>
+        <script>md5("thiennguyen209@gmail.com");</script>
+        <div>
+            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:100px">
+            @Html.DisplayFor(model => model.Author)
         </div>
-</div>
+    </div>
+    
+</article>
