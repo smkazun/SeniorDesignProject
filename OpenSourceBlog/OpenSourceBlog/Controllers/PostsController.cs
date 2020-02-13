@@ -26,6 +26,12 @@ namespace OpenSourceBlog.Controllers
         // GET: Posts
         public ActionResult Index()
         {
+            return View("~/Views/Admin/PostIndex.cshtml", db.GetAll());
+        }
+        [Authorize(Roles = "Administrators,Editors")]
+        // GET: Posts
+        public ActionResult PartialIndex()
+        {
             return PartialView("~/Views/Admin/Posts/Index.cshtml", db.GetAll());
         }
 
@@ -63,7 +69,7 @@ namespace OpenSourceBlog.Controllers
             if (ModelState.IsValid)
             {
                 db.Create(post);
-                return RedirectToAction("Index");
+                 return RedirectToAction("Index");
             }
             Post emptyPost = new Post()
             {
