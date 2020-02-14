@@ -3,9 +3,6 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<div class="jumbotron">
-    <h1>BETTERBLOGENGINE.NET</h1>
-</div>
 <style>
     img.rounded-corners {
         border-radius: 50%
@@ -35,11 +32,11 @@
     {
         <div class="Postbox">
             <h1>
-                <a href="#" style="color:#000000;" onclick="redirectURL(1,1); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
+                <a href="#" style="color:#000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
             </h1>
             <div>
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
-                By <a href="#" onclick="redirectURL(2,1); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
+                By <a href="#" onclick="redirectURL(2,); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
                     <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@
                 @if (!item.DateModified.ToString().Equals(String.Empty))
@@ -56,7 +53,7 @@
             <hr>
             <p>
                 @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
-                <a href="#" class="font-weight-bold" onclick="redirectURL(1,1); return false;"> ...Continue Reading</a>
+                <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
             </p>
         </div>
     }
