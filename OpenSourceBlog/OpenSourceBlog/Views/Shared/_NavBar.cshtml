@@ -1,12 +1,14 @@
-﻿<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+﻿<style>
+</style>
+<nav class="primary-nav navbar-expand-sm navbar-dark fixed-top bg-dark">
     <div class="container">
-        <div class="navbar-header">
+        <header class="navbar-header mr-auto">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
             </button>
-            @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <center>@Html.ActionLink("The Open Source Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</center>
+        </header>
+        <div class="navbar-header" id="navbarSupportedContent">
             <ul class="nav navbar-nav mr-auto">
                 @*<li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>*@
                 <li class="nav-item">@Html.ActionLink("Archive", "Archive", "Home", null, new { @class = "nav-link" })</li>
@@ -15,9 +17,9 @@
                 @if (@User.IsInRole("Administrators"))
                 {
                     <li class="nav-item">@Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "nav-link" })</li>
-                }
+                } 
+                @Html.Partial("_LoginPartial")
             </ul>
-            @Html.Partial("_LoginPartial")
         </div>
     </div>
-</nav>
+</nav><p></p>
