@@ -86,7 +86,7 @@ namespace OpenSourceBlog.Controllers
         public ActionResult highestRatedSort()
         {
             List<Post> unsortedList = (List<Post>)db.GetAll();
-            List<Post> sortedList = unsortedList.OrderBy(x => x.Rating).Where(x => x.IsPublished == true).ToList();
+            List<Post> sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
 
             return View("Index", sortedList);
         }
