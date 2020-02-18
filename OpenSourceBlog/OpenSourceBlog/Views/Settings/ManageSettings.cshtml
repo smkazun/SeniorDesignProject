@@ -1,25 +1,24 @@
 ﻿@model List<OpenSourceBlog.Database.Models.Setting>
 @{
     ViewBag.Title = "ManageSettings";
-    Layout = "~/Views/Shared/_AdminNavBar.cshtml";
+    @*Layout = "~/Views/Shared/_AdminNavBar.cshtml";*@
 }
 
 <style>
 
-    .settingValue{
-     
+    .settingValue {
     }
 
-    .settingsForm{
+    .settingsForm {
+    }
+
+    .col-md-2{
+        float: left;
+        position: relative;
+        left: 50px;
+    }
     
-        
-    }
-
-    .displayname{
-        margin-left: 10px;
-        color:red;
-    }
-
+    
 </style>
 
 
@@ -38,10 +37,10 @@
 
     for (int i = 0; i < Model.Count(); i++)
     {
-       
+
         @Html.HiddenFor(m => m[i].SettingRowId)
 
-       
+
         <div class="form-group row d-none">
             @Html.LabelFor(m => m[i].BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
@@ -67,25 +66,52 @@
         </div>
 
 
-        <div class="form-group row test" align="center">
-            @Html.DisplayFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "displayname" } })
+        <div class="form-row" align="center">
+            
+            <div class="col-md-2" align="left">
+                @Html.DisplayFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "form-control displayName" } })
+            </div>
+            
+            
 
-            <div class="col-md-10">
-                @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue" } })
+            <div class="col-md-10" align="center">
+                @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style="width: 60%; max-width: 100%;" } })
                 @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
-    }
+}
 
 
     <div class="form-group" align="center">
         <input type="submit" value="Save" class="btn btn-success btn-block" /><br />
 
     </div>
-}
+    }
 
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+            <script>
+                $(document).ready(function () {
+                    $('#settingsForm').validate({
+                        rules: {
+                            "Blog Title": { required: true },
+                            txtTimeOffset: { required: true, number: true },
+                            txtPostsPerPage: { required: true, number: true },
+                            txtDescriptionCharacters: { required: true, number: true },
+                            txtDescriptionCharactersForPosts: { required: true, number: true },
+                            txtRemoteFileDownloadTimeout: { required: true, number: true },
+                            txtRemoteMaxFileSize: { required: true, number: true },
+                            txtFeedAuthor: { email: true },
+                            txtEndorsement: { url: true },
+                            txtAlternateFeedUrl: { url: true },
+                            txtpostsPerFeed: { number: true },
+                            txtEmail: { email: true },
+                            txtSmtpServerPort: { number: true },
+                            txtThemeCookieName: { required: true }
+                        }
+                    });
+                });
+            </script>

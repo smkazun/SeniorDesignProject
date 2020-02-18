@@ -49,28 +49,24 @@ namespace OpenSourceBlog.Controllers
             {
                 foreach(Setting setting in settings)
                 {
+                    if(setting.SettingName == "PostsPerPage")
+                    {
+                        int result;
+                        bool test = int.TryParse(setting.SettingValue, out result);
 
-                    //hashtable
+                        if (test)
+                        {
+                            db.Update(setting);
+                        }
+                        else
+                        {
+                            //error
+                        }
+                    }
 
-                    if(setting.SettingName.Equals("BlogName") && setting.SettingValue.Equals(typeof(string)))
-
-                    if (setting.SettingName.Equals("BlogDescription") && setting.SettingValue.Equals(typeof(string)))
-
-                    if (setting.SettingName.Equals("PostsPerPage"))
-                            {
-                               if( setting.SettingValue.Equals(typeof(int)))
-                                {
-                                    db.Update(setting);
-                                }
-                                else
-                                {
-                                    //error
-                                }
-                            }
                    
-                    if (setting.SettingName.Equals("Language") && setting.SettingValue.Equals(typeof(string)))
 
-                                    db.Update(setting);
+                    db.Update(setting);
                 }
 
                 return RedirectToAction("Index");
