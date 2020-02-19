@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-    <div id="main_page_content" class="page-content">
+
         <h2>Admin/Posts/Index</h2>
 
         <p>
@@ -13,26 +13,26 @@
         <table class="table">
             <tr>
                 @*<th>
-                    @Html.DisplayNameFor(model => model.BlogId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostId)
-                </th>*@
+                        @Html.DisplayNameFor(model => model.BlogId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostId)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 @*<th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostContent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateModified)
-                </th>*@
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostContent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateModified)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Author)
                 </th>
@@ -40,17 +40,17 @@
                     @Html.DisplayNameFor(model => model.IsPublished)
                 </th>
                 @*<th>
-                    @Html.DisplayNameFor(model => model.IsCommentEnabled)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Raters)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Rating)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Slug)
-                </th>*@
+                        @Html.DisplayNameFor(model => model.IsCommentEnabled)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Raters)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rating)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Slug)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.IsDeleted)
                 </th>
@@ -61,26 +61,26 @@
             {
                 <tr>
                     @*<td>
-                        @Html.DisplayFor(modelItem => item.BlogId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostId)
-                    </td>*@
+                            @Html.DisplayFor(modelItem => item.BlogId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostId)
+                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     @*<td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.Raw(item.PostContent)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateModified)
-                    </td>*@
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.Raw(item.PostContent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Author)
                     </td>
@@ -88,17 +88,17 @@
                         @Html.DisplayFor(modelItem => item.IsPublished)
                     </td>
                     @*<td>
-                        @Html.DisplayFor(modelItem => item.IsCommentEnabled)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Raters)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rating)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Slug)
-                    </td>*@
+                            @Html.DisplayFor(modelItem => item.IsCommentEnabled)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Raters)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Slug)
+                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.IsDeleted)
                     </td>
@@ -111,4 +111,3 @@
             }
 
         </table>
-        </div>
