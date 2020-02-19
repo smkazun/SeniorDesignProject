@@ -1,24 +1,28 @@
 ﻿@model List<OpenSourceBlog.Database.Models.Setting>
 @{
     ViewBag.Title = "ManageSettings";
-    @*Layout = "~/Views/Shared/_AdminNavBar.cshtml";*@
+    Layout = "~/Views/Shared/_AdminNavBar.cshtml";
 }
 
 <style>
 
-    .settingValue {
-    }
 
-    .settingsForm {
-    }
 
-    .col-md-2{
+    .col-md-2 {
         float: left;
         position: relative;
         left: 50px;
     }
-    
-    
+
+    .wrapper {
+        border: 1px solid #999999;
+        margin: 5px 0;
+        padding: 3px;
+    }
+
+    .submitForm {
+        margin-top: 10px;
+    }
 </style>
 
 
@@ -29,7 +33,7 @@
 
 @using (Html.BeginForm("ManageSettings", "Settings", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal settingsForm", role = "form" }))
 {
-    //var emptySetting = (OpenSourceBlog.Database.Models.Setting)ViewData["sitesetting"];
+
     @Html.AntiForgeryToken()
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -37,7 +41,7 @@
 
     for (int i = 0; i < Model.Count(); i++)
     {
-
+        @*HIDDEN--------------------*@
         @Html.HiddenFor(m => m[i].SettingRowId)
 
 
@@ -64,54 +68,65 @@
                 @Html.ValidationMessageFor(m => m[i].SettingRowId, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @*HIDDEN--------------------*@
 
         <div class="form-row" align="center">
-            
+
             <div class="col-md-2" align="left">
                 @Html.DisplayFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "form-control displayName" } })
             </div>
-            
-            
 
             <div class="col-md-10" align="center">
-                @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style="width: 60%; max-width: 100%;" } })
-                @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+
+                @if (Model[i].SettingName == "Blog Title")
+                {
+                    @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required" } })
+                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+
+                }
+                else if (Model[i].SettingName == "Blog Description")
+                {
+
+                    @Html.TextAreaFor(m => m[i].SettingValue, 4, 100, new { @class = "form-group row form-control blogDescription", @style = "max-width: 60%;" })
+                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+
+                }
+                else if (Model[i].SettingName == "# posts per page")
+                {
+                    @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required", min = "0", name = "number", type = "number" } })
+                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                }
+                else if (Model[i].SettingName == "Blog Language")
+                {
+
+                    @Html.DropDownListFor(m => m[i].SettingValue, new List<SelectListItem>
+                       {
+                           new SelectListItem {Text = "English", Value = "English", Selected = true },
+                           new SelectListItem {Text = "Spanish", Value = "Spanish" },
+                           new SelectListItem {Text = "Polish", Value = "Polish" },
+                           }, "Select Language", new { @class = "form-control row form-control settingValue", @style = "width: 60%; max-width: 100%;" })
+
+                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                }
+
+
             </div>
+
         </div>
 
-}
+    }
 
 
-    <div class="form-group" align="center">
+    <div class="form-group submitForm" align="center">
         <input type="submit" value="Save" class="btn btn-success btn-block" /><br />
 
     </div>
-    }
+}
 
-    <p>
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
-            <script>
-                $(document).ready(function () {
-                    $('#settingsForm').validate({
-                        rules: {
-                            "Blog Title": { required: true },
-                            txtTimeOffset: { required: true, number: true },
-                            txtPostsPerPage: { required: true, number: true },
-                            txtDescriptionCharacters: { required: true, number: true },
-                            txtDescriptionCharactersForPosts: { required: true, number: true },
-                            txtRemoteFileDownloadTimeout: { required: true, number: true },
-                            txtRemoteMaxFileSize: { required: true, number: true },
-                            txtFeedAuthor: { email: true },
-                            txtEndorsement: { url: true },
-                            txtAlternateFeedUrl: { url: true },
-                            txtpostsPerFeed: { number: true },
-                            txtEmail: { email: true },
-                            txtSmtpServerPort: { number: true },
-                            txtThemeCookieName: { required: true }
-                        }
-                    });
-                });
-            </script>
+
+
+

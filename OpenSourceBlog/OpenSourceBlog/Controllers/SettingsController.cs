@@ -14,17 +14,6 @@ namespace OpenSourceBlog.Controllers
     {
         private SettingRepository db = new SettingRepository();
 
-        //temp
-        List<Setting> settingList = new List<Setting>(){
-                            new Setting() { BlogId = System.Guid.NewGuid(), SettingName = "Blog Title", SettingValue = "Test Blog 001" } ,
-                            new Setting() { BlogId = System.Guid.NewGuid(), SettingName = "Blog Description",  SettingValue = "This is a description of the blog" } ,
-                            new Setting() { BlogId = System.Guid.NewGuid(), SettingName = "# posts per page",  SettingValue = "10" },
-                            new Setting() { BlogId = System.Guid.NewGuid(), SettingName = "Blog Language",  SettingValue = "English" }
-
-
-                        };
-        
-
         //Initial Page
         // GET: Settings
         public ActionResult Index(string returnUrl)
@@ -49,30 +38,13 @@ namespace OpenSourceBlog.Controllers
             {
                 foreach(Setting setting in settings)
                 {
-                    if(setting.SettingName == "PostsPerPage")
-                    {
-                        int result;
-                        bool test = int.TryParse(setting.SettingValue, out result);
-
-                        if (test)
-                        {
-                            db.Update(setting);
-                        }
-                        else
-                        {
-                            //error
-                        }
-                    }
-
-                   
-
                     db.Update(setting);
                 }
 
                 return RedirectToAction("Index");
             }
 
-            //?
+            
             Setting emptySetting = new Setting()
             {
                 BlogId = GlobalVariables.BlogId,
