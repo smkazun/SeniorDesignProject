@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenSourceBlog.Core.Models;
-using OpenSourceBlog.Infrastructure.Repositories;
+using OpenSourceBlog.Database.Models;
+using OpenSourceBlog.Database.Repositories;
 
 namespace OpenSourceBlog.Test
 {

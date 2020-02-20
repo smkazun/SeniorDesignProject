@@ -1,12 +1,41 @@
-﻿@{
-    ViewBag.Title = "Archive";
+﻿@using OpenSourceBlog.Database.Models
+@model IEnumerable<Post>
+@{
+    ViewBag.Title = "Archived Blog Posts";
 }
 
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 <script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
 
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>@ViewBag.Title</h2>
 
-<p>Example of a ckeditor input box</p>
-<textarea id="ckeditor_textarea"></textarea>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="Postbox">
+            <h1>
+                @Html.DisplayFor(modelItem => item.Title)
+            </h1>
+            <p>
+                By @Html.DisplayFor(modelItem => item.Author)
+            </p>
+            <p>
+                <i>Created: @Html.DisplayFor(modelItem => item.DateCreated)</i>
+                @*if the modified time is not empty then display it*@
+                @if (!item.DateModified.ToString().Equals(String.Empty))
+                {
+                    <i>Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
+                }
+            </p>
+            @*<p>
+                    Rating: @Html.DisplayFor(modelItem => item.Rating)
+                </p>*@
+            <p>
+                <i>Description: @Html.DisplayFor(modelItem => item.Description)</i>
+            </p>
+            <p>
+                @Html.Raw(item.PostContent)
+            </p>
+        </div>
+    }
+</div>

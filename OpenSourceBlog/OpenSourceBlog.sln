@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceBlog", "OpenSourceBlog\OpenSourceBlog.csproj", "{8BE54947-C099-414A-9847-2D48981C542E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceBlog.Core", "OpenSourceBlog.Core\OpenSourceBlog.Core.csproj", "{EC19048F-EBF8-49C2-991F-A37A3D2D87C0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceBlog.Infrastructure", "OpenSourceBlog.Infrastructure\OpenSourceBlog.Infrastructure.csproj", "{7A981F40-D0AD-4B04-9A7D-04744B6DF851}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSourceBlog.Test", "OpenSourceBlog.Test\OpenSourceBlog.Test.csproj", "{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gravatar.NET", "Gravatar.NET\Gravatar.NET.csproj", "{16CF5298-A255-44D8-ABB6-7C62E726077C}"
@@ -23,14 +19,6 @@ Global
 		{8BE54947-C099-414A-9847-2D48981C542E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BE54947-C099-414A-9847-2D48981C542E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BE54947-C099-414A-9847-2D48981C542E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC19048F-EBF8-49C2-991F-A37A3D2D87C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC19048F-EBF8-49C2-991F-A37A3D2D87C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC19048F-EBF8-49C2-991F-A37A3D2D87C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC19048F-EBF8-49C2-991F-A37A3D2D87C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A981F40-D0AD-4B04-9A7D-04744B6DF851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A981F40-D0AD-4B04-9A7D-04744B6DF851}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A981F40-D0AD-4B04-9A7D-04744B6DF851}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A981F40-D0AD-4B04-9A7D-04744B6DF851}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53B3BD8-7B94-40A2-9E26-FF8E2AE5B8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
