@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Models;
 
@@ -13,12 +14,18 @@ namespace OpenSourceBlog.Controllers
 {
     public class CategoriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+//        private ApplicationDbContext db = new ApplicationDbContext();
+        private ICategoryRepository db;
+
+        public CategoriesController(ICategoryRepository db)
+        {
+            this.db = db;
+        }
 
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View(db.GetAll());
         }
 
         // GET: Categories/Details/5
@@ -28,7 +35,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = db.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
@@ -51,8 +58,7 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                db.Create(category);
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +72,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = db.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
@@ -83,8 +89,7 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Update(category);
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -97,7 +102,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = db.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
@@ -110,9 +115,7 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            db.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -120,7 +123,6 @@ namespace OpenSourceBlog.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
             }
             base.Dispose(disposing);
         }
