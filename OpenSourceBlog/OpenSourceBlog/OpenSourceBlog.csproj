@@ -91,6 +91,12 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -141,6 +147,18 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.5.11.1\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.11.1\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.5.11.1\lib\net47\Unity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -173,15 +191,68 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Database\ApplicationContext.cs" />
+    <Compile Include="Database\Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Database\Interfaces\IBlogRepository.cs" />
+    <Compile Include="Database\Interfaces\IPageRepository.cs" />
+    <Compile Include="Database\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Database\Interfaces\IUserRoleRepository.cs" />
+    <Compile Include="Database\Interfaces\IStopWordRepository.cs" />
+    <Compile Include="Database\Interfaces\ISettingRepository.cs" />
+    <Compile Include="Database\Interfaces\IRightRoleRepository.cs" />
+    <Compile Include="Database\Interfaces\IRightRepository.cs" />
+    <Compile Include="Database\Interfaces\IProfileRepository.cs" />
+    <Compile Include="Database\Interfaces\IPostTagRepository.cs" />
+    <Compile Include="Database\Interfaces\IPostNotifyRepository.cs" />
+    <Compile Include="Database\Interfaces\IPostCommentRepository.cs" />
+    <Compile Include="Database\Interfaces\IPostCategoryRepository.cs" />
+    <Compile Include="Database\Interfaces\IPostRepository.cs" />
+    <Compile Include="Database\Interfaces\IRepository.cs" />
+    <Compile Include="Database\Interfaces\IUserRepository.cs" />
+    <Compile Include="Database\Models\AspNetRole.cs" />
+    <Compile Include="Database\Models\AspNetUser.cs" />
+    <Compile Include="Database\Models\AspNetUserRole.cs" />
+    <Compile Include="Database\Models\Blog.cs" />
+    <Compile Include="Database\Models\Category.cs" />
+    <Compile Include="Database\Models\Page.cs" />
+    <Compile Include="Database\Models\Post.cs" />
+    <Compile Include="Database\Models\PostCategory.cs" />
+    <Compile Include="Database\Models\PostComment.cs" />
+    <Compile Include="Database\Models\PostNotify.cs" />
+    <Compile Include="Database\Models\PostTag.cs" />
+    <Compile Include="Database\Models\Profile.cs" />
+    <Compile Include="Database\Models\Right.cs" />
+    <Compile Include="Database\Models\RightRole.cs" />
+    <Compile Include="Database\Models\Setting.cs" />
+    <Compile Include="Database\Models\StopWord.cs" />
+    <Compile Include="Database\Repositories\BlogRepository.cs" />
+    <Compile Include="Database\Repositories\CategoryRepository.cs" />
+    <Compile Include="Database\Repositories\PageRepository.cs" />
+    <Compile Include="Database\Repositories\PostCategoryRepository.cs" />
+    <Compile Include="Database\Repositories\PostCommentRepository.cs" />
+    <Compile Include="Database\Repositories\PostNotifyRepository.cs" />
+    <Compile Include="Database\Repositories\PostRepository.cs" />
+    <Compile Include="Database\Repositories\PostTagRepository.cs" />
+    <Compile Include="Database\Repositories\ProfileRepository.cs" />
+    <Compile Include="Database\Repositories\RightRepository.cs" />
+    <Compile Include="Database\Repositories\RightRoleRepository.cs" />
+    <Compile Include="Database\Repositories\RoleRepository.cs" />
+    <Compile Include="Database\Repositories\SettingRepository.cs" />
+    <Compile Include="Database\Repositories\StopWordRepository.cs" />
+    <Compile Include="Database\Repositories\UserRepository.cs" />
+    <Compile Include="Database\Repositories\UserRoleRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GlobalVariables.cs" />
+    <Compile Include="GlobalVars.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -190,12 +261,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminNavBar.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\NavBar.css" />
+    <Content Include="Database\setup.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -618,8 +692,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Archive.cshtml" />
-    <Content Include="Views\Admin\_ManageUsers.cshtml" />
-    <Content Include="Views\Admin\ManageUsers.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -630,13 +702,17 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Posts\Create.cshtml" />
-    <Content Include="Views\Posts\Delete.cshtml" />
-    <Content Include="Views\Posts\Details.cshtml" />
-    <Content Include="Views\Posts\Edit.cshtml" />
-    <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Shared\_AdminNavBar.cshtml" />
-    <Content Include="Views\Account\App.config" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\md5" />
+    <Content Include="Views\Admin\Posts\Index.cshtml" />
+    <Content Include="Views\Admin\Posts\Create.cshtml" />
+    <Content Include="Views\Admin\Posts\Edit.cshtml" />
+    <Content Include="Views\Admin\Posts\Details.cshtml" />
+    <Content Include="Views\Admin\Posts\Delete.cshtml" />
+    <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
+    <Content Include="Views\Admin\ManageUsers\Edit.cshtml" />
+    <Content Include="Views\Admin\PostIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -648,16 +724,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OpenSourceBlog.Core\OpenSourceBlog.Core.csproj">
-      <Project>{ec19048f-ebf8-49c2-991f-a37a3d2d87c0}</Project>
-      <Name>OpenSourceBlog.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenSourceBlog.Infrastructure\OpenSourceBlog.Infrastructure.csproj">
-      <Project>{7a981f40-d0ad-4b04-9a7d-04744b6df851}</Project>
-      <Name>OpenSourceBlog.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
@@ -706,4 +772,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
 </Project>
