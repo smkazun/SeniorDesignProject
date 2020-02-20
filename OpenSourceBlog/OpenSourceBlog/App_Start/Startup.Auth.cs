@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using OpenSourceBlog.Models;
+using System.Configuration;
 
 namespace OpenSourceBlog
 {
@@ -47,23 +48,23 @@ namespace OpenSourceBlog
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-              //  clientId: "",
-                //clientSecret: "");
+            app.UseMicrosoftAccountAuthentication(
+                clientId: ConfigurationManager.AppSettings["MicrosoftId"],
+                clientSecret: ConfigurationManager.AppSettings["MicrosoftSecret"]);
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: ConfigurationManager.AppSettings["TwitterId"],
+               consumerSecret: ConfigurationManager.AppSettings["TwitterSecret"]);
 
-            /*app.UseFacebookAuthentication(
-               appId: "",
-               appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: ConfigurationManager.AppSettings["FacebookId"],
+               appSecret: ConfigurationManager.AppSettings["FacebookSecret"]);
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "",
-                ClientSecret = ""
-            }); */
+                ClientId = ConfigurationManager.AppSettings["GoogleId"],
+                ClientSecret = ConfigurationManager.AppSettings["GoogleSecret"]
+            }); 
         }
     }
 }

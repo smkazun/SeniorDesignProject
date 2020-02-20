@@ -4,30 +4,29 @@
     ViewBag.Title = "Login";
 }
 
- <link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
 
-<h2 align="center">@ViewBag.Title</h2>
+
 
 
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h2 align="center">@ViewBag.Title</h2>
 
     <div class="form-group" align="center">
-        @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }) @*Formatting issues*@
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
     </div>
     <br style="line-height: 8px;" />
 
     <div class="form-group" align="center">
-        @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })  @*Formatting issues*@
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group" align="center">
@@ -43,11 +42,11 @@
             <input type="submit" value="Log in" class="btn btn-lg loginBtn" />
         </div>
     </div>
-    <br/>
+    <br />
 
     <div class="row" align="center">
-        
-        @Html.ActionLink("Register as a new user", "Register") 
+
+        @Html.ActionLink("Register as a new user", "Register")
         <br1 />
         @Html.ActionLink("Forgot your password?", "ForgotPassword")
 
