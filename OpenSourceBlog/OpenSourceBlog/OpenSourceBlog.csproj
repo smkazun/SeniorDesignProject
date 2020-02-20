@@ -713,6 +713,8 @@
     <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
     <Content Include="Views\Admin\ManageUsers\Edit.cshtml" />
     <Content Include="Views\Admin\PostIndex.cshtml" />
+    <Content Include="Views\Admin\Themes\AdminSidebar.cshtml" />
+    <Content Include="Views\Admin\Themes\Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
