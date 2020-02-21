@@ -26,6 +26,26 @@ namespace OpenSourceBlog.Controllers
         // GET: ManageUsers
         public ActionResult Index()
         {
+            List<AspNetUser> users = (List<AspNetUser>)db.GetAll();
+            List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
+
+            //Loop through ALL users
+            for (int i = 0; i < users.Count; i++)
+            {
+                ManageUsersViewModel u = new ManageUsersViewModel();
+                AspNetUser user = users[i];
+                u.User = user;
+                u.Role = db.GetRole(users[i].Id).Name;
+                u.IsChecked = false;
+
+                model.Add(u);
+            }
+            return View("~/Views/Admin/ManageUsers/Index.cshtml", model);
+        }
+
+        // GET: ManageUsers
+        public ActionResult PartialIndex()
+        {
             List<AspNetUser> users = (List<AspNetUser>) db.GetAll();
             List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
 
@@ -36,7 +56,7 @@ namespace OpenSourceBlog.Controllers
                 AspNetUser user = users[i];
                 u.User = user;
                 u.Role = db.GetRole(users[i].Id).Name;
-
+                u.IsChecked = false;
 
                 model.Add(u);
             }
