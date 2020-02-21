@@ -48,7 +48,7 @@
         <div class="form-group row d-none">
             @Html.LabelFor(m => m[i].BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
-                @Html.EditorFor(m => m[i].BlogId, new { htmlAttributes = new { @class = "form-group row form-control", @Value = GlobalVariables.BlogId } })
+                @Html.EditorFor(m => m[i].BlogId, new { htmlAttributes = new { @class = "form-group row form-control", @Value = GlobalVars.BlogId } })
                 @Html.ValidationMessageFor(m => m[i].BlogId, "", new { @class = "text-danger" })
             </div>
         </div>

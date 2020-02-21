@@ -47,7 +47,7 @@ namespace OpenSourceBlog.Controllers
             
             Setting emptySetting = new Setting()
             {
-                BlogId = GlobalVariables.BlogId,
+                BlogId = GlobalVars.BlogId,
                 //
 
             };

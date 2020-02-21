@@ -17,7 +17,7 @@ namespace OpenSourceBlog.Database.Repositories
 
         public IEnumerable<Setting> GetSettings()
         {
-            return ctx.Settings.Where(x => x.BlogId == GlobalVariables.BlogId).ToList();
+            return ctx.Settings.Where(x => x.BlogId == GlobalVars.BlogId).ToList();
         }
 
         public Setting Get(int id)
