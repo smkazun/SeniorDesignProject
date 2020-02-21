@@ -15,6 +15,11 @@ namespace OpenSourceBlog.Database.Repositories
             return ctx.Settings.ToList();
         }
 
+        public IEnumerable<Setting> GetSettings()
+        {
+            return ctx.Settings.Where(x => x.BlogId == GlobalVariables.BlogId).ToList();
+        }
+
         public Setting Get(int id)
         {
             return ctx.Settings.Find(id);

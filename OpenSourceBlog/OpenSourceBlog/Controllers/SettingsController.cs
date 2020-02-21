@@ -19,14 +19,14 @@ namespace OpenSourceBlog.Controllers
         public ActionResult Index(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View(db.GetAll());
+            return View(db.GetSettings());
         }
 
         
         // GET: Settings/ManageSettings
         public ActionResult ManageSettings()
         {
-            return View(db.GetAll());
+            return View(db.GetSettings());
         }
 
         // POST: Settings/ManageSettings
@@ -48,6 +48,7 @@ namespace OpenSourceBlog.Controllers
             Setting emptySetting = new Setting()
             {
                 BlogId = GlobalVariables.BlogId,
+                //
 
             };
             ViewData["sitesetting"] = emptySetting;
