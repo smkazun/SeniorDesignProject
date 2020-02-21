@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Models
 {
@@ -11,12 +12,8 @@ namespace OpenSourceBlog.Models
 
     public class ManageUsersViewModel
     {
-        public int Id { get; }
-
-        public string Email { get; }
-
-        public string UserName { get; }
-
-        public string Role { get; }
+        public AspNetUser User { get; set; }
+        public string Role { get; set; }
+        public Boolean IsChecked { get; set; }
     }
 }

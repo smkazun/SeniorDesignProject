@@ -24,6 +24,35 @@ namespace OpenSourceBlog.Test
 
         }
 
+        private TestContext testContextInstance;
+
+        
+
+        #region Additional test attributes
+        //
+        // You can use the following additional attributes as you write your tests:
+        //
+        // Use ClassInitialize to run code before running the first test in the class
+        // [ClassInitialize()]
+        // public static void MyClassInitialize(TestContext testContext) { }
+        //
+        // Use ClassCleanup to run code after all tests in a class have run
+        // [ClassCleanup()]
+        // public static void MyClassCleanup() { }
+        //
+        // Use TestInitialize to run code before running each test 
+        // [TestInitialize()]
+        // public void MyTestInitialize() { }
+        //
+        // Use TestCleanup to run code after each test has run
+        // [TestCleanup()]
+        // public void MyTestCleanup() { }
+        //
+        #endregion
+
+        
+
+
 
         private List<Post> GetPosts()
         {
@@ -93,7 +122,7 @@ namespace OpenSourceBlog.Test
         public void TestIndexMostRecentViewData()
         {
             // Arrange
-            var mockRepo = new Mock<PostRepository>();
+            var mockRepo = new Mock<IPostRepository>();
             mockRepo.Setup(repo => repo.GetAll())
                 .Returns(GetPosts());
             var controller = new HomeController(mockRepo.Object);
@@ -112,7 +141,7 @@ namespace OpenSourceBlog.Test
         public void TestIndexLeastRecentViewData()
         {
             // Arrange
-            var mockRepo = new Mock<PostRepository>();
+            var mockRepo = new Mock<IPostRepository>();
             mockRepo.Setup(repo => repo.GetAll())
                 .Returns(GetPosts());
             var controller = new HomeController(mockRepo.Object);
@@ -131,7 +160,7 @@ namespace OpenSourceBlog.Test
         public void TestIndexHighestRatedViewData()
         {
             // Arrange
-            var mockRepo = new Mock<PostRepository>();
+            var mockRepo = new Mock<IPostRepository>();
             mockRepo.Setup(repo => repo.GetAll())
                 .Returns(GetPosts());
             var controller = new HomeController(mockRepo.Object);

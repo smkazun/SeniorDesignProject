@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class PostCommentRepository : IRepository<PostComment, int>
+    public class PostCommentRepository : IPostCommentRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
         public IEnumerable<PostComment> GetAll()

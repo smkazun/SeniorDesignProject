@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Used to display the posts on Home and Archive pages*/
+.Postbox {
+    background-color: whitesmoke;
+    color: black;
+    margin: 20px;
+    padding: 20px;
+}

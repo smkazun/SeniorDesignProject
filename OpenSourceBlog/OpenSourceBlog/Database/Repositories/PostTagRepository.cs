@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class PostTagRepository : IRepository<PostTag, int>
+    public class PostTagRepository : IPostTagRepository
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
         public IEnumerable<PostTag> GetAll()

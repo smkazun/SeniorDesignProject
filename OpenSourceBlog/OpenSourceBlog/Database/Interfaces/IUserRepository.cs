@@ -10,5 +10,7 @@ namespace OpenSourceBlog.Database.Interfaces
         void Create(AspNetUser user);
         void Update(AspNetUser user);
         void Delete(string id);
+        AspNetRole GetRole(string id);
+        AspNetRole GetRoleByUserName(string username);
     }
 }
