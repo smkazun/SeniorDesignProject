@@ -11,6 +11,7 @@ namespace OpenSourceBlog.Database.Interfaces
     {
         IEnumerable<Setting> GetAll();
         Setting Get(int id);
+        IEnumerable<Setting> GetSettings();
         void Create(Setting entity);
         void Update(Setting entity);
         void Delete(int id);

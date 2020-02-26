@@ -4,29 +4,34 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 
 namespace OpenSourceBlog.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrators,Editors")]
     public class SettingsController : Controller
     {
-        private SettingRepository db = new SettingRepository();
+        private ISettingRepository db;
+
+        public SettingsController(ISettingRepository db)
+        {
+            this.db = db;
+        }
 
         //Initial Page
         // GET: Settings
-        public ActionResult Index(string returnUrl)
+        public ActionResult Index()
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View(db.GetSettings());
+            return View("Index", db.GetSettings());
         }
 
         
         // GET: Settings/ManageSettings
         public ActionResult ManageSettings()
         {
-            return View(db.GetSettings());
+            return View("ManageSettings", db.GetSettings());
         }
 
         // POST: Settings/ManageSettings
@@ -44,31 +49,9 @@ namespace OpenSourceBlog.Controllers
                 return RedirectToAction("Index");
             }
 
-            
-            Setting emptySetting = new Setting()
-            {
-                BlogId = GlobalVars.BlogId,
-                //
-
-            };
-            ViewData["sitesetting"] = emptySetting;
-
-            return View(settings);
+            return View("ManageSettings");
         }
-        
-
-        
-
-        //helper method
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Settings");
-        }
-
+       
 
     }
 }
