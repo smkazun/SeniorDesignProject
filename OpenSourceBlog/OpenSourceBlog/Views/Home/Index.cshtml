@@ -24,9 +24,20 @@
         }
 
         function createAuthorURL(targetID) {
-            var URL = "/account/" + targetID;
+            var URL = "/profiles/details/" + targetID;
             return URL;
         }
+        $('.nav-link').on('click', function (evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+
+                var $detailDiv = $('#main_page_content'),
+                    url = $(this).data('url');
+
+                $.get(url, function (data) {
+                    $detailDiv.html(data);
+                });
+            });
     </script>
     @foreach (var item in Model)
     {
@@ -36,7 +47,9 @@
             </h1>
             <div>
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
-                By <a href="#" onclick="redirectURL(2,); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
+                @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
+                    By @Html.ActionLink(item.Author, "getAuthorId", "Profiles", new { email = item.Author})
+                
                     <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@
                 @if (!item.DateModified.ToString().Equals(String.Empty))
