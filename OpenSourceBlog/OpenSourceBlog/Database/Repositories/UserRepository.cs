@@ -62,6 +62,5 @@ namespace OpenSourceBlog.Database.Repositories
             string roleName = role.Name;
             return role;
         }
-
     }
 }

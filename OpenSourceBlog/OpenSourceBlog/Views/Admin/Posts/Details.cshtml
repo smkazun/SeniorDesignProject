@@ -6,11 +6,22 @@
 <div>
     <script>
         document.write('<a href="' + document.referrer + '"><h5>Back</h5></a>');
+
+        function auto_grow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight)+"px";
+        }
     </script>
 </div>
 <style>
     img.rounded-corners {
         border-radius: 50%
+    }
+    textarea {
+        resize: none;
+        overflow: hidden;
+        min-height: 50px;
+        max-height: 100px;
     }
 </style>
 
@@ -24,15 +35,15 @@
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
                 By @Html.DisplayFor(model => model.Author)  <i>@Html.DisplayFor(model => model.DateCreated)</i>
                 @*if the modified time is not empty then display it
-                @if (!(model.DateModified.ToString().Equals(String.Empty)))
-                {
-                    <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
-                }*@
+                    @if (!(model.DateModified.ToString().Equals(String.Empty)))
+                    {
+                        <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
+                    }*@
             </div>
         </p>
         @*<p>
-            Rating: @Html.DisplayFor(modelItem => item.Rating)
-        </p>*@
+                Rating: @Html.DisplayFor(modelItem => item.Rating)
+            </p>*@
         <p><p></p>
         <i>@Html.DisplayFor(model => model.Description)</i>
         </p>
@@ -58,7 +69,20 @@
     </div>
     <div>
         <h4>Comments</h4>
-
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div>
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:40px">
+                <textarea class="span4" oninput="auto_grow(this)" placeholder="Type your comment"></textarea>
+                <div><button class="btn btn-info" type="submit">Post Comment</button></div>
+            </div>
+        }
+        else
+        {
+            <div>
+                <center><h5>Log in to comment</h5></center>
+            </div>
+        }
         <hr>
     </div>
 </article>
