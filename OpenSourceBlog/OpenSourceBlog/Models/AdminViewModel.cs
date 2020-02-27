@@ -14,5 +14,6 @@ namespace OpenSourceBlog.Models
     {
         public AspNetUser User { get; set; }
         public string Role { get; set; }
+        public Boolean IsChecked { get; set; }
     }
 }
