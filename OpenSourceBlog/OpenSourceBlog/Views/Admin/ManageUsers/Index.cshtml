@@ -1,17 +1,19 @@
-﻿@model IEnumerable<OpenSourceBlog.Models.ManageUsersViewModel>
+﻿@using OpenSourceBlog.Models
+@model IEnumerable<OpenSourceBlog.Models.ManageUsersViewModel>
 @{
     ViewBag.Title = "Index";
-    // Layout = "~/Views/Shared/_AdminNavBar.cshtml";
 }
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-left pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Manage Users</h1>
-    <button type="button" class="btn btn-outline-danger">Danger</button>
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">Left</button>
-        <button type="button" class="btn btn-secondary">Middle</button>
-        <button type="button" class="btn btn-secondary">Right</button>
+        <h1 class="h2">Manage Users</h1>
+        @* <button type="button" class="btn btn-outline-danger dialog">Delete</button> *@
+        @* <button type="button" class="btn btn-outline-danger dialog partial-view" href="#" data-url='@Url.Action("Delete", "ManageUsers", new { users = Model.ToList() })'>Delete</button> *@
+        @Html.ActionLink(
+            "Delete",
+            "Delete",
+            "ManageUsers",
+            new { onclick = "return confirm('Do you really want to delete these users?')", @class = "btn btn-outline-danger float-md-right" })
     </div>
-</div>
 
 <table class="table">
     <tr>
@@ -86,7 +88,7 @@
             url = $(this).data('url');
 
         $.get(url, function (data) {
-            $detailDiv.replaceWith(data);
+            $detailDiv.html(data);
         });
     });
 </script>
