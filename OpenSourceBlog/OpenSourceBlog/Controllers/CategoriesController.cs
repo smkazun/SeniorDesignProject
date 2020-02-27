@@ -25,7 +25,13 @@ namespace OpenSourceBlog.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.GetAll());
+            return View("~/Views/Admin/Categories/CategoriesIndex.cshtml",db.GetAll());
+        }
+
+        // GET: Categories
+        public ActionResult PartialIndex()
+        {
+            return PartialView("~/Views/Admin/Categories/Index.cshtml",db.GetAll());
         }
 
         // GET: Categories/Details/5
@@ -40,13 +46,13 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("~/Views/Admin/Categories/Details.cshtml", category);
         }
 
         // GET: Categories/Create
         public ActionResult Create()
         {
-            return View();
+            return View("~/Views/Admin/Categories/Create.cshtml");
         }
 
         // POST: Categories/Create
@@ -62,7 +68,7 @@ namespace OpenSourceBlog.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return PartialView("~/Views/Admin/Categories/Create.cshtml", category);
         }
 
         // GET: Categories/Edit/5
@@ -77,7 +83,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("~/Views/Admin/Categories/Edit.cshtml", category);
         }
 
         // POST: Categories/Edit/5
@@ -92,7 +98,7 @@ namespace OpenSourceBlog.Controllers
                 db.Update(category);
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return PartialView("~/Views/Admin/Categories/Edit.cshtml", category);
         }
 
         // GET: Categories/Delete/5
@@ -107,7 +113,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("~/Views/Admin/Categories/Delete.cshtml", category);
         }
 
         // POST: Categories/Delete/5
