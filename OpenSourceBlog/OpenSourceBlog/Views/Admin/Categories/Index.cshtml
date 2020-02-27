@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OpenSourceBlog.Database.Models.Category>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BlogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentId)
+        </td>
+        <td>
+            <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Edit", "Categories", new {id = item.CategoryId})'>Edit</button>
+            <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Details", "Categories", new {id = item.CategoryId})'>Details</button>
+            <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Delete", "Categories", new {id = item.CategoryId})'>Delete</button>
+        </td>
+    </tr>
+}
+
+</table>
