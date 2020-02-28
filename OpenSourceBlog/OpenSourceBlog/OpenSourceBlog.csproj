@@ -725,10 +725,8 @@
     <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
     <Content Include="Views\Admin\ManageUsers\Edit.cshtml" />
     <Content Include="Views\Admin\PostIndex.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Details.cshtml" />
-=======
     <Content Include="Views\Admin\Themes\AdminSidebar.cshtml" />
     <Content Include="Views\Admin\Themes\Layout.cshtml" />
     <Content Include="Views\Admin\ManageUsers\ManageUsersIndex.cshtml" />
@@ -738,7 +736,6 @@
     <Content Include="Views\Admin\Categories\Create.cshtml" />
     <Content Include="Views\Admin\Categories\Edit.cshtml" />
     <Content Include="Views\Admin\Categories\Delete.cshtml" />
->>>>>>> 5434bdc8f9c977275fb1ceda18a4cd99ecdd4074
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
