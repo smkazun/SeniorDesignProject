@@ -87,7 +87,7 @@
                        htmlAttributes = new
                        {
                            @class = "form-control",
-                           @Value = @User.Identity.Name.Substring(0, @User.Identity.Name.IndexOf("@", StringComparison.Ordinal))
+                           @Value = @User.Identity.Name
                        }
                    })
                         @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
