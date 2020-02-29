@@ -29,6 +29,7 @@ namespace OpenSourceBlog
             bundles.Add(new ScriptBundle("~/bundles/opensourceblog").Include(
                       "~/Scripts/ckeditor/ckeditor.js",
                       "~/Scripts/ckeditor/adapters/jquery.js",
+                      "~/Scripts/md5.js",
                       "~/Scripts/mylibs/opensourceblog.js"));
         }
     }
