@@ -73,7 +73,7 @@
                 <a href="#" style="color:#000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
             </h1>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
                 @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
                     By @Html.ActionLink(item.Author, "getAuthorId", "Profiles", new { email = item.Author})
                 

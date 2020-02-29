@@ -19,7 +19,7 @@
         </h1>
         <p>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl();" class="rounded-corners" alt="Avatar" style="width:30px">
                 By @Html.DisplayFor(model => model.Author)  <i>@Html.DisplayFor(model => model.DateCreated)</i>
                 @*if the modified time is not empty then display it
                     @if (!(model.DateModified.ToString().Equals(String.Empty)))
@@ -40,14 +40,9 @@
         </p>
         <hr>
         <div>
-            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:100px">
+            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200 "onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.Author)');" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:100px">
             @Html.DisplayFor(model => model.Author)
         </div>
-        <script src="~/Scripts/md5.js"></script>
-        <script>
-    var hash = md5("thiennguyen209@gmail.com");
-            $("#grav_icon").attr("src", "https://www.gravatar.com/avatar/" + hash + "?s=200");
-        </script>
 
     </div>
 
