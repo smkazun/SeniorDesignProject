@@ -24,14 +24,14 @@ namespace OpenSourceBlog.Controllers
         // GET: Settings
         public ActionResult Index()
         {
-            return View("Index", db.GetSettings());
+            return PartialView("~/Views/Settings/Index.cshtml", db.GetSettings());
         }
 
-        
+
         // GET: Settings/ManageSettings
         public ActionResult ManageSettings()
         {
-            return View("ManageSettings", db.GetSettings());
+            return PartialView("~/Views/Settings/ManageSettings.cshtml", db.GetSettings());
         }
 
         // POST: Settings/ManageSettings
@@ -46,10 +46,11 @@ namespace OpenSourceBlog.Controllers
                     db.Update(setting);
                 }
 
-                return RedirectToAction("Index");
+                return PartialView("~/Views/Settings/Index.cshtml", settings);
+                
             }
 
-            return View("ManageSettings");
+            return PartialView("ManageSettings");
         }
        
 

@@ -3,28 +3,28 @@
     ViewBag.Title = "ManageSettings";
     Layout = "~/Views/Shared/_AdminNavBar.cshtml";
 }
+@*
+    <style>
 
-<style>
 
 
+        .col-md-2 {
+            float: left;
+            position: relative;
+            left: 50px;
+        }
 
-    .col-md-2 {
-        float: left;
-        position: relative;
-        left: 50px;
-    }
+        .wrapper {
+            border: 1px solid #999999;
+            margin: 5px 0;
+            padding: 3px;
+        }
 
-    .wrapper {
-        border: 1px solid #999999;
-        margin: 5px 0;
-        padding: 3px;
-    }
-
-    .submitForm {
-        margin-top: 10px;
-    }
-</style>
-
+        .submitForm {
+            margin-top: 10px;
+        }
+    </style>
+    *@
 
 
 
@@ -118,7 +118,7 @@
 
 
     <div class="form-group submitForm" align="center">
-        <input type="submit" value="Save" class="btn btn-success btn-block" /><br />
+        <input type="submit" id="saveButton" value="Save" class="btn btn-success btn-block" /><br />
 
     </div>
 }
