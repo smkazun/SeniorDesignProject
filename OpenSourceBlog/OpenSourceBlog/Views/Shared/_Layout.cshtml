@@ -7,22 +7,20 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/opensourceblog")
-    @RenderSection("scripts", required: false)
     <script src="~/Scripts/md5.js"></script>
 </head>
 <body>
     @Html.Partial("_NavBar")
-     <div class="container body-content">
-            @RenderBody()
-            <hr/>
-            <footer>
-                <p>&copy; @DateTime.Now.Year - OpenSourceBlog</p>
-            </footer>
-        </div> 
-    @*@RenderBody()*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - OpenSourceBlog</p>
+        </footer>
+    </div>
 
-    
+@Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/opensourceblog")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
