@@ -37,7 +37,7 @@ namespace OpenSourceBlog.Controllers
         // POST: Settings/ManageSettings
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageSettings([Bind(Include = "SettingRowId, BlogId, SettingName, SettingValue")] List<Setting> settings)
+        public ActionResult ManageSettings([Bind(Include = "SettingName, SettingValue")] List<Setting> settings)
         {
             if (ModelState.IsValid)
             {
