@@ -1,9 +1,11 @@
 ﻿@model OpenSourceBlog.Database.Models.Category
 
+@{Layout = "~/Views/Shared/_AdminNavBar.cshtml";}
+
 @using (Html.BeginForm("Edit", "Categories"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Category</h4>
         <hr />
