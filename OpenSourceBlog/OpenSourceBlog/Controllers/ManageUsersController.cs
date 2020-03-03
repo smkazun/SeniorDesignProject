@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Models;
@@ -16,11 +19,13 @@ namespace OpenSourceBlog.Controllers
 {
     public class ManageUsersController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private IUserRepository db;
 
-        public ManageUsersController(IUserRepository db)
+        public ManageUsersController(IUserRepository db, IUserStore<ApplicationUser> userStore)
         {
             this.db = db;
+            _userManager = new UserManager<ApplicationUser>(userStore);
         }
 
         // GET: ManageUsers
@@ -40,7 +45,35 @@ namespace OpenSourceBlog.Controllers
 
                 model.Add(u);
             }
-            return View("~/Views/Admin/ManageUsers/ManageUsersIndex.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Index.cshtml", model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Index(FormCollection formCollection)
+        {
+            string[] ids = formCollection["ID"].Split(new char[] { ',' });
+            foreach (string id in ids)
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                var logins = user.Logins;
+                var rolesForUser = await _userManager.GetRolesAsync(id);
+                foreach (var login in logins.ToList())
+                {
+                    await _userManager.RemoveLoginAsync(login.UserId,
+                        new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+
+                if (rolesForUser.ToList().Count > 0)
+                {
+                    foreach (var role in rolesForUser.ToList())
+                    {
+                        var result = await _userManager.RemoveFromRoleAsync(user.Id, role);
+                    }
+                }
+
+                await _userManager.DeleteAsync(user);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: ManageUsers
@@ -125,7 +158,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
         // POST: ManageUsers/Edit/5
@@ -154,7 +187,7 @@ namespace OpenSourceBlog.Controllers
 
                 return Index();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
         // GET: ManageUsers/Delete/5

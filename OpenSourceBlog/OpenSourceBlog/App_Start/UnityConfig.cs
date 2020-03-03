@@ -1,7 +1,11 @@
 using System;
+using System.Data.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OpenSourceBlog.Controllers;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Repositories;
+using OpenSourceBlog.Models;
 using Unity;
 using Unity.Injection;
 
@@ -44,7 +48,14 @@ namespace OpenSourceBlog
             // container.LoadConfiguration();
 
             // TODO: Register your type's mappings here.
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+            container.RegisterType<UserManager<ApplicationUser>>();
+            container.RegisterType<DbContext, ApplicationDbContext>();
+            container.RegisterType<ApplicationUserManager>();
             container.RegisterType<AccountController>(new InjectionConstructor());
+
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            
             container.RegisterType<IBlogRepository, BlogRepository>();
             container.RegisterType<ICategoryRepository, CategoryRepository>();
             container.RegisterType<IPageRepository, PageRepository>();
