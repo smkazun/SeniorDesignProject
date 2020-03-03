@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IGenericRepository<AspNetUser, string>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
 
@@ -44,6 +44,8 @@ namespace OpenSourceBlog.Database.Repositories
             return user;
         }
 
+        //THese should not be here. rewrote manageUsersController
+        /*
         public AspNetRole GetRole(string id)
         {
             AspNetUserRole userRole = ctx.AspNetUserRoles.Find(id);
@@ -62,6 +64,7 @@ namespace OpenSourceBlog.Database.Repositories
             string roleName = role.Name;
             return role;
         }
+        */
 
     }
 }

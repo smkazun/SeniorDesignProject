@@ -6,7 +6,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class UserRoleRepository : IUserRoleRepository
+    public class UserRoleRepository : IRepository<AspNetUserRole, string>
     {
         private readonly  ApplicationContext ctx = new ApplicationContext();
 
@@ -37,5 +37,8 @@ namespace OpenSourceBlog.Database.Repositories
             ctx.AspNetUserRoles.Remove(ur);
             ctx.SaveChanges();
         }
+
+
+       
     }
 }

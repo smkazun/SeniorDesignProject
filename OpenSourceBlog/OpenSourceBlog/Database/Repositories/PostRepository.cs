@@ -6,9 +6,10 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 { 
-    public class PostRepository : IPostRepository
+    public class PostRepository : IRepository<Post, int>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
+
 
         public IEnumerable<Post> GetAll()
         {
