@@ -10,9 +10,9 @@ namespace OpenSourceBlog.Database.Interfaces
     public interface IProfileRepository
     {
         IEnumerable<Profile> GetAll();
-        Profile Get(int id);
+        Profile Get(String id);
         void Create(Profile entity);
         void Update(Profile entity);
-        void Delete(int id);
+        void Delete(String id);
     }
 }

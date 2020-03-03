@@ -40,7 +40,7 @@ namespace OpenSourceBlog.Controllers
 
                 model.Add(u);
             }
-            return View("~/Views/Admin/ManageUsers/Index.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/ManageUsersIndex.cshtml", model);
         }
 
         // GET: ManageUsers
@@ -64,48 +64,48 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: ManageUsers/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AspNetUser aspNetUser = db.Get(id);
-            if (aspNetUser == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
-        }
+        // public ActionResult Details(string id)
+        // {
+        //     if (id == null)
+        //     {
+        //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //     }
+        //     AspNetUser aspNetUser = db.Get(id);
+        //     if (aspNetUser == null)
+        //     {
+        //         return HttpNotFound();
+        //     }
+        //     return View("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
+        // }
 
         // GET: ManageUsers/Create
-        public ActionResult Create()
-        {
-            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml");
-        }
+        // public ActionResult Create()
+        // {
+        //     return View("~/Views/Admin/ManageUsers/Create.cshtml");
+        // }
 
         // POST: ManageUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
-        {
-            ManageUsersViewModel model = new ManageUsersViewModel()
-            {
-                User = aspNetUser,
-                Role = db.GetRole(aspNetUser.Id).Name
-            };
-
-            if (ModelState.IsValid)
-            {
-                // db.Create(aspNetUser);
-                //ToDo Create a user and role using rolemanage/usermanager
-                return RedirectToAction("Index");
-            }
-
-            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml", model);
-        }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        // {
+        //     ManageUsersViewModel model = new ManageUsersViewModel()
+        //     {
+        //         User = aspNetUser,
+        //         Role = db.GetRole(aspNetUser.Id).Name
+        //     };
+        //
+        //     if (ModelState.IsValid)
+        //     {
+        //         // db.Create(aspNetUser);
+        //         //ToDo Create a user and role using rolemanage/usermanager
+        //         return RedirectToAction("Index");
+        //     }
+        //
+        //     return View("~/Views/Admin/ManageUsers/Create.cshtml", model);
+        // }
 
         // GET: ManageUsers/Edit/5
         public ActionResult Edit(string id)
@@ -158,30 +158,36 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: ManageUsers/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(IEnumerable<ManageUsersViewModel> users)
         {
-            if (id == null)
+            // if (id == null)
+            // {
+            //     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            // }
+            // AspNetUser aspNetUser = db.Get(id);
+            ManageUsersViewModel model = new ManageUsersViewModel();
+            foreach (var m in users)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AspNetUser aspNetUser = db.Get(id);
-            ManageUsersViewModel model = new ManageUsersViewModel()
-            {
-                User = aspNetUser,
-                Role = db.GetRole(id).Name
-            };
+                Boolean isChecked = m.IsChecked;
+                AspNetUser user = m.User;
+                string role = m.Role;
 
-            if (aspNetUser == null)
+                model.User = user;
+                model.IsChecked = isChecked;
+                model.Role = role;
+            }
+            
+            if (model.User == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Delete.cshtml", model);
+            return RedirectToAction("Index");
         }
 
         // POST: ManageUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(IEnumerable<ManageUsersViewModel> model)
         {
             //ToDo delete the user using user manager
             // db.Delete(id);

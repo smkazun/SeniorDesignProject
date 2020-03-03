@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OpenSourceBlog</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/opensourceblog")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/md5.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="page-wrapper chiller-theme toggled col-sm-2">
+                @Html.Partial("~/Views/Admin/sidebar.cshtml")
+            </div>
+
+            <div id="main_page_content" class="page-content col-lg-auto">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+
+
+@* @RenderSection("scripts", required: false) *@
+    <script>
+        jQuery(function ($) {
+
+            $(".sidebar-dropdown > a").click(function () {
+                $(".sidebar-submenu").slideUp(200);
+                if ($(this).parent().hasClass("active")) {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(this).parent().removeClass("active");
+                } else {
+                    $(".sidebar-dropdown").removeClass("active");
+                    $(this).next(".sidebar-submenu").slideDown(200);
+                    $(this).parent().addClass("active");
+                }
+            });
+
+            $("#close-sidebar").click(function () {
+                $(".page-wrapper").removeClass("toggled");
+            });
+            $("#show-sidebar").click(function () {
+                $(".page-wrapper").addClass("toggled");
+            });
+        });
+        $('.nav-link').on('click', function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+
+            var $detailDiv = $('#main_page_content'),
+                url = $(this).data('url');
+
+            $.get(url, function (data) {
+                $detailDiv.html(data);
+            });
+        });
+    </script>
+</body>
+</html>

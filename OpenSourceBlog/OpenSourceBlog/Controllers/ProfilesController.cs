@@ -6,122 +6,132 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.Database;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
-using OpenSourceBlog.Models;
+using OpenSourceBlog.Database.Repositories;
 
 namespace OpenSourceBlog.Controllers
 {
-    public class CategoriesController : Controller
+    public class ProfilesController : Controller
     {
-//        private ApplicationDbContext db = new ApplicationDbContext();
-        private ICategoryRepository db;
+        private IProfileRepository db;
+        private IUserRepository userdb;
+        private IPostRepository postdb;
 
-        public CategoriesController(ICategoryRepository db)
+        public ProfilesController(IProfileRepository db, IUserRepository userdb, IPostRepository postdb)
         {
             this.db = db;
+            this.userdb = userdb;
+            this.postdb = postdb;
         }
 
-        // GET: Categories
+        // GET: Profiles
         public ActionResult Index()
         {
-            return View("~/Views/Admin/Categories/CategoriesIndex.cshtml",db.GetAll());
+            List<Post> posts = (List<Post>)postdb.GetAll();
+            AspNetUser user = (AspNetUser)User.Identity;
+            return View("~/Views/Profiles/Index.cshtml");
         }
 
-        // GET: Categories
-        public ActionResult PartialIndex()
-        {
-            return PartialView("~/Views/Admin/Categories/Index.cshtml",db.GetAll());
-        }
-
-        // GET: Categories/Details/5
-        public ActionResult Details(int? id)
+        // GET: Profiles/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
-            if (category == null)
+            Profile profile = db.Get(id);
+            if (profile == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/Categories/Details.cshtml", category);
+            return View("~/Views/Profiles/Details.cshtml", profile);
         }
 
-        // GET: Categories/Create
+        public ActionResult getAuthorId(string email)
+        {
+            AspNetUser user = userdb.FindByUserName(email);
+            return Details(user.Id);
+        }
+        /*
+        // GET: Profiles/Create
         public ActionResult Create()
         {
-            return View("~/Views/Admin/Categories/Create.cshtml");
+            return View();
         }
 
-        // POST: Categories/Create
+        // POST: Profiles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryRowId,BlogId,CategoryId,CategoryName,Description,ParentId")] Category category)
+        public ActionResult Create([Bind(Include = "ProfileId,BlogId,UserName,SettingName,SettingValue")] Profile profile)
         {
             if (ModelState.IsValid)
             {
-                db.Create(category);
+                db.Profiles.Add(profile);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return PartialView("~/Views/Admin/Categories/Create.cshtml", category);
+            return View(profile);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Profiles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
-            if (category == null)
+            Profile profile = db.Profiles.Find(id);
+            if (profile == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/Categories/Edit.cshtml", category);
+            return View(profile);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Profiles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryRowId,BlogId,CategoryId,CategoryName,Description,ParentId")] Category category)
+        public ActionResult Edit([Bind(Include = "ProfileId,BlogId,UserName,SettingName,SettingValue")] Profile profile)
         {
             if (ModelState.IsValid)
             {
-                db.Update(category);
+                db.Entry(profile).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return PartialView("~/Views/Admin/Categories/Edit.cshtml", category);
+            return View(profile);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Profiles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
-            if (category == null)
+            Profile profile = db.Profiles.Find(id);
+            if (profile == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/Categories/Delete.cshtml", category);
+            return View(profile);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Profiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            db.Delete(id);
+            Profile profile = db.Profiles.Find(id);
+            db.Profiles.Remove(profile);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -129,8 +139,9 @@ namespace OpenSourceBlog.Controllers
         {
             if (disposing)
             {
+                db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }
