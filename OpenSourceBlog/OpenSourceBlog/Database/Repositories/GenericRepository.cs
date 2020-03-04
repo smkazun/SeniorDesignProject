@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using OpenSourceBlog.Database.Interfaces;
+using OpenSourceBlog.DAL;
 
 namespace OpenSourceBlog.Database.Repositories
 {
@@ -11,15 +12,16 @@ namespace OpenSourceBlog.Database.Repositories
                                                                    where U :IConvertible //hack
     {
         private readonly ApplicationContext _ctx;
+        //private readonly UnitOfWork _unitOfWork;
 
         public GenericRepository()
         {
             this._ctx = new ApplicationContext();
         }
 
-        public GenericRepository(ApplicationContext _context)
+        public GenericRepository(ApplicationContext context)
         {
-            this._ctx = _context;
+            this._ctx = context;
         }
 
 
@@ -39,20 +41,20 @@ namespace OpenSourceBlog.Database.Repositories
         public void Create(T entity)
         {
             _ctx.Set<T>().Add(entity);
-            _ctx.SaveChanges();
+           // _ctx.SaveChanges();
         }
 
         public void Update(T entity)
         {
             _ctx.Entry(entity).State = EntityState.Modified;
-            _ctx.SaveChanges();
+           // _ctx.SaveChanges();
         }
 
         public void Delete(U id)
         {
             T existing = Get(id);
             _ctx.Set<T>().Remove(existing);
-            _ctx.SaveChanges();
+           // _ctx.SaveChanges();
         }
 
     }

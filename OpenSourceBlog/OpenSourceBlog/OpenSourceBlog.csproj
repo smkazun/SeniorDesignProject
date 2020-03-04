@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\IGenericRepository.cs" />
     <Compile Include="Database\Models\AspNetRole.cs" />

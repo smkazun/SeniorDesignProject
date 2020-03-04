@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
@@ -17,28 +18,25 @@ namespace OpenSourceBlog.Controllers
 {
     public class ManageUsersController : Controller
     {
-        private IGenericRepository<AspNetUser, string> userRepo;
-        private IGenericRepository<AspNetUserRole, string> userRoleRepo;
-        private IGenericRepository<AspNetRole, string> roleRepo;
+
+        private UnitOfWork _unitOfWork;
 
         public ManageUsersController()
         {
-            this.userRepo = new GenericRepository<AspNetUser, string>();
-            this.userRoleRepo = new GenericRepository<AspNetUserRole, string>();
-            this.roleRepo = new GenericRepository<AspNetRole, string>();
+            //this.userRepo = new GenericRepository<AspNetUser, string>();
+            //this.userRoleRepo = new GenericRepository<AspNetUserRole, string>();
+            //this.roleRepo = new GenericRepository<AspNetRole, string>();
         }
 
-        public ManageUsersController(IGenericRepository<AspNetUser, string> db, IGenericRepository<AspNetUserRole, string> db2, IGenericRepository<AspNetRole, string> db3)
+        public ManageUsersController(UnitOfWork unitOfWork)
         {
-            this.userRepo = db;
-            this.userRoleRepo = db2;
-            this.roleRepo = db3;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: ManageUsers
         public ActionResult Index()
         {
-            List<AspNetUser> users = (List<AspNetUser>)userRepo.GetAll();
+            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
             List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
 
             //Loop through ALL users
@@ -48,9 +46,9 @@ namespace OpenSourceBlog.Controllers
                 AspNetUser user = users[i];
                 u.User = user;
 
-                AspNetUserRole userRole = userRoleRepo.Get(users[i].Id);
+                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
                 string roleId = userRole.RoleId;
-                u.Role = roleRepo.Get(roleId).Name;
+                u.Role = _unitOfWork._roleRepository.Get(roleId).Name;
                 
                 u.IsChecked = false;
 
@@ -62,7 +60,7 @@ namespace OpenSourceBlog.Controllers
         // GET: ManageUsers
         public ActionResult PartialIndex()
         {
-            List<AspNetUser> users = (List<AspNetUser>) userRepo.GetAll();
+            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
             List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
 
             //Loop through ALL users
@@ -72,9 +70,9 @@ namespace OpenSourceBlog.Controllers
                 AspNetUser user = users[i];
                 u.User = user;
 
-                AspNetUserRole userRole = userRoleRepo.Get(users[i].Id);
+                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
                 string roleId = userRole.RoleId;
-                u.Role = roleRepo.Get(roleId).Name;
+                u.Role = _unitOfWork._roleRepository.Get(roleId).Name;
                 
                 u.IsChecked = false;
 
@@ -90,7 +88,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetUser aspNetUser = userRepo.Get(id);
+            AspNetUser aspNetUser = _unitOfWork._userRepository.Get(id);
             if (aspNetUser == null)
             {
                 return HttpNotFound();
@@ -111,13 +109,13 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
         {
-            AspNetUserRole userRole = userRoleRepo.Get(aspNetUser.Id);
+            AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(aspNetUser.Id);
             string roleId = userRole.RoleId;
 
             ManageUsersViewModel model = new ManageUsersViewModel()
             {
                 User = aspNetUser,
-                Role = roleRepo.Get(roleId).Name
+                Role = _unitOfWork._roleRepository.Get(roleId).Name
             };
 
             if (ModelState.IsValid)
@@ -137,15 +135,15 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetUser aspNetUser = userRepo.Get(id);
+            AspNetUser aspNetUser = _unitOfWork._userRepository.Get(id);
 
-            AspNetUserRole userRole = userRoleRepo.Get(id);
+            AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(id);
             string roleId = userRole.RoleId;
 
             ManageUsersViewModel model = new ManageUsersViewModel()
             {
                 User = aspNetUser,
-                Role = roleRepo.Get(roleId).Name
+                Role = _unitOfWork._roleRepository.Get(roleId).Name
             };
 
             if (model.User == null)
@@ -191,15 +189,15 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetUser aspNetUser = userRepo.Get(id);
+            AspNetUser aspNetUser = _unitOfWork._userRepository.Get(id);
 
-            AspNetUserRole userRole = userRoleRepo.Get(id);
+            AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(id);
             string roleId = userRole.RoleId;
 
             ManageUsersViewModel model = new ManageUsersViewModel()
             {
                 User = aspNetUser,
-                Role = roleRepo.Get(roleId).Name
+                Role = _unitOfWork._roleRepository.Get(roleId).Name
             };
 
             if (aspNetUser == null)
