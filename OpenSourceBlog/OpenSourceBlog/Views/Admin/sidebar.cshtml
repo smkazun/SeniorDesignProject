@@ -1,0 +1,43 @@
+﻿<a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <i class="fas fa-bars"></i>
+</a>
+<nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+        <div class="sidebar-brand">
+            <a href="#">Open Source Blog</a>
+            <div id="close-sidebar">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="sidebar-header">
+            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "fas fa-home fa-2x" })
+        </div>
+
+        <!-- sidebar-search  -->
+        <div class="sidebar-menu">
+            <ul>
+                <li class="header-menu">
+
+                </li>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                        <span>Content</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li class="nav-item">@Html.ActionLink("Posts", "Index", "Posts")</li>
+                            <li class="nav-item">@Html.ActionLink("Users", "Index", "ManageUsers")</li>
+                            <li class="nav-item">@Html.ActionLink("Categories", "Index", "Categories")</li>
+                            <a id="User" href="/ManageUsers"> <i class="fa fa-angle-double-right"></i>Users</a>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <div class="sidebar-footer">
+
+    </div>
+</nav>

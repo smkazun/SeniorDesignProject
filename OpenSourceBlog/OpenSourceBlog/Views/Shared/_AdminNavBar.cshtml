@@ -6,34 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <script src="https://kit.fontawesome.com/67db1bfb18.js" crossorigin="anonymous"></script>
-
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-
-    @Scripts.Render("~/bundles/opensourceblog")
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-    <script src="https://unpkg.com/@('@')popperjs/core@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
     @Scripts.Render("~/bundles/bootstrap")
-
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
-
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
+    @Scripts.Render("~/bundles/opensourceblog")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/AdminArea.css" rel="stylesheet" type="text/css" />
-
 </head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
 <body>
     <div class="page-wrapper chiller-theme toggled">
@@ -69,6 +49,23 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><span>Users</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li class="nav-item"><a href="#" data-url='@Url.Action("PartialIndex", "ManageUsers")' class="nav-link">Manage Users</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><span>Categories</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li class="nav-item"><a href="#" data-url='@Url.Action("PartialIndex", "Categories")' class="nav-link">Categories</a></li>
+                                    <li class="nav-item"><a href="#" data-url='@Url.Action("Create", "Categories")' class="nav-link">Create Category</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <!-- sidebar-menu  -->
@@ -81,48 +78,53 @@
         <!-- sidebar-wrapper  -->
         <div id="main_page_content" class="page-content">
             @RenderBody()
+            </div>
+
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
 
-    </div>
 
 
-    @RenderSection("scripts", required: false)
-    <script>
-        jQuery(function ($) {
-            $(document).click(function () {
-                $(".dropdown-menu.collapse.show").collapse("hide");
+
+        @RenderSection("scripts", required: false)
+        <script>
+            jQuery(function ($) {
+
+                $(".sidebar-dropdown > a").click(function () {
+                    $(".sidebar-submenu").slideUp(200);
+                    if ($(this).parent().hasClass("active")) {
+                        $(".sidebar-dropdown").removeClass("active");
+                        $(this).parent().removeClass("active");
+                    } else {
+                        $(".sidebar-dropdown").removeClass("active");
+                        $(this).next(".sidebar-submenu").slideDown(200);
+                        $(this).parent().addClass("active");
+                    }
+                });
+
+                $("#close-sidebar").click(function () {
+                    $(".page-wrapper").removeClass("toggled");
+                });
+                $("#show-sidebar").click(function () {
+                    $(".page-wrapper").addClass("toggled");
+                });
             });
-            $(".sidebar-dropdown > a").click(function () {
-                $(".sidebar-submenu").slideUp(200);
-                if ($(this).parent().hasClass("active")) {
-                    $(".sidebar-dropdown").removeClass("active");
-                    $(this).parent().removeClass("active");
-                } else {
-                    $(".sidebar-dropdown").removeClass("active");
-                    $(this).next(".sidebar-submenu").slideDown(200);
-                    $(this).parent().addClass("active");
-                }
-            });
+            $('.nav-link').on('click', function (evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
 
-            $("#close-sidebar").click(function () {
-                $(".page-wrapper").removeClass("toggled");
-            });
-            $("#show-sidebar").click(function () {
-                $(".page-wrapper").addClass("toggled");
-            });
-        });
-        $('.nav-link').on('click', function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
+                var $detailDiv = $('#main_page_content'),
+                    url = $(this).data('url');
 
-            var $detailDiv = $('#main_page_content'),
-                url = $(this).data('url');
-
-            $.get(url, function (data) {
-                $detailDiv.html(data);
+                $.get(url, function (data) {
+                    $detailDiv.html(data);
+                });
             });
-        });
-    </script>
+        </script>
 </body>
 </html>
 

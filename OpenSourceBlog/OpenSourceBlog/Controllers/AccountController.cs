@@ -264,7 +264,7 @@ namespace OpenSourceBlog.Controllers
             return View();
         }
 
-        //
+        /*
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
@@ -305,6 +305,7 @@ namespace OpenSourceBlog.Controllers
         {
             return View();
         }
+        */
 
         //
         // POST: /Account/ExternalLogin
