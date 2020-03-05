@@ -8,25 +8,35 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
+using OpenSourceBlog.Database.Repositories;
 using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
 {
     public class ManageUsersController : Controller
     {
-        private IUserRepository db;
 
-        public ManageUsersController(IUserRepository db)
+        private UnitOfWork _unitOfWork;
+
+        public ManageUsersController()
         {
-            this.db = db;
+            //this.userRepo = new GenericRepository<AspNetUser, string>();
+            //this.userRoleRepo = new GenericRepository<AspNetUserRole, string>();
+            //this.roleRepo = new GenericRepository<AspNetRole, string>();
+        }
+
+        public ManageUsersController(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
 
         // GET: ManageUsers
         public ActionResult Index()
         {
-            List<AspNetUser> users = (List<AspNetUser>)db.GetAll();
+            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
             List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
 
             //Loop through ALL users
@@ -35,18 +45,22 @@ namespace OpenSourceBlog.Controllers
                 ManageUsersViewModel u = new ManageUsersViewModel();
                 AspNetUser user = users[i];
                 u.User = user;
-                u.Role = db.GetRole(users[i].Id).Name;
+
+                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
+                string roleId = userRole.RoleId;
+                u.Role = _unitOfWork._roleRepository.Get(roleId).Name;
+                
                 u.IsChecked = false;
 
                 model.Add(u);
             }
-            return View("~/Views/Admin/ManageUsers/ManageUsersIndex.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Index.cshtml", model);
         }
 
         // GET: ManageUsers
         public ActionResult PartialIndex()
         {
-            List<AspNetUser> users = (List<AspNetUser>) db.GetAll();
+            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
             List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
 
             //Loop through ALL users
@@ -55,7 +69,11 @@ namespace OpenSourceBlog.Controllers
                 ManageUsersViewModel u = new ManageUsersViewModel();
                 AspNetUser user = users[i];
                 u.User = user;
-                u.Role = db.GetRole(users[i].Id).Name;
+
+                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
+                string roleId = userRole.RoleId;
+                u.Role = _unitOfWork._roleRepository.Get(roleId).Name;
+                
                 u.IsChecked = false;
 
                 model.Add(u);
@@ -64,48 +82,51 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: ManageUsers/Details/5
-        // public ActionResult Details(string id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //     }
-        //     AspNetUser aspNetUser = db.Get(id);
-        //     if (aspNetUser == null)
-        //     {
-        //         return HttpNotFound();
-        //     }
-        //     return View("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
-        // }
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = _unitOfWork._userRepository.Get(id);
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
+        }
 
         // GET: ManageUsers/Create
-        // public ActionResult Create()
-        // {
-        //     return View("~/Views/Admin/ManageUsers/Create.cshtml");
-        // }
+        public ActionResult Create()
+        {
+            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml");
+        }
 
         // POST: ManageUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
-        // {
-        //     ManageUsersViewModel model = new ManageUsersViewModel()
-        //     {
-        //         User = aspNetUser,
-        //         Role = db.GetRole(aspNetUser.Id).Name
-        //     };
-        //
-        //     if (ModelState.IsValid)
-        //     {
-        //         // db.Create(aspNetUser);
-        //         //ToDo Create a user and role using rolemanage/usermanager
-        //         return RedirectToAction("Index");
-        //     }
-        //
-        //     return View("~/Views/Admin/ManageUsers/Create.cshtml", model);
-        // }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUser aspNetUser)
+        {
+            AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(aspNetUser.Id);
+            string roleId = userRole.RoleId;
+
+            ManageUsersViewModel model = new ManageUsersViewModel()
+            {
+                User = aspNetUser,
+                Role = _unitOfWork._roleRepository.Get(roleId).Name
+            };
+
+            if (ModelState.IsValid)
+            {
+                // db.Create(aspNetUser);
+                //ToDo Create a user and role using rolemanage/usermanager
+                return RedirectToAction("Index");
+            }
+
+            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml", model);
+        }
 
         // GET: ManageUsers/Edit/5
         public ActionResult Edit(string id)
@@ -114,11 +135,15 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetUser aspNetUser = db.Get(id);
+            AspNetUser aspNetUser = _unitOfWork._userRepository.Get(id);
+
+            AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(id);
+            string roleId = userRole.RoleId;
+
             ManageUsersViewModel model = new ManageUsersViewModel()
             {
                 User = aspNetUser,
-                Role = db.GetRole(aspNetUser.Id).Name
+                Role = _unitOfWork._roleRepository.Get(roleId).Name
             };
 
             if (model.User == null)
@@ -158,36 +183,34 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: ManageUsers/Delete/5
-        public ActionResult Delete(IEnumerable<ManageUsersViewModel> users)
+        public ActionResult Delete(string id)
         {
-            // if (id == null)
-            // {
-            //     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            // }
-            // AspNetUser aspNetUser = db.Get(id);
-            ManageUsersViewModel model = new ManageUsersViewModel();
-            foreach (var m in users)
+            if (id == null)
             {
-                Boolean isChecked = m.IsChecked;
-                AspNetUser user = m.User;
-                string role = m.Role;
-
-                model.User = user;
-                model.IsChecked = isChecked;
-                model.Role = role;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            if (model.User == null)
+            AspNetUser aspNetUser = _unitOfWork._userRepository.Get(id);
+
+            AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(id);
+            string roleId = userRole.RoleId;
+
+            ManageUsersViewModel model = new ManageUsersViewModel()
+            {
+                User = aspNetUser,
+                Role = _unitOfWork._roleRepository.Get(roleId).Name
+            };
+
+            if (aspNetUser == null)
             {
                 return HttpNotFound();
             }
-            return RedirectToAction("Index");
+            return PartialView("~/Views/Admin/ManageUsers/Delete.cshtml", model);
         }
 
         // POST: ManageUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(IEnumerable<ManageUsersViewModel> model)
+        public ActionResult DeleteConfirmed(string id)
         {
             //ToDo delete the user using user manager
             // db.Delete(id);

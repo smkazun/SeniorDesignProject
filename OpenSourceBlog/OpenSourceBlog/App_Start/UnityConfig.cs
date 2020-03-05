@@ -1,6 +1,7 @@
 using System;
 using OpenSourceBlog.Controllers;
 using OpenSourceBlog.Database.Interfaces;
+using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 using Unity;
 using Unity.Injection;
@@ -41,26 +42,34 @@ namespace OpenSourceBlog
         {
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
+            //container.LoadConfiguration();
 
+
+            
             // TODO: Register your type's mappings here.
+
             container.RegisterType<AccountController>(new InjectionConstructor());
-            container.RegisterType<IBlogRepository, BlogRepository>();
-            container.RegisterType<ICategoryRepository, CategoryRepository>();
-            container.RegisterType<IPageRepository, PageRepository>();
-            container.RegisterType<IPostCategoryRepository, PostCategoryRepository>();
-            container.RegisterType<IPostCommentRepository, PostCommentRepository>();
-            container.RegisterType<IPostNotifyRepository, PostNotifyRepository>();
-            container.RegisterType<IPostRepository, PostRepository>();
-            container.RegisterType<IPostTagRepository, PostTagRepository>();
-            container.RegisterType<IProfileRepository, ProfileRepository>();
-            container.RegisterType<IRightRepository, RightRepository>();
-            container.RegisterType<IRightRoleRepository, RightRoleRepository>();
-            container.RegisterType<IRoleRepository, RoleRepository>();
-            container.RegisterType<ISettingRepository, SettingRepository>();
-            container.RegisterType<IStopWordRepository, StopWordRepository>();
-            container.RegisterType<IUserRepository, UserRepository>();
-            container.RegisterType<IUserRoleRepository, UserRoleRepository>();
+            container.RegisterType<ManageController>(new InjectionConstructor());
+            //container.RegisterType<PostsController>(new InjectionConstructor());
+
+
+            container.RegisterType<IGenericRepository<Blog, int>, GenericRepository<Blog, int>>();
+            container.RegisterType<IGenericRepository<Category, int>, GenericRepository<Category, int>>();
+            container.RegisterType<IGenericRepository<Page, int>, GenericRepository<Page, int>>();
+            container.RegisterType<IGenericRepository<PostCategory, int>, GenericRepository<PostCategory, int>>();
+            container.RegisterType<IGenericRepository<PostComment, int>, GenericRepository<PostComment, int>>();
+            container.RegisterType<IGenericRepository<PostNotify, int>, GenericRepository<PostNotify, int>>();
+            container.RegisterType<IGenericRepository<Post, int>, GenericRepository<Post, int>>();
+            container.RegisterType<IGenericRepository<PostTag, int>, GenericRepository<PostTag, int>>();
+            container.RegisterType<IGenericRepository<Profile, int>, GenericRepository<Profile, int>>();
+            container.RegisterType<IGenericRepository<Right, int>, GenericRepository<Right, int>>();
+            container.RegisterType<IGenericRepository<RightRole, int>, GenericRepository<RightRole, int>>();
+            container.RegisterType<IGenericRepository<AspNetRole, string>, GenericRepository<AspNetRole, string>>();
+            container.RegisterType<IGenericRepository<Setting, int>, GenericRepository<Setting, int>>();
+            container.RegisterType<IGenericRepository<StopWord, int>, GenericRepository<StopWord, int>>();
+            container.RegisterType<IGenericRepository<AspNetUser, string>, GenericRepository<AspNetUser, string>>();
+            container.RegisterType<IGenericRepository<AspNetUserRole, string>, GenericRepository<AspNetUserRole, string>>();
+            
         }
     }
 }
