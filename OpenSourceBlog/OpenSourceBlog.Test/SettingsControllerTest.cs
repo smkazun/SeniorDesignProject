@@ -71,8 +71,10 @@ namespace OpenSourceBlog.Test
                     SettingName = "Timezone",
                     SettingValue = "some time",
 
-                }
+                },
+                
             };
+
         }
          
 
@@ -96,7 +98,6 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestIndexView()
         {
-            
             var mockRepo = new Mock<ISettingRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var controller = new SettingsController(mockRepo.Object);
@@ -146,18 +147,13 @@ namespace OpenSourceBlog.Test
         {
 
             var mockRepo = new Mock<ISettingRepository>();
-            mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList); //TODO need to mock update
+            //mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList); 
 
-            //TODO finish
            
-
-
             var controller = new SettingsController(mockRepo.Object);
 
             var result = controller.ManageSettings(this.settingsList) as ViewResult;
             var setting = (List<Setting>)result.ViewData.Model;
-
-
 
 
             Assert.AreEqual("Blog Title", setting[0].SettingName);
@@ -167,7 +163,7 @@ namespace OpenSourceBlog.Test
             Assert.AreEqual("Timezone", setting[4].SettingName);
 
             Assert.AreEqual("OpenSourceBlog", setting[0].SettingValue);
-            Assert.AreEqual("This is our Open Source Blog", setting[1].SettingValue);
+            Assert.AreEqual("This is our OpenSourceBlog", setting[1].SettingValue);
             Assert.AreEqual("20", setting[2].SettingValue);
             Assert.AreEqual("English", setting[3].SettingValue);
             Assert.AreEqual("some time", setting[4].SettingValue);
@@ -177,14 +173,15 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestManageSettingsRedirect()
         {
-
             var mockRepo = new Mock<ISettingRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             
             var controller = new SettingsController(mockRepo.Object);
 
-            var result = (RedirectToRouteResult)controller.ManageSettings(this.settingsList);
-            Assert.AreEqual("Index", result.RouteValues["action"]);
+            var result = controller.ManageSettings(this.settingsList) as ViewResult;
+
+            Assert.AreEqual("Index", result.ViewName);          
+
         }
 
         
@@ -195,14 +192,17 @@ namespace OpenSourceBlog.Test
         {
             //if invalid model state, then use the default settings
             var mockRepo = new Mock<ISettingRepository>();
-            mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList); //TODO mock update
+            mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var controller = new SettingsController(mockRepo.Object);
+
 
             controller.ModelState.AddModelError(String.Empty, "Error in modelstate");
             var result = controller.ManageSettings(new List<Setting>()) as ViewResult;
             //controller.ViewData.ModelState.Clear();
 
-            
+            var modelResult = controller.ManageSettings(new List<Setting>()) as ActionResult;
+            var settings = (List<Setting>)result.ViewData.Model;
+
             Assert.AreEqual("ManageSettings", result.ViewName);
         }
 

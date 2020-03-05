@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
@@ -33,8 +36,19 @@ namespace OpenSourceBlog.Database.Repositories
 
         public void Update(Setting entity)
         {
-            ctx.Entry(entity).State = EntityState.Modified;
-            ctx.SaveChanges();
+            //ctx.Entry(entity).State = EntityState.Modified;
+            //ctx.SaveChanges();
+
+            try
+            {
+                ctx.SaveChanges();
+            }
+            catch (OptimisticConcurrencyException)
+            {
+                var ctx1 = ((IObjectContextAdapter)ctx).ObjectContext;
+                ctx1.Refresh(RefreshMode.ClientWins, entity);
+                ctx1.SaveChanges();
+            }
         }
 
         public void Delete(int id)

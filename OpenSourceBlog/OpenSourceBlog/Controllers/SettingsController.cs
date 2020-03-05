@@ -14,6 +14,9 @@ namespace OpenSourceBlog.Controllers
     public class SettingsController : Controller
     {
         private ISettingRepository db;
+        private ModelStateDictionary _modelState;
+        private static readonly HashSet<string> AllTimeZoneIds = new HashSet<string>(TimeZoneInfo.GetSystemTimeZones()
+                                                                                                 .Select(tz => tz.Id));
 
         public SettingsController(ISettingRepository db)
         {
@@ -24,14 +27,14 @@ namespace OpenSourceBlog.Controllers
         // GET: Settings
         public ActionResult Index()
         {
-            return PartialView("~/Views/Settings/Index.cshtml", db.GetSettings());
+            return View("Index", db.GetSettings()); //need getBasicSettings. possible?
         }
 
 
         // GET: Settings/ManageSettings
         public ActionResult ManageSettings()
         {
-            return PartialView("~/Views/Settings/ManageSettings.cshtml", db.GetSettings());
+            return View("ManageSettings", db.GetSettings());
         }
 
         // POST: Settings/ManageSettings
@@ -43,14 +46,35 @@ namespace OpenSourceBlog.Controllers
             {
                 foreach(Setting setting in settings)
                 {
+                    if(setting.SettingName.Equals("# posts per page") && int.TryParse(setting.SettingValue, out int j))
+                    {
+                        db.Update(setting);
+                    }
+                    else
+                    {
+                        _modelState.AddModelError("Number of posts", "Must be an integer");
+                        //could not be parsed
+                    }
+
+                    if (setting.SettingName.Equals("Timezone") && AllTimeZoneIds.Contains(setting.SettingValue))
+                    {
+                        db.Update(setting);
+                    }
+                    else
+                    {
+                        _modelState.AddModelError("Timezone", "Must be a valid timezone format");
+                        //not a timezone
+                    }
+
+
                     db.Update(setting);
                 }
 
-                return PartialView("~/Views/Settings/Index.cshtml", settings);
+                return View("Index", settings); //redirect
                 
             }
 
-            return PartialView("ManageSettings");
+            return View("ManageSettings");
         }
        
 
