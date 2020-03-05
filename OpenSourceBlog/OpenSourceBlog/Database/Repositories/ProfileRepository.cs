@@ -14,7 +14,7 @@ namespace OpenSourceBlog.Database.Repositories
             return ctx.Profiles.ToList();
         }
 
-        public Profile Get(int id)
+        public Profile Get(string id)
         {
             return ctx.Profiles.Find(id);
         }
@@ -30,7 +30,7 @@ namespace OpenSourceBlog.Database.Repositories
             ctx.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             Profile p = Get(id);
             ctx.Profiles.Remove(p);

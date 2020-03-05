@@ -11,9 +11,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/opensourceblog")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
 </head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-<link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
+
 <body>
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
@@ -45,6 +46,23 @@
                                 <ul>
                                     <li class="nav-item"><a href="#" data-url='@Url.Action("PartialIndex", "Posts")' class="nav-link">View Posts</a></li>
                                     <li class="nav-item"><a href="#" data-url='@Url.Action("Create", "Posts")' class="nav-link">Create Post</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><span>Users</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li class="nav-item"><a href="#" data-url='@Url.Action("PartialIndex", "ManageUsers")' class="nav-link">Manage Users</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><span>Categories</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li class="nav-item"><a href="#" data-url='@Url.Action("PartialIndex", "Categories")' class="nav-link">Categories</a></li>
+                                    <li class="nav-item"><a href="#" data-url='@Url.Action("Create", "Categories")' class="nav-link">Create Category</a></li>
                                 </ul>
                             </div>
                         </li>

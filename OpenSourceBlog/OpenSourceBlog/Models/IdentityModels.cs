@@ -29,5 +29,7 @@ namespace OpenSourceBlog.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<OpenSourceBlog.Database.Models.Profile> Profiles { get; set; }
     }
 }

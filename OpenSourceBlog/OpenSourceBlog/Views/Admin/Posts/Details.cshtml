@@ -19,32 +19,31 @@
         </h1>
         <p>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl();" class="rounded-corners" alt="Avatar" style="width:30px">
                 By @Html.DisplayFor(model => model.Author)  <i>@Html.DisplayFor(model => model.DateCreated)</i>
                 @*if the modified time is not empty then display it
-                @if (!(model.DateModified.ToString().Equals(String.Empty)))
-                {
-                    <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
-                }*@
+                    @if (!(model.DateModified.ToString().Equals(String.Empty)))
+                    {
+                        <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
+                    }*@
             </div>
         </p>
         @*<p>
-            Rating: @Html.DisplayFor(modelItem => item.Rating)
-        </p>*@
+                Rating: @Html.DisplayFor(modelItem => item.Rating)
+            </p>*@
         <p><p></p>
-            <i>@Html.DisplayFor(model => model.Description)</i>
+        <i>@Html.DisplayFor(model => model.Description)</i>
         </p>
         <hr>
         <p>
-            @Html.Raw(@Html.DisplayFor(model => model.PostContent))
+            @Html.Raw(Model.PostContent)
         </p>
         <hr>
-        <script src="md5.js"></script>
-        <script>md5("thiennguyen209@gmail.com");</script>
         <div>
-            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:100px">
+            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200 "onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.Author)');" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:100px">
             @Html.DisplayFor(model => model.Author)
         </div>
+
     </div>
-    
+
 </article>
