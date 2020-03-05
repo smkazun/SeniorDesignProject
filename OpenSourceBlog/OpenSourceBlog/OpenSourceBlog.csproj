@@ -91,9 +91,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -106,12 +103,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -209,25 +200,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="Controllers\ProfilesController.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
-    <Compile Include="Database\Interfaces\ICategoryRepository.cs" />
-    <Compile Include="Database\Interfaces\IBlogRepository.cs" />
-    <Compile Include="Database\Interfaces\IPageRepository.cs" />
-    <Compile Include="Database\Interfaces\IRoleRepository.cs" />
-    <Compile Include="Database\Interfaces\IUserRoleRepository.cs" />
-    <Compile Include="Database\Interfaces\IStopWordRepository.cs" />
-    <Compile Include="Database\Interfaces\ISettingRepository.cs" />
-    <Compile Include="Database\Interfaces\IRightRoleRepository.cs" />
-    <Compile Include="Database\Interfaces\IRightRepository.cs" />
-    <Compile Include="Database\Interfaces\IProfileRepository.cs" />
-    <Compile Include="Database\Interfaces\IPostTagRepository.cs" />
-    <Compile Include="Database\Interfaces\IPostNotifyRepository.cs" />
-    <Compile Include="Database\Interfaces\IPostCommentRepository.cs" />
-    <Compile Include="Database\Interfaces\IPostCategoryRepository.cs" />
-    <Compile Include="Database\Interfaces\IPostRepository.cs" />
-    <Compile Include="Database\Interfaces\IRepository.cs" />
-    <Compile Include="Database\Interfaces\IUserRepository.cs" />
+    <Compile Include="Database\Interfaces\IGenericRepository.cs" />
     <Compile Include="Database\Models\AspNetRole.cs" />
     <Compile Include="Database\Models\AspNetUser.cs" />
     <Compile Include="Database\Models\AspNetUserRole.cs" />
@@ -244,22 +219,7 @@
     <Compile Include="Database\Models\RightRole.cs" />
     <Compile Include="Database\Models\Setting.cs" />
     <Compile Include="Database\Models\StopWord.cs" />
-    <Compile Include="Database\Repositories\BlogRepository.cs" />
-    <Compile Include="Database\Repositories\CategoryRepository.cs" />
-    <Compile Include="Database\Repositories\PageRepository.cs" />
-    <Compile Include="Database\Repositories\PostCategoryRepository.cs" />
-    <Compile Include="Database\Repositories\PostCommentRepository.cs" />
-    <Compile Include="Database\Repositories\PostNotifyRepository.cs" />
-    <Compile Include="Database\Repositories\PostRepository.cs" />
-    <Compile Include="Database\Repositories\PostTagRepository.cs" />
-    <Compile Include="Database\Repositories\ProfileRepository.cs" />
-    <Compile Include="Database\Repositories\RightRepository.cs" />
-    <Compile Include="Database\Repositories\RightRoleRepository.cs" />
-    <Compile Include="Database\Repositories\RoleRepository.cs" />
-    <Compile Include="Database\Repositories\SettingRepository.cs" />
-    <Compile Include="Database\Repositories\StopWordRepository.cs" />
-    <Compile Include="Database\Repositories\UserRepository.cs" />
-    <Compile Include="Database\Repositories\UserRoleRepository.cs" />
+    <Compile Include="Database\Repositories\GenericRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,7 +228,6 @@
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -717,7 +676,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_AdminNavBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Scripts\md5.js" />
+    <Content Include="Views\md5" />
     <Content Include="Views\Admin\Posts\Index.cshtml" />
     <Content Include="Views\Admin\Posts\Create.cshtml" />
     <Content Include="Views\Admin\Posts\Edit.cshtml" />
@@ -726,20 +685,12 @@
     <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
     <Content Include="Views\Admin\ManageUsers\Edit.cshtml" />
     <Content Include="Views\Admin\PostIndex.cshtml" />
-    <Content Include="Views\Profiles\Index.cshtml" />
-    <Content Include="Views\Profiles\Details.cshtml" />
     <Content Include="Views\Admin\Themes\AdminSidebar.cshtml" />
     <Content Include="Views\Admin\Themes\Layout.cshtml" />
-    <Content Include="Views\Admin\ManageUsers\ManageUsersIndex.cshtml" />
-    <Content Include="Views\Admin\Categories\CategoriesIndex.cshtml" />
-    <Content Include="Views\Admin\Categories\Index.cshtml" />
-    <Content Include="Views\Admin\Categories\Details.cshtml" />
-    <Content Include="Views\Admin\Categories\Create.cshtml" />
-    <Content Include="Views\Admin\Categories\Edit.cshtml" />
-    <Content Include="Views\Admin\Categories\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Categories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
