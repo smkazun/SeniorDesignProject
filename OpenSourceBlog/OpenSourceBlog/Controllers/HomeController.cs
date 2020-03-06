@@ -8,6 +8,7 @@ using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 using OpenSourceBlog.DAL;
+using System.Net;
 
 namespace OpenSourceBlog.Controllers
 {
@@ -75,61 +76,32 @@ namespace OpenSourceBlog.Controllers
         [HttpGet]
         public ActionResult postSort(int? id)
         {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             List<Post> unsortedList;
             List<Post> sortedList;
             switch (id)
             {
                 case 1: //most recent
                     unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-                    sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
                     break;
                 case 2: //least recent
                     unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-                    sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
                     break;
                 case 3: //highest rated
                     unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
                     sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
                     break;
-                default: //most recent
-                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-                    sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
-                    break;
-
+                default: throw new ArgumentOutOfRangeException();
             }
 
             return View("Index", sortedList);
         }
-
-
-        /*
-        [HttpGet]
-        public ActionResult leastRecentSort()
-        {
-            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-            List<Post> sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
-
-            return View("Index", sortedList);
-        }
-        
-        [HttpGet]
-        public ActionResult mostRecentSort()
-        {
-            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-            List<Post> sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
-            
-            return View("Index", sortedList);
-        }
-
-        [HttpGet]
-        public ActionResult highestRatedSort()
-        {
-            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-            List<Post> sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
-
-            return View("Index", sortedList);
-        }
-        */
 
     }
 

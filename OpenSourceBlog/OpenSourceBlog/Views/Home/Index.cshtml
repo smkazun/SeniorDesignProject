@@ -49,11 +49,11 @@
             });
     </script>
     <div class="row">
-        @Html.ActionLink("Most Recent", "mostRecentSort", "Home")
+        @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
         <div class="verticalLine"></div>
-        @Html.ActionLink("Least Recent", "leastRecentSort", "Home")
+        @Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)
         <div class="verticalLine"></div>
-        @Html.ActionLink("Highest Rated", "highestRatedSort", "Home")
+        @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
 
     </div>
    
