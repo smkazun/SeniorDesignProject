@@ -35,10 +35,10 @@ namespace OpenSourceBlog.DAL
         {
             _context = context;
         }
-       /* public UnitOfWork()
+        public UnitOfWork()
         {
             _context = new ApplicationContext();
-        } */
+        }
 
         public void Save()
         {

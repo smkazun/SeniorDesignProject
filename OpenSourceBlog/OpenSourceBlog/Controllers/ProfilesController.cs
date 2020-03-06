@@ -15,13 +15,13 @@ namespace OpenSourceBlog.Controllers
 {
     public class ProfilesController : Controller
     {
-        private IProfileRepository db;
+        private IProfileRepository profiledb;
         private IUserRepository userdb;
         private IPostRepository postdb;
 
-        public ProfilesController(IProfileRepository db, IUserRepository userdb, IPostRepository postdb)
+        public ProfilesController(IProfileRepository profiledb, IUserRepository userdb, IPostRepository postdb)
         {
-            this.db = db;
+            this.profiledb = profiledb;
             this.userdb = userdb;
             this.postdb = postdb;
         }
@@ -41,7 +41,8 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Get(id);
+            //Profile profile = db.Get(id);
+            Profile profile = profiledb.Get(1);
             if (profile == null)
             {
                 return HttpNotFound();
@@ -52,7 +53,8 @@ namespace OpenSourceBlog.Controllers
         public ActionResult getAuthorId(string email)
         {
             AspNetUser user = userdb.FindByUserName(email);
-            return Details(user.Id);
+            //return Details(user.Id);
+            return Details(1);
         }
         /*
         // GET: Profiles/Create
