@@ -71,6 +71,38 @@ namespace OpenSourceBlog.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public ActionResult postSort(int? id)
+        {
+            List<Post> unsortedList;
+            List<Post> sortedList;
+            switch (id)
+            {
+                case 1: //most recent
+                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
+                    sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    break;
+                case 2: //least recent
+                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
+                    sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    break;
+                case 3: //highest rated
+                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
+                    sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
+                    break;
+                default: //most recent
+                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
+                    sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    break;
+
+            }
+
+            return View("Index", sortedList);
+        }
+
+
+        /*
         [HttpGet]
         public ActionResult leastRecentSort()
         {
@@ -97,6 +129,7 @@ namespace OpenSourceBlog.Controllers
 
             return View("Index", sortedList);
         }
+        */
 
     }
 
