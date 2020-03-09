@@ -3,39 +3,47 @@
     ViewBag.Title = "Register";
 }
 
-<h2  align="center" style="margin-top: 50px;">@ViewBag.Title</h2>
+<link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4 align="center">Create a new account</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group" align ="center">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group" align ="center">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group" align ="center">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group" align ="center">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-dark" value="Register" />
-        </div>
-    </div>
-}
+<h2 align="center" >@ViewBag.Title</h2>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<div class="registerForm" id="registerForm" align="center">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4 align="center">Create a new account</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group" align="center">
+            @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+            </div>
+        </div>
+        <br style="line-height: 8px;" />
+
+        <div class="form-group" align="center">
+            @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+            </div>
+        </div>
+        <br style="line-height: 8px;" />
+
+        <div class="form-group" align="center">
+            @*@Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+            </div>
+        </div>
+        <div class="form-group" align="center">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-dark" value="Register" />
+            </div>
+        </div>
+    }
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

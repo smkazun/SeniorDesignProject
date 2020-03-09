@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Models;
@@ -14,24 +15,20 @@ namespace OpenSourceBlog.Controllers
 {
     public class CategoriesController : Controller
     {
-//        private ApplicationDbContext db = new ApplicationDbContext();
-        private ICategoryRepository db;
+        //        private ApplicationDbContext db = new ApplicationDbContext();
+        //private IGenericRepository<Category, int> repo;
+        private UnitOfWork _unitOfWork;
 
-        public CategoriesController(ICategoryRepository db)
+        public CategoriesController(UnitOfWork unitOfWork)
         {
-            this.db = db;
+            //this.repo = db;
+            this._unitOfWork = unitOfWork;
         }
 
         // GET: Categories
         public ActionResult Index()
         {
-            return View("~/Views/Admin/Categories/CategoriesIndex.cshtml",db.GetAll());
-        }
-
-        // GET: Categories
-        public ActionResult PartialIndex()
-        {
-            return PartialView("~/Views/Admin/Categories/Index.cshtml",db.GetAll());
+            return View(_unitOfWork._categoryRepository.GetAll());
         }
 
         // GET: Categories/Details/5
@@ -41,18 +38,18 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
+            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/Categories/Details.cshtml", category);
+            return View(category);
         }
 
         // GET: Categories/Create
         public ActionResult Create()
         {
-            return View("~/Views/Admin/Categories/Create.cshtml");
+            return View();
         }
 
         // POST: Categories/Create
@@ -64,11 +61,12 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Create(category);
+                _unitOfWork._categoryRepository.Create(category);
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
-            return PartialView("~/Views/Admin/Categories/Create.cshtml", category);
+            return View(category);
         }
 
         // GET: Categories/Edit/5
@@ -78,12 +76,12 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
+            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/Categories/Edit.cshtml", category);
+            return View(category);
         }
 
         // POST: Categories/Edit/5
@@ -95,10 +93,11 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Update(category);
+                _unitOfWork._categoryRepository.Update(category);
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-            return PartialView("~/Views/Admin/Categories/Edit.cshtml", category);
+            return View(category);
         }
 
         // GET: Categories/Delete/5
@@ -108,12 +107,12 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
+            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/Categories/Delete.cshtml", category);
+            return View(category);
         }
 
         // POST: Categories/Delete/5
@@ -121,7 +120,8 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            db.Delete(id);
+            _unitOfWork._categoryRepository.Delete(id);
+            _unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
