@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
@@ -15,24 +16,27 @@ namespace OpenSourceBlog.Controllers
 {
     public class PostsController : Controller
     {
-        private IPostRepository db;
+        //private IGenericRepository<Post, int> repo;
+        private UnitOfWork _unitOfWork;
 
-        public PostsController(IPostRepository db)
+        public PostsController() { }
+
+        public PostsController(UnitOfWork unitOfWork)
         {
-            this.db = db;
+            _unitOfWork = unitOfWork;
         }
 
         [Authorize(Roles = "Administrators,Editors")]
         // GET: Posts
         public ActionResult Index()
         {
-            return View("~/Views/Admin/PostIndex.cshtml", db.GetAll());
+            return View("~/Views/Admin/PostIndex.cshtml", _unitOfWork._postRepository.GetAll());
         }
         [Authorize(Roles = "Administrators,Editors")]
         // GET: Posts
         public ActionResult PartialIndex()
         {
-            return PartialView("~/Views/Admin/Posts/Index.cshtml", db.GetAll());
+            return PartialView("~/Views/Admin/Posts/Index.cshtml", _unitOfWork._postRepository.GetAll());
         }
 
         // GET: Posts/Details/5
@@ -43,7 +47,7 @@ namespace OpenSourceBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Post post = db.Posts.Find(id);
-            Post post = db.Get(Convert.ToInt32(id));
+            Post post = _unitOfWork._postRepository.Get(Convert.ToInt32(id));
             if (post == null)
             {
                 return HttpNotFound();
@@ -68,7 +72,8 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Create(post);
+                _unitOfWork._postRepository.Create(post);
+                _unitOfWork.Save();
                  return RedirectToAction("Index");
             }
             Post emptyPost = new Post()
@@ -90,7 +95,7 @@ namespace OpenSourceBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Post post = db.Posts.Find(id);
-            Post post = db.Get(Convert.ToInt32(id));
+            Post post = _unitOfWork._postRepository.Get(Convert.ToInt32(id));
             if (post == null)
             {
                 return HttpNotFound();
@@ -108,7 +113,8 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Update(post);
+                _unitOfWork._postRepository.Update(post);
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View("~/Views/Admin/Posts/Edit.cshtml", post);
@@ -122,7 +128,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Get(Convert.ToInt32(id));
+            Post post = _unitOfWork._postRepository.Get(Convert.ToInt32(id));
             if (post == null)
             {
                 return HttpNotFound();
@@ -136,7 +142,8 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            db.Delete(id);
+            _unitOfWork._postRepository.Delete(id);
+            _unitOfWork.Save();
             return RedirectToAction("Index");
         }
 

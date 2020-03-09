@@ -8,8 +8,8 @@ using OpenSourceBlog.DAL;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class GenericRepository<T, U> : IGenericRepository<T, U> where T :class
-                                                                    where U :IConvertible //hack
+    public class GenericRepository<T, U> : IGenericRepository<T,U> where T :class
+                                                                   where U :IConvertible //hack
     {
         private readonly ApplicationContext _ctx;
         //private readonly UnitOfWork _unitOfWork;

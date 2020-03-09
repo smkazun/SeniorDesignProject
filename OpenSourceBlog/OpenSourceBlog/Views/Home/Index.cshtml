@@ -2,10 +2,8 @@
 ﻿@model IEnumerable<Post>
 @{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="jumbotron">
-    <h1>BETTERBLOGENGINE.NET</h1>
-</div>
 <style>
     img.rounded-corners {
         border-radius: 50%
@@ -35,16 +33,27 @@
         }
 
         function createAuthorURL(targetID) {
-            var URL = "/account/" + targetID;
+            var URL = "/profiles/details/" + targetID;
             return URL;
         }
+        $('.nav-link').on('click', function (evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+
+                var $detailDiv = $('#main_page_content'),
+                    url = $(this).data('url');
+
+                $.get(url, function (data) {
+                    $detailDiv.html(data);
+                });
+            });
     </script>
     <div class="row">
-        @Html.ActionLink("Most Recent", "mostRecentSort", "Home")
+        @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
         <div class="verticalLine"></div>
-        @Html.ActionLink("Least Recent", "leastRecentSort", "Home")
+        @Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)
         <div class="verticalLine"></div>
-        @Html.ActionLink("Highest Rated", "highestRatedSort", "Home")
+        @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
 
     </div>
    
@@ -62,12 +71,14 @@
     {
         <div class="Postbox">
             <h1>
-                <a href="#" style="color:#000000;" onclick="redirectURL(1,1); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
+                <a href="#" style="color:#000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
             </h1>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
-                By <a href="#" onclick="redirectURL(2,1); return false;">@Html.DisplayFor(modelItem => item.Author)</a>
-                <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
+                @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
+                    By @Html.ActionLink(item.Author, "getAuthorId", "Profiles")
+                
+                    <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@
                 @if (!item.DateModified.ToString().Equals(String.Empty))
                 {
@@ -83,7 +94,10 @@
             <hr>
             <p>
                 @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
-                <a href="#" class="font-weight-bold" onclick="redirectURL(1,1); return false;"> ...Continue Reading</a>
+                @if (item.PostContent.Length > 400)
+                {
+                        <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                }
             </p>
         </div>
     }

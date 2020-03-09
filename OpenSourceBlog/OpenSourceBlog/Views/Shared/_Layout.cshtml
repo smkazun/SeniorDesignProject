@@ -6,21 +6,23 @@
     <title>@ViewBag.Title - OpenSourceBlog</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/header")
+
+
+
 </head>
 <body>
     @Html.Partial("_NavBar")
-     <div class="container body-content">
-            @RenderBody()
-            <hr/>
-            <footer>
-                <p>&copy; @DateTime.Now.Year - OpenSourceBlog</p>
-            </footer>
-        </div> 
-    @*@RenderBody()*@
-
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - OpenSourceBlog</p>
+        </footer>
+    </div>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/opensourceblog")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

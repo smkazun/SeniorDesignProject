@@ -1,0 +1,92 @@
+﻿[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+}
+
+    [type="checkbox"]:not(:checked) + input + label,
+    [type="checkbox"]:checked + input + label {
+        position: relative;
+        top: -10px;
+        padding-left: 1.95em;
+        cursor: pointer;
+    }
+
+        /* checkbox aspect */
+        [type="checkbox"]:not(:checked) + input + label:before,
+        [type="checkbox"]:checked + input + label:before {
+            font-family: 'Font Awesome 5 Free';
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.75em;
+            height: 1.75em;
+            border: 2px solid #ccc;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+        }
+        /* checked mark aspect */
+        [type="checkbox"]:not(:checked) + input + label:after,
+        [type="checkbox"]:checked + input + label:after {
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f00c";
+            position: absolute;
+            top: .3em;
+            left: .16em;
+            font-size: 1.3em;
+            line-height: 0.8;
+            color: #537CE0;
+            transition: all .3s;
+        }
+        /* checked mark aspect changes */
+        [type="checkbox"]:not(:checked) + input + label:after {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        [type="checkbox"]:checked + input + label:after {
+            opacity: 1;
+            transform: scale(1);
+        }
+/* disabled checkbox */
+[type="checkbox"]:disabled:not(:checked) + input + label:before,
+[type="checkbox"]:disabled:checked + infput + label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #ddd;
+}
+
+[type="checkbox"]:disabled:checked + input +  label:after {
+    color: #999;
+}
+
+[type="checkbox"]:disabled + input + label {
+    color: #aaa;
+}
+
+/* Show it's not fixed to the top */
+body {
+    min-height: 75rem;
+    background-color: #6c7b88
+}
+
+.index_btns{
+    width: 100px;
+   margin-top:5px;
+}
+table{
+    color:white !important;
+    font-size: 1rem;
+}
+.row1 {
+    background-color: #343a40;
+}
+.row2 {
+    background-color: #61656d;
+}
+tr{
+    border-bottom: black 2px solid;
+}

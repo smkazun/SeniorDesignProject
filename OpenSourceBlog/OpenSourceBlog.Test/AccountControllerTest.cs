@@ -64,7 +64,7 @@ namespace OpenSourceBlog.Test
             var result = accountController.Register();
 
             //Assert
-            //Assert.AreEqual(result, Is.TypeOf<ViewResult>());
+            Assert.That(result, Is.TypeOf<ViewResult>());
 
 
 

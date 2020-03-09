@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Models;
@@ -14,18 +15,20 @@ namespace OpenSourceBlog.Controllers
 {
     public class CategoriesController : Controller
     {
-//        private ApplicationDbContext db = new ApplicationDbContext();
-        private ICategoryRepository db;
+        //        private ApplicationDbContext db = new ApplicationDbContext();
+        //private IGenericRepository<Category, int> repo;
+        private UnitOfWork _unitOfWork;
 
-        public CategoriesController(ICategoryRepository db)
+        public CategoriesController(UnitOfWork unitOfWork)
         {
-            this.db = db;
+            //this.repo = db;
+            this._unitOfWork = unitOfWork;
         }
 
         // GET: Categories
         public ActionResult Index()
         {
-            return View(db.GetAll());
+            return View(_unitOfWork._categoryRepository.GetAll());
         }
 
         // GET: Categories/Details/5
@@ -35,7 +38,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
+            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
@@ -58,7 +61,8 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Create(category);
+                _unitOfWork._categoryRepository.Create(category);
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -72,7 +76,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
+            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
@@ -89,7 +93,8 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Update(category);
+                _unitOfWork._categoryRepository.Update(category);
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -102,7 +107,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Get(Convert.ToInt32(id));
+            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
             if (category == null)
             {
                 return HttpNotFound();
@@ -115,7 +120,8 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            db.Delete(id);
+            _unitOfWork._categoryRepository.Delete(id);
+            _unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
