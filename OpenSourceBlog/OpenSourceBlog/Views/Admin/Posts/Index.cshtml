@@ -10,47 +10,55 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Edit", "Posts", new {id = item.PostRowId})'>Edit</button>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Details", "Posts", new {id = item.PostRowId})'>Details</button>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Delete", "Posts", new {id = item.PostRowId})'>Delete</button>
-            </td>
+<div class="table-responsive">
+    <table class="table">
+        <tr class="row2">
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPublished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th></th><th></th><th></th>
         </tr>
-    }
+        @{ bool color_switch = false;}
+        @foreach (var item in Model)
+        {
+            <tr @if (color_switch == false) { @: class="row1"
+                color_switch = true; } else { @: class="row2"
+                color_switch = false; }>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPublished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    <button class="btn btn-secondary partial-view index_btns" href="#" data-url='@Url.Action("Edit", "Posts", new {id = item.PostRowId})'>Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-secondary partial-view index_btns" href="#" data-url='@Url.Action("Details", "Posts", new {id = item.PostRowId})'>Details</button>
+                    </td>
+                <td>
+                    <button class="btn btn-secondary partial-view index_btns" href="#" data-url='@Url.Action("Delete", "Posts", new {id = item.PostRowId})'>Delete</button>
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
 <script>
     $('.partial-view').on('click', function (evt) {
         evt.preventDefault();

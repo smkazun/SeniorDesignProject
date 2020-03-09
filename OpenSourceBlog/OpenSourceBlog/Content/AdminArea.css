@@ -70,4 +70,23 @@
 /* Show it's not fixed to the top */
 body {
     min-height: 75rem;
+    background-color: #6c7b88
+}
+
+.index_btns{
+    width: 100px;
+   margin-top:5px;
+}
+table{
+    color:white !important;
+    font-size: 1rem;
+}
+.row1 {
+    background-color: #343a40;
+}
+.row2 {
+    background-color: #61656d;
+}
+tr{
+    border-bottom: black 2px solid;
 }

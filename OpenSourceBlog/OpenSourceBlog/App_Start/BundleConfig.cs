@@ -31,6 +31,9 @@ namespace OpenSourceBlog
                       "~/Scripts/ckeditor/adapters/jquery.js",
                       "~/Scripts/md5.js",
                       "~/Scripts/mylibs/opensourceblog.js"));
+            bundles.Add(new ScriptBundle("~/bundles/header").Include(
+                      "~/Scripts/md5.js",
+                      "~/Scripts/mylibs/header.js"));
         }
     }
 }
