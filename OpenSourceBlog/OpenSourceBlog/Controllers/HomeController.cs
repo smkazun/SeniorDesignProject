@@ -81,20 +81,17 @@ namespace OpenSourceBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List<Post> unsortedList;
+            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
             List<Post> sortedList;
             switch (id)
             {
                 case 1: //most recent
-                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
                     sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
                     break;
                 case 2: //least recent
-                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
                     sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
                     break;
                 case 3: //highest rated
-                    unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
                     sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
                     break;
                 default: throw new ArgumentOutOfRangeException();
