@@ -7,23 +7,32 @@ using OpenSourceBlog.Database;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
-
+using OpenSourceBlog.DAL;
+using System.Data.Entity;
 
 namespace OpenSourceBlog.Controllers
 {
     public class HomeController : Controller
     {
-        //private ApplicationContext db = new ApplicationContext();
-        private IPostRepository db;
+        private UnitOfWork _unitOfWork;
 
-        public HomeController(IPostRepository db)
+        public HomeController() 
         {
-            this.db = db;
+            //this.repo = new GenericRepository<Post, int>();
+
+        }
+
+
+        public HomeController(UnitOfWork unitOfWork)
+        {
+            //this.repo = db;
+            this._unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            List<Post> fullList = (List<Post>) db.GetAll();
+            
+            List<Post> fullList = (List<Post>) _unitOfWork._postRepository.GetAll();
             List<Post> resultList = new List<Post>();
 
             //display published posts only
@@ -40,7 +49,7 @@ namespace OpenSourceBlog.Controllers
 
         public ActionResult Archive()
         {
-            List<Post> fullList = (List<Post>)db.GetAll();
+            List<Post> fullList = (List<Post>) _unitOfWork._postRepository.GetAll();
             List<Post> resultList = new List<Post>();
             for (int i = fullList.Count - 1; i > -1; i--)
                 if (fullList[i].IsDeleted == true && fullList[i].BlogId == GlobalVars.BlogId)
@@ -67,7 +76,7 @@ namespace OpenSourceBlog.Controllers
         [HttpGet]
         public ActionResult leastRecentSort()
         {
-            List<Post> unsortedList = (List<Post>)db.GetAll();
+            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
             List<Post> sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
 
             return View("Index", sortedList);
@@ -76,7 +85,7 @@ namespace OpenSourceBlog.Controllers
         [HttpGet]
         public ActionResult mostRecentSort()
         {
-            List<Post> unsortedList = (List<Post>)db.GetAll();
+            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
             List<Post> sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
             
             return View("Index", sortedList);
@@ -85,7 +94,7 @@ namespace OpenSourceBlog.Controllers
         [HttpGet]
         public ActionResult highestRatedSort()
         {
-            List<Post> unsortedList = (List<Post>)db.GetAll();
+            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
             List<Post> sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
 
             return View("Index", sortedList);
