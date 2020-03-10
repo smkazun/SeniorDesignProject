@@ -18,7 +18,7 @@ namespace OpenSourceBlog.Test
     [TestClass]
     public class SettingsControllerTest
     {
-        private SettingRepository repo;
+        private IGenericRepository<Setting, int> repo;
         private TestContext testContextInstance;
 
         private List<Setting> settingsList;
@@ -26,7 +26,7 @@ namespace OpenSourceBlog.Test
         [TestInitialize]
         public void TestSetup()
         {
-            repo = new SettingRepository();
+            repo = new GenericRepository<Setting, int>();
 
 
 
@@ -98,7 +98,7 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestIndexView()
         {
-            var mockRepo = new Mock<ISettingRepository>();
+            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var controller = new SettingsController(mockRepo.Object);
 

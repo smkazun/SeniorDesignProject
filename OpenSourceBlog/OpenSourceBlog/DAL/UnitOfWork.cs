@@ -4,6 +4,7 @@ using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -40,9 +41,28 @@ namespace OpenSourceBlog.DAL
             _context = new ApplicationContext();
         }
 
+
         public void Save()
         {
-            _context.SaveChanges();
+
+            bool saveFailed;
+            do
+            {
+                saveFailed = false;
+
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    saveFailed = true;
+
+                    // Update the values of the entity that failed to save from the store
+                    ex.Entries.Single().Reload();
+                }
+
+            } while (saveFailed);
         }
 
         public void Dispose()

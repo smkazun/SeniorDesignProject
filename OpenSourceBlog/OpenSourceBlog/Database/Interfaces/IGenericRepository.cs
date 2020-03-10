@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenSourceBlog.Database.Models;
+using System;
 using System.Collections.Generic;
 
 namespace OpenSourceBlog.Database.Interfaces
@@ -11,6 +12,8 @@ namespace OpenSourceBlog.Database.Interfaces
         void Create(T entity);
         void Update(T entity);
         void Delete(U id);
+
+        IEnumerable<Setting> GetSettings();
 
     }
 }

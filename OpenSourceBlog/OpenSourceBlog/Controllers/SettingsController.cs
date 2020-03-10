@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
@@ -13,64 +14,78 @@ namespace OpenSourceBlog.Controllers
     [Authorize(Roles = "Administrators,Editors")]
     public class SettingsController : Controller
     {
-        private ISettingRepository db;
-        private ModelStateDictionary _modelState;
+        private UnitOfWork _unitOfWork;
         private static readonly HashSet<string> AllTimeZoneIds = new HashSet<string>(TimeZoneInfo.GetSystemTimeZones()
-                                                                                                 .Select(tz => tz.Id));
+                                                                                                 .Select(tz => tz.DisplayName));
 
-        public SettingsController(ISettingRepository db)
+        public SettingsController(UnitOfWork uow)
         {
-            this.db = db;
+            this._unitOfWork = uow;
         }
 
         //Initial Page
         // GET: Settings
         public ActionResult Index()
         {
-            return View("Index", db.GetSettings()); //need getBasicSettings. possible?
+            return View("Index", _unitOfWork._settingRepository.GetSettings()); 
         }
 
 
         // GET: Settings/ManageSettings
         public ActionResult ManageSettings()
         {
-            return View("ManageSettings", db.GetSettings());
+            return View("ManageSettings", _unitOfWork._settingRepository.GetSettings());
         }
 
         // POST: Settings/ManageSettings
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ManageSettings([Bind(Include = "SettingName, SettingValue")] List<Setting> settings)
+        public ActionResult ManageSettings([Bind(Include = "SettingRowId, BlogId, SettingName, SettingValue")] List<Setting> settings)
         {
+            
             if (ModelState.IsValid)
             {
                 foreach(Setting setting in settings)
                 {
-                    if(setting.SettingName.Equals("# posts per page") && int.TryParse(setting.SettingValue, out int j))
+                    
+                    //Setting s = _unitOfWork._settingRepository.Get(setting.SettingRowId);
+                    if (setting.SettingName.Equals("# posts per page"))
                     {
-                        db.Update(setting);
+                        if(int.TryParse(setting.SettingValue, out int j))
+                        {
+                            _unitOfWork._settingRepository.Update(setting);
+                            //_unitOfWork.Save();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(String.Empty, "Must be an integer");
+                        }
+                    }
+                    else if (setting.SettingName.Equals("Timezone"))
+                    {
+                        if(!AllTimeZoneIds.Contains(setting.SettingValue))
+                        {
+                            _unitOfWork._settingRepository.Update(setting);
+                            //_unitOfWork.Save();
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("test","Must be a valid timezone format");
+                        }
+                        
                     }
                     else
                     {
-                        _modelState.AddModelError("Number of posts", "Must be an integer");
-                        //could not be parsed
+                        _unitOfWork._settingRepository.Update(setting);
+                        //_unitOfWork.Save();
                     }
+                   
+                    //_unitOfWork._settingRepository.Update(setting);
+                    //_unitOfWork.Save();
 
-                    if (setting.SettingName.Equals("Timezone") && AllTimeZoneIds.Contains(setting.SettingValue))
-                    {
-                        db.Update(setting);
-                    }
-                    else
-                    {
-                        _modelState.AddModelError("Timezone", "Must be a valid timezone format");
-                        //not a timezone
-                    }
-
-
-                    db.Update(setting);
                 }
-
-                return View("Index", settings); //redirect
+                _unitOfWork.Save();
+                return View("ManageSettings", settings); //redirect
                 
             }
 

@@ -4,15 +4,13 @@
     Layout = "~/Views/Shared/_AdminNavBar.cshtml";
 }
 
-    <style>
+<style>
 
-        #saveButton{
-            margin-top: 10px;
-        }
+    #saveButton {
+        margin-top: 10px;
+    }
+</style>
 
-  
-    </style>
-   
 
 
 
@@ -24,7 +22,7 @@
 
     @Html.AntiForgeryToken()
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
 
     for (int i = 0; i < Model.Count(); i++)
@@ -37,7 +35,7 @@
             @Html.LabelFor(m => m[i].BlogId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
                 @Html.EditorFor(m => m[i].BlogId, new { htmlAttributes = new { @class = "form-group row form-control", @Value = GlobalVars.BlogId } })
-                @Html.ValidationMessageFor(m => m[i].BlogId, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(m => m[i].BlogId, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -45,7 +43,7 @@
             @Html.DisplayFor(m => m[i].SettingName)
             <div class="col-md-10">
                 @Html.EditorFor(m => m[i].SettingName, new { htmlAttributes = new { @class = "form-group row form-control" } })
-                @Html.ValidationMessageFor(m => m[i].SettingName, "", new { @class = "text-danger" })
+                @* @Html.ValidationMessageFor(m => m[i].SettingName, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -53,7 +51,7 @@
             @Html.DisplayFor(m => m[i].SettingRowId)
             <div class="col-md-10">
                 @Html.EditorFor(m => m[i].SettingRowId, new { htmlAttributes = new { @class = "form-group row form-control" } })
-                @Html.ValidationMessageFor(m => m[i].SettingRowId, "", new { @class = "text-danger" })
+                @*@Html.ValidationMessageFor(m => m[i].SettingRowId, "", new { @class = "text-danger" })*@
             </div>
         </div>
         @*HIDDEN--------------------*@
@@ -69,20 +67,20 @@
                 @if (Model[i].SettingName == "Blog Title")
                 {
                     @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required" } })
-                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
 
                 }
                 else if (Model[i].SettingName == "Blog Description")
                 {
 
                     @Html.TextAreaFor(m => m[i].SettingValue, 4, 100, new { @class = "form-group row form-control blogDescription", @style = "max-width: 60%;" })
-                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
 
                 }
                 else if (Model[i].SettingName == "# posts per page")
                 {
                     @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required", min = "0", name = "number", type = "number" } })
-                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
                 }
                 else if (Model[i].SettingName == "Blog Language")
                 {
@@ -94,21 +92,22 @@
                            new SelectListItem {Text = "Polish", Value = "Polish" },
                        }, "Select Language", new { @class = "form-control row form-control settingValue", @style = "width: 60%; max-width: 100%;" })
 
-                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
                 }
                 else if (Model[i].SettingName == "Timezone")
                 {
                     @Html.DropDownListFor(m => m[i].SettingValue, new SelectList(TimeZoneInfo.GetSystemTimeZones(), "DisplayName", "DisplayName", Model[i].SettingValue),
                            "Select Timezone", new { @class = "form-control row form-control settingValue", @style = "width: 60%; max-width: 100%; margin-top: 5px;" })
 
-                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                    @* @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
 
                 }
                 else
                 {
                     //defualt
                     @Html.EditorFor(m => m[i].SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;" } })
-                    @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })
+                    @*@Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
+
                 }
 
             </div>

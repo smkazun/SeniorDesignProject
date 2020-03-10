@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.DAL;
+using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
@@ -47,7 +48,8 @@ namespace OpenSourceBlog.Database.Repositories
         public void Update(T entity)
         {
             _ctx.Entry(entity).State = EntityState.Modified;
-           // _ctx.SaveChanges();
+            
+            // _ctx.SaveChanges();
         }
 
         public void Delete(U id)
@@ -55,6 +57,13 @@ namespace OpenSourceBlog.Database.Repositories
             T existing = Get(id);
             _ctx.Set<T>().Remove(existing);
            // _ctx.SaveChanges();
+        }
+
+        //TODO: move
+        public IEnumerable<Setting> GetSettings()
+        {
+            //AsNoTracking()
+            return _ctx.Settings.Where(x => x.BlogId == GlobalVars.BlogId).ToList();
         }
 
     }
