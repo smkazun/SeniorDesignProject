@@ -9,6 +9,7 @@ using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Interfaces;
 using Moq;
 using System.Linq;
+using OpenSourceBlog.DAL;
 
 namespace OpenSourceBlog.Test
 {
@@ -121,14 +122,17 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestIndexMostRecentViewData()
         {
+            
             // Arrange
-            var mockRepo = new Mock<IPostRepository>();
-            mockRepo.Setup(repo => repo.GetAll())
-                .Returns(GetPosts());
-            var controller = new HomeController(mockRepo.Object);
+            var mockRepo = new Mock<IGenericRepository<Post, int>>();
+            mockRepo.Setup(repo => repo.GetAll()).Returns(GetPosts());
+            var uow = new Mock<IUnitOfWork>();
+            uow.Setup(u => u.GenericRepository<Post, int>()).Returns(mockRepo.Object);
+
+            var controller = new HomeController(uow.Object);
 
             // Act
-            var result = controller.mostRecentSort() as ViewResult;
+            var result = controller.postSort(1) as ViewResult;
 
             // Assert
             var post = (List<Post>)result.ViewData.Model;
@@ -141,13 +145,14 @@ namespace OpenSourceBlog.Test
         public void TestIndexLeastRecentViewData()
         {
             // Arrange
-            var mockRepo = new Mock<IPostRepository>();
-            mockRepo.Setup(repo => repo.GetAll())
-                .Returns(GetPosts());
-            var controller = new HomeController(mockRepo.Object);
+            var mockRepo = new Mock<IGenericRepository<Post, int>>();
+            mockRepo.Setup(repo => repo.GetAll()).Returns(GetPosts());
+            var uow = new Mock<IUnitOfWork>();
+            uow.Setup(u => u.GenericRepository<Post, int>()).Returns(mockRepo.Object);
+            var controller = new HomeController(uow.Object);
 
             // Act
-            var result = controller.leastRecentSort() as ViewResult;
+            var result = controller.postSort(2) as ViewResult;
 
             // Assert
             var post = (List<Post>)result.ViewData.Model;
@@ -160,13 +165,14 @@ namespace OpenSourceBlog.Test
         public void TestIndexHighestRatedViewData()
         {
             // Arrange
-            var mockRepo = new Mock<IPostRepository>();
-            mockRepo.Setup(repo => repo.GetAll())
-                .Returns(GetPosts());
-            var controller = new HomeController(mockRepo.Object);
+            var mockRepo = new Mock<IGenericRepository<Post, int>>();
+            mockRepo.Setup(repo => repo.GetAll()).Returns(GetPosts());
+            var uow = new Mock<IUnitOfWork>();
+            uow.Setup(u => u.GenericRepository<Post, int>()).Returns(mockRepo.Object);
+            var controller = new HomeController(uow.Object);
 
             // Act
-            var result = controller.highestRatedSort() as ViewResult;
+            var result = controller.postSort(3) as ViewResult;
 
             // Assert
             var post = (List<Post>)result.ViewData.Model;

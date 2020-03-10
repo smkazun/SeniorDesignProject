@@ -8,6 +8,7 @@ using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 using OpenSourceBlog.DAL;
+using System.Net;
 
 namespace OpenSourceBlog.Controllers
 {
@@ -71,29 +72,30 @@ namespace OpenSourceBlog.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult leastRecentSort()
-        {
-            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-            List<Post> sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
-
-            return View("Index", sortedList);
-        }
-        
-        [HttpGet]
-        public ActionResult mostRecentSort()
-        {
-            List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-            List<Post> sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
-            
-            return View("Index", sortedList);
-        }
 
         [HttpGet]
-        public ActionResult highestRatedSort()
+        public ActionResult postSort(int? id)
         {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             List<Post> unsortedList = (List<Post>)_unitOfWork._postRepository.GetAll();
-            List<Post> sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
+            List<Post> sortedList;
+            switch (id)
+            {
+                case 1: //most recent
+                    sortedList = unsortedList.OrderByDescending(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    break;
+                case 2: //least recent
+                    sortedList = unsortedList.OrderBy(x => x.DateCreated).Where(x => x.IsPublished == true).ToList();
+                    break;
+                case 3: //highest rated
+                    sortedList = unsortedList.OrderByDescending(x => x.Rating).Where(x => x.IsPublished == true).ToList();
+                    break;
+                default: throw new ArgumentOutOfRangeException();
+            }
 
             return View("Index", sortedList);
         }

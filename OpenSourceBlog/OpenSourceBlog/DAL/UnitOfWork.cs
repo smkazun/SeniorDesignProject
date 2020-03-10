@@ -9,7 +9,7 @@ using System.Web;
 
 namespace OpenSourceBlog.DAL
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplicationContext _context;
 

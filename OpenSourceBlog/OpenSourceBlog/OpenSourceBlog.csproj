@@ -200,8 +200,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="Controllers\ProfilesController.cs" />
-    <Compile Include="Controllers\SiteSettingsController.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\IGenericRepository.cs" />
@@ -222,8 +221,6 @@
     <Compile Include="Database\Models\Setting.cs" />
     <Compile Include="Database\Models\StopWord.cs" />
     <Compile Include="Database\Repositories\GenericRepository.cs" />
-    <Compile Include="Database\Repositories\ProfileRepository.cs" />
-    <Compile Include="Database\Repositories\UserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,7 +229,6 @@
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
