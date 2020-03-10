@@ -14,11 +14,11 @@ namespace OpenSourceBlog.Controllers
     [Authorize(Roles = "Administrators,Editors")]
     public class SettingsController : Controller
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private static readonly HashSet<string> AllTimeZoneIds = new HashSet<string>(TimeZoneInfo.GetSystemTimeZones()
                                                                                                  .Select(tz => tz.DisplayName));
 
-        public SettingsController(UnitOfWork uow)
+        public SettingsController(IUnitOfWork uow)
         {
             this._unitOfWork = uow;
         }

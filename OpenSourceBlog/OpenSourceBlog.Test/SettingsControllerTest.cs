@@ -9,6 +9,8 @@ using OpenSourceBlog.Controllers;
 using Moq;
 using OpenSourceBlog.Database.Interfaces;
 using System.Data.Entity;
+using OpenSourceBlog.DAL;
+using OpenSourceBlog.Database;
 
 namespace OpenSourceBlog.Test
 {
@@ -100,7 +102,10 @@ namespace OpenSourceBlog.Test
         {
             var mockRepo = new Mock<IGenericRepository<Setting, int>>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
-            var controller = new SettingsController(mockRepo.Object);
+            var mockuow = new Mock<IUnitOfWork>();
+            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+
+            var controller = new SettingsController(mockuow.Object);
 
             var result = controller.Index() as ViewResult;
 
@@ -111,9 +116,13 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestManageSettingsView()
         {
-            var mockRepo = new Mock<ISettingRepository>();
+            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
-            var controller = new SettingsController(mockRepo.Object);
+            var mockuow = new Mock<IUnitOfWork>();
+            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            
+
+            var controller = new SettingsController(mockuow.Object);
 
             var result = controller.ManageSettings() as ViewResult;
 
@@ -125,9 +134,11 @@ namespace OpenSourceBlog.Test
         public void TestIndexViewData()
         {
             
-            var mockRepo = new Mock<ISettingRepository>();
+            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
-            var controller = new SettingsController(mockRepo.Object);
+            var mockuow = new Mock<IUnitOfWork>();
+            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            var controller = new SettingsController(mockuow.Object);
 
             var result = controller.Index() as ViewResult;
             var setting = (List<Setting>)result.ViewData.Model;
@@ -146,11 +157,12 @@ namespace OpenSourceBlog.Test
         public void TestManageSettingsViewData()
         {
 
-            var mockRepo = new Mock<ISettingRepository>();
-            //mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList); 
+            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
+            var mockuow = new Mock<IUnitOfWork>();
+            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
 
-           
-            var controller = new SettingsController(mockRepo.Object);
+            var controller = new SettingsController(mockuow.Object);
 
             var result = controller.ManageSettings(this.settingsList) as ViewResult;
             var setting = (List<Setting>)result.ViewData.Model;
@@ -173,14 +185,16 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestManageSettingsRedirect()
         {
-            var mockRepo = new Mock<ISettingRepository>();
+            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
-            
-            var controller = new SettingsController(mockRepo.Object);
+            var mockuow = new Mock<IUnitOfWork>();
+            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+
+            var controller = new SettingsController(mockuow.Object);
 
             var result = controller.ManageSettings(this.settingsList) as ViewResult;
 
-            Assert.AreEqual("Index", result.ViewName);          
+            Assert.AreEqual("ManageSettings", result.ViewName);          
 
         }
 
@@ -191,9 +205,11 @@ namespace OpenSourceBlog.Test
         public void TestManageSettingsInvalidModelState()
         {
             //if invalid model state, then use the default settings
-            var mockRepo = new Mock<ISettingRepository>();
+            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
-            var controller = new SettingsController(mockRepo.Object);
+            var mockuow = new Mock<IUnitOfWork>();
+            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            var controller = new SettingsController(mockuow.Object);
 
 
             controller.ModelState.AddModelError(String.Empty, "Error in modelstate");
