@@ -10,10 +10,9 @@ using OpenSourceBlog.Database.Models;
 namespace OpenSourceBlog.Database.Repositories
 {
     public class GenericRepository<T, U> : IGenericRepository<T,U> where T :class
-                                                                   where U :IConvertible //hack
+                                                                   where U :IConvertible
     {
-        private readonly ApplicationContext _ctx;
-        //private readonly UnitOfWork _unitOfWork;
+        protected readonly ApplicationContext _ctx;
 
         public GenericRepository()
         {
@@ -60,11 +59,12 @@ namespace OpenSourceBlog.Database.Repositories
         }
 
         //TODO: move
+        /*
         public IEnumerable<Setting> GetSettings()
         {
             //AsNoTracking()
             return _ctx.Settings.Where(x => x.BlogId == GlobalVars.BlogId).ToList();
-        }
+        }*/
 
     }
 }

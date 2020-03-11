@@ -27,14 +27,14 @@ namespace OpenSourceBlog.Controllers
         // GET: Settings
         public ActionResult Index()
         {
-            return View("Index", _unitOfWork._settingRepository.GetSettings()); 
+            return View("Index", _unitOfWork._settingsRepository.GetSettings()); 
         }
 
 
         // GET: Settings/ManageSettings
         public ActionResult ManageSettings()
         {
-            return View("ManageSettings", _unitOfWork._settingRepository.GetSettings());
+            return View("ManageSettings", _unitOfWork._settingsRepository.GetSettings());
         }
 
         // POST: Settings/ManageSettings
@@ -53,7 +53,7 @@ namespace OpenSourceBlog.Controllers
                     {
                         if(int.TryParse(setting.SettingValue, out int j))
                         {
-                            _unitOfWork._settingRepository.Update(setting);
+                            _unitOfWork._settingsRepository.Update(setting);
                             //_unitOfWork.Save();
                         }
                         else
@@ -63,9 +63,9 @@ namespace OpenSourceBlog.Controllers
                     }
                     else if (setting.SettingName.Equals("Timezone"))
                     {
-                        if(!AllTimeZoneIds.Contains(setting.SettingValue))
+                        if(AllTimeZoneIds.Contains(setting.SettingValue))
                         {
-                            _unitOfWork._settingRepository.Update(setting);
+                            _unitOfWork._settingsRepository.Update(setting);
                             //_unitOfWork.Save();
                         }
                         else
@@ -76,7 +76,7 @@ namespace OpenSourceBlog.Controllers
                     }
                     else
                     {
-                        _unitOfWork._settingRepository.Update(setting);
+                        _unitOfWork._settingsRepository.Update(setting);
                         //_unitOfWork.Save();
                     }
                    

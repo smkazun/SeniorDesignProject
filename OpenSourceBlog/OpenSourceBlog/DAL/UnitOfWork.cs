@@ -27,7 +27,7 @@ namespace OpenSourceBlog.DAL
         public IGenericRepository<Right, int> _rightRepository => new GenericRepository<Right, int>(_context);
         public IGenericRepository<RightRole, int> _rightRoleRepository => new GenericRepository<RightRole, int>(_context);
         public IGenericRepository<AspNetRole, string> _roleRepository => new GenericRepository<AspNetRole, string>(_context);
-        public IGenericRepository<Setting, int> _settingRepository => new GenericRepository<Setting, int>(_context);
+        public ISettingsRepository _settingsRepository => new SettingsRepository(_context);
         public IGenericRepository<StopWord, int> _stopWordRepository => new GenericRepository<StopWord, int>(_context);
         public IGenericRepository<AspNetUser, string> _userRepository => new GenericRepository<AspNetUser, string>(_context);
         public IGenericRepository<AspNetUserRole, string> _userRoleRepository => new GenericRepository<AspNetUserRole, string>(_context);

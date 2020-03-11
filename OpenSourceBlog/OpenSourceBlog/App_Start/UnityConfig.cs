@@ -1,5 +1,6 @@
 using System;
 using OpenSourceBlog.Controllers;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
@@ -52,7 +53,7 @@ namespace OpenSourceBlog
             container.RegisterType<ManageController>(new InjectionConstructor());
             //container.RegisterType<PostsController>(new InjectionConstructor());
 
-
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IGenericRepository<Blog, int>, GenericRepository<Blog, int>>();
             container.RegisterType<IGenericRepository<Category, int>, GenericRepository<Category, int>>();
             container.RegisterType<IGenericRepository<Page, int>, GenericRepository<Page, int>>();

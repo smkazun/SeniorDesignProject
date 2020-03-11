@@ -100,10 +100,10 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestIndexView()
         {
-            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            var mockRepo = new Mock<ISettingsRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var mockuow = new Mock<IUnitOfWork>();
-            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            mockuow.Setup(u => u._settingsRepository).Returns(mockRepo.Object);
 
             var controller = new SettingsController(mockuow.Object);
 
@@ -116,10 +116,10 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestManageSettingsView()
         {
-            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            var mockRepo = new Mock<ISettingsRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var mockuow = new Mock<IUnitOfWork>();
-            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            mockuow.Setup(u => u._settingsRepository).Returns(mockRepo.Object);
             
 
             var controller = new SettingsController(mockuow.Object);
@@ -134,10 +134,10 @@ namespace OpenSourceBlog.Test
         public void TestIndexViewData()
         {
             
-            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            var mockRepo = new Mock<ISettingsRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var mockuow = new Mock<IUnitOfWork>();
-            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            mockuow.Setup(u => u._settingsRepository).Returns(mockRepo.Object);
             var controller = new SettingsController(mockuow.Object);
 
             var result = controller.Index() as ViewResult;
@@ -157,10 +157,10 @@ namespace OpenSourceBlog.Test
         public void TestManageSettingsViewData()
         {
 
-            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            var mockRepo = new Mock<ISettingsRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var mockuow = new Mock<IUnitOfWork>();
-            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            mockuow.Setup(u => u._settingsRepository).Returns(mockRepo.Object);
 
             var controller = new SettingsController(mockuow.Object);
 
@@ -185,10 +185,10 @@ namespace OpenSourceBlog.Test
         [TestMethod]
         public void TestManageSettingsRedirect()
         {
-            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            var mockRepo = new Mock<ISettingsRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var mockuow = new Mock<IUnitOfWork>();
-            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            mockuow.Setup(u => u._settingsRepository).Returns(mockRepo.Object);
 
             var controller = new SettingsController(mockuow.Object);
 
@@ -205,10 +205,10 @@ namespace OpenSourceBlog.Test
         public void TestManageSettingsInvalidModelState()
         {
             //if invalid model state, then use the default settings
-            var mockRepo = new Mock<IGenericRepository<Setting, int>>();
+            var mockRepo = new Mock<ISettingsRepository>();
             mockRepo.Setup(repo => repo.GetSettings()).Returns(this.settingsList);
             var mockuow = new Mock<IUnitOfWork>();
-            mockuow.Setup(u => u._settingRepository).Returns(mockRepo.Object);
+            mockuow.Setup(u => u._settingsRepository).Returns(mockRepo.Object);
             var controller = new SettingsController(mockuow.Object);
 
 

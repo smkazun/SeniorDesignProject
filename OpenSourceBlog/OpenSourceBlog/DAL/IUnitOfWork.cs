@@ -26,7 +26,7 @@ namespace OpenSourceBlog.DAL
         IGenericRepository<Right, int> _rightRepository { get; }
         IGenericRepository<RightRole, int> _rightRoleRepository { get; }
         IGenericRepository<AspNetRole, string> _roleRepository { get; }
-        IGenericRepository<Setting, int> _settingRepository { get; }
+        ISettingsRepository _settingsRepository { get; }
         IGenericRepository<StopWord, int> _stopWordRepository { get; }
         IGenericRepository<AspNetUser, string> _userRepository { get; }
         IGenericRepository<AspNetUserRole, string> _userRoleRepository { get; }
