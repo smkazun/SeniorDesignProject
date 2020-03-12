@@ -2,29 +2,27 @@
 ﻿@model OpenSourceBlog.Database.Models.Post
 @{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <script>
-        document.write('<a href="' + document.referrer + '"><h5>Back</h5></a>');
-
-        function auto_grow(element) {
+<script>
+    function auto_grow(element) {
             element.style.height = "5px";
             element.style.height = (element.scrollHeight)+"px";
         }
-    </script>
-</div>
+</script>
 <style>
     img.rounded-corners {
         border-radius: 50%
-    }
+    } 
     textarea {
         resize: none;
         overflow: hidden;
         min-height: 50px;
         max-height: 100px;
+        width: 2000px;
     }
-</style>
 
+</style>
 <article class="news-article">
     <div class="Postbox">
         <h1>
@@ -32,7 +30,7 @@
         </h1>
         <p>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model=>model.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
                 By @Html.DisplayFor(model => model.Author)  <i>@Html.DisplayFor(model => model.DateCreated)</i>
                 @*if the modified time is not empty then display it
                     @if (!(model.DateModified.ToString().Equals(String.Empty)))
@@ -49,30 +47,21 @@
         </p>
         <hr>
         <p>
-            @Html.Raw(@Html.DisplayFor(model => model.PostContent))
+            @Html.Raw(Model.PostContent)
         </p>
         <hr>
-        <script src="~/Scripts/md5.js"></script>
-
         <div>
-            <img id="author_image" src="" class="rounded-corners" alt="Avatar" style="width:100px" />
+            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.Author)');" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:100px">
+            @Html.DisplayFor(model => model.Author)
         </div>
-        <script>
-            $(window).load(function (){
-                var author_email = md5("@Html.DisplayFor(model => model.Author)");
-                $("#author_image").attr("src", author_email);
-                console.log(author_email);
 
-            })
-
-        </script>
     </div>
     <div>
         <h4>Comments</h4>
         @if (User.Identity.IsAuthenticated)
         {
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:40px">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@User.Identity.Name');" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:50px">
                 <textarea class="span4" oninput="auto_grow(this)" placeholder="Type your comment"></textarea>
                 <div><button class="btn btn-info" type="submit">Post Comment</button></div>
             </div>
@@ -85,4 +74,5 @@
         }
         <hr>
     </div>
+
 </article>

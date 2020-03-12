@@ -10,12 +10,12 @@ namespace OpenSourceBlog.Test
     [TestClass]
     public class CategoryRepositoryTest : IRepositoryTest
     {
-        private CategoryRepository repo;
+        private GenericRepository<Category, int> repo;
 
         [TestInitialize]
         public void TestSetup()
         {
-            repo = new CategoryRepository();
+            repo = new GenericRepository<Category, int>();
         }
         [TestMethod]
         public void GetAll()

@@ -2,6 +2,7 @@
 ﻿@model IEnumerable<Post>
 @{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
     img.rounded-corners {
@@ -48,11 +49,11 @@
             });
     </script>
     <div class="row">
-        @Html.ActionLink("Most Recent", "mostRecentSort", "Home")
+        @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
         <div class="verticalLine"></div>
-        @Html.ActionLink("Least Recent", "leastRecentSort", "Home")
+        @Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)
         <div class="verticalLine"></div>
-        @Html.ActionLink("Highest Rated", "highestRatedSort", "Home")
+        @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
 
     </div>
    
@@ -73,9 +74,9 @@
                 <a href="#" style="color:#000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
             </h1>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" class="rounded-corners" alt="Avatar" style="width:30px">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
                 @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
-                    By @Html.ActionLink(item.Author, "getAuthorId", "Profiles", new { email = item.Author})
+                    By @Html.ActionLink(item.Author, "getAuthorId", "Profiles")
                 
                     <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@
@@ -93,7 +94,10 @@
             <hr>
             <p>
                 @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
-                <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                @if (item.PostContent.Length > 400)
+                {
+                        <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                }
             </p>
         </div>
     }
