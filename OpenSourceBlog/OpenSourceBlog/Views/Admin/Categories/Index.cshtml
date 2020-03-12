@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<OpenSourceBlog.Database.Models.Category>
 
-@{Layout = "~/Views/Shared/_AdminNavBar.cshtml";}
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/Layout.cshtml";
+}
+
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -25,30 +30,29 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BlogId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Edit", "Categories", new {id = item.CategoryId})'>Edit</button>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Details", "Categories", new {id = item.CategoryId})'>Details</button>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Delete", "Categories", new {id = item.CategoryId})'>Delete</button>
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BlogId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryRowId }, new { @class = "btn btn-secondary" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.CategoryRowId }, new { @class = "btn btn-secondary" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryRowId }, new { @class = "btn btn-secondary" })
+        </td>
+    </tr>
+}
 
 </table>
