@@ -210,6 +210,9 @@
     <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\ICategoryRepository.cs" />
     <Compile Include="Database\Interfaces\IBlogRepository.cs" />
@@ -737,6 +740,8 @@
     <Content Include="Views\Admin\Categories\Details.cshtml" />
     <Content Include="Views\Admin\Categories\Edit.cshtml" />
     <Content Include="Views\Admin\Categories\Index.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Settings\ManageSettings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
