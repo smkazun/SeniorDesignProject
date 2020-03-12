@@ -46,15 +46,13 @@ namespace OpenSourceBlog.Controllers
             if (ModelState.IsValid)
             {
                 foreach(Setting setting in settings)
-                {
-                    
-                    //Setting s = _unitOfWork._settingRepository.Get(setting.SettingRowId);
+                {                  
+
                     if (setting.SettingName.Equals("# posts per page"))
                     {
                         if(int.TryParse(setting.SettingValue, out int j))
                         {
                             _unitOfWork._settingsRepository.Update(setting);
-                            //_unitOfWork.Save();
                         }
                         else
                         {
@@ -66,7 +64,6 @@ namespace OpenSourceBlog.Controllers
                         if(AllTimeZoneIds.Contains(setting.SettingValue))
                         {
                             _unitOfWork._settingsRepository.Update(setting);
-                            //_unitOfWork.Save();
                         }
                         else
                         {
@@ -77,11 +74,8 @@ namespace OpenSourceBlog.Controllers
                     else
                     {
                         _unitOfWork._settingsRepository.Update(setting);
-                        //_unitOfWork.Save();
                     }
-                   
-                    //_unitOfWork._settingRepository.Update(setting);
-                    //_unitOfWork.Save();
+                  
 
                 }
                 _unitOfWork.Save();
