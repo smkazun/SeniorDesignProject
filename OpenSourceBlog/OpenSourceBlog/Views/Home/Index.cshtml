@@ -1,5 +1,8 @@
-﻿@using OpenSourceBlog.Database.Models
-﻿@model IEnumerable<Post>
+﻿@*@using OpenSourceBlog.Database.Models *@
+﻿@*@model IEnumerable<Post> *@
+
+@model PagedList.IPagedList<OpenSourceBlog.Database.Models.Post>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,12 +12,11 @@
         border-radius: 50%
     }
 
-    .verticalLine{
-        
-         border-left: thin solid #000000;
-         margin-left: 3px;
-         margin-right: 3px;
-         margin-top: 3px;
+    .verticalLine {
+        border-left: thin solid #000000;
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-top: 3px;
     }
 </style>
 
@@ -37,16 +39,16 @@
             return URL;
         }
         $('.nav-link').on('click', function (evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
+            evt.preventDefault();
+            evt.stopPropagation();
 
-                var $detailDiv = $('#main_page_content'),
-                    url = $(this).data('url');
+            var $detailDiv = $('#main_page_content'),
+                url = $(this).data('url');
 
-                $.get(url, function (data) {
-                    $detailDiv.html(data);
-                });
+            $.get(url, function (data) {
+                $detailDiv.html(data);
             });
+        });
     </script>
     <div class="row">
         @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
@@ -56,16 +58,22 @@
         @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
 
     </div>
-   
     @*
-        <select onchange="location = this.options[this.selectedIndex].value;">
-            <option value="#">Select an option</option>
-            <option value="1">Most Recent</option>
-            <option value="2">Least Recent</option>
-            <option value="3">Popular</option>
-        </select>
-    *@
+        @using (Html.BeginForm())
+        {
+            <p>
+                Find by name: @Html.TextBox("SearchString")
+                <input type="submit" value="Search" />
+            </p>
+        }*@
 
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
 
     @foreach (var item in Model)
     {
@@ -76,9 +84,9 @@
             <div>
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
                 @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
-                    By @Html.ActionLink(item.Author, "getAuthorId", "Profiles")
-                
-                    <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+                By @Html.ActionLink(item.Author, "getAuthorId", "Profiles")
+
+                <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@
                 @if (!item.DateModified.ToString().Equals(String.Empty))
                 {
@@ -96,9 +104,13 @@
                 @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
                 @if (item.PostContent.Length > 400)
                 {
-                        <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                    <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
                 }
             </p>
         </div>
     }
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </article>

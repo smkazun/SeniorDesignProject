@@ -9,6 +9,7 @@ using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 using OpenSourceBlog.DAL;
 using System.Net;
+using PagedList;
 
 namespace OpenSourceBlog.Controllers
 {
@@ -28,22 +29,41 @@ namespace OpenSourceBlog.Controllers
             this._unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter, int? page)
         {
-            
-            List<Post> fullList = (List<Post>) _unitOfWork._postRepository.GetAll();
-            List<Post> resultList = new List<Post>();
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
+            ViewBag.CurrentFilter = searchString;
+
+            var fullList =  _unitOfWork._postRepository.GetAll();
+            List<Post> resultList = new List<Post>(); //TODO see if we can change List to inumerable
+
+            //searching
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                fullList = fullList.Where(s => s.Title.ToUpper().Contains(searchString.ToUpper()));
+            }
+           
             //display published posts only
-            for (int i = fullList.Count-1; i > -1; i--)
-                if (fullList[i].IsPublished == true && fullList[i].BlogId == GlobalVars.BlogId)
-                    resultList.Add(fullList[i]);
+            for (int i = fullList.Count()-1; i > -1; i--)
+                if (fullList.ElementAt(i).IsPublished == true && fullList.ElementAt(i).BlogId == GlobalVars.BlogId)
+                    resultList.Add(fullList.ElementAt(i));
             //for (int i = 0; i < fullList.Count; i++)
             //    if (fullList[i].IsPublished == true)
             //        resultList.Add(fullList[i]);
 
-            return View(resultList);
-            //return View(db.Posts.ToList());
+            //return View(resultList);
+
+            int pageSize = 3; //TODO get from settings db
+            int pageNumber = (page ?? 1);
+            return View(resultList.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Archive()
@@ -74,8 +94,10 @@ namespace OpenSourceBlog.Controllers
 
 
         [HttpGet]
-        public ActionResult postSort(int? id)
+        public ActionResult postSort(int? id) //TODO might need to move into index method
         {
+            int? page = 1; 
+
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,7 +119,9 @@ namespace OpenSourceBlog.Controllers
                 default: throw new ArgumentOutOfRangeException();
             }
 
-            return View("Index", sortedList);
+            int pageSize = 3; //TODO get from settings db
+            int pageNumber = (page ?? 1);
+            return View("Index", sortedList.ToPagedList(pageNumber, pageSize));
         }
 
     }
