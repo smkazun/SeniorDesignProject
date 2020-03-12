@@ -216,8 +216,10 @@
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\ICategoryRepository.cs" />
     <Compile Include="Database\Interfaces\IBlogRepository.cs" />
+    <Compile Include="Database\Interfaces\IGenericRepository.cs" />
     <Compile Include="Database\Interfaces\IPageRepository.cs" />
     <Compile Include="Database\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Database\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Database\Interfaces\IUserRoleRepository.cs" />
     <Compile Include="Database\Interfaces\IStopWordRepository.cs" />
     <Compile Include="Database\Interfaces\ISettingRepository.cs" />
@@ -249,6 +251,7 @@
     <Compile Include="Database\Models\StopWord.cs" />
     <Compile Include="Database\Repositories\BlogRepository.cs" />
     <Compile Include="Database\Repositories\CategoryRepository.cs" />
+    <Compile Include="Database\Repositories\GenericRepository.cs" />
     <Compile Include="Database\Repositories\PageRepository.cs" />
     <Compile Include="Database\Repositories\PostCategoryRepository.cs" />
     <Compile Include="Database\Repositories\PostCommentRepository.cs" />
@@ -260,6 +263,7 @@
     <Compile Include="Database\Repositories\RightRoleRepository.cs" />
     <Compile Include="Database\Repositories\RoleRepository.cs" />
     <Compile Include="Database\Repositories\SettingRepository.cs" />
+    <Compile Include="Database\Repositories\SettingsRepository.cs" />
     <Compile Include="Database\Repositories\StopWordRepository.cs" />
     <Compile Include="Database\Repositories\UserRepository.cs" />
     <Compile Include="Database\Repositories\UserRoleRepository.cs" />
