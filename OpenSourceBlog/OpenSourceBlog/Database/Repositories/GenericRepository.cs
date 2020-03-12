@@ -5,14 +5,14 @@ using System.Linq;
 using System.Web;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.DAL;
+using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
     public class GenericRepository<T, U> : IGenericRepository<T,U> where T :class
-                                                                   where U :IConvertible //hack
+                                                                   where U :IConvertible
     {
-        private readonly ApplicationContext _ctx;
-        //private readonly UnitOfWork _unitOfWork;
+        protected readonly ApplicationContext _ctx;
 
         public GenericRepository()
         {
@@ -47,7 +47,8 @@ namespace OpenSourceBlog.Database.Repositories
         public void Update(T entity)
         {
             _ctx.Entry(entity).State = EntityState.Modified;
-           // _ctx.SaveChanges();
+            
+            // _ctx.SaveChanges();
         }
 
         public void Delete(U id)
@@ -56,6 +57,14 @@ namespace OpenSourceBlog.Database.Repositories
             _ctx.Set<T>().Remove(existing);
            // _ctx.SaveChanges();
         }
+
+        //TODO: move
+        /*
+        public IEnumerable<Setting> GetSettings()
+        {
+            //AsNoTracking()
+            return _ctx.Settings.Where(x => x.BlogId == GlobalVars.BlogId).ToList();
+        }*/
 
     }
 }

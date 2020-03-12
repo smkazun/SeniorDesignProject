@@ -9,12 +9,12 @@ namespace OpenSourceBlog.Test
     [TestClass]
     public class RightRepositoryTest : IRepositoryTest
     {
-        private RightRepository repo;
+        private GenericRepository<Right, int> repo;
 
         [TestInitialize]
         public void TestSetup()
         {
-            repo = new RightRepository();
+            repo = new GenericRepository<Right, int>();
         }
         [TestMethod]
         public void GetAll()

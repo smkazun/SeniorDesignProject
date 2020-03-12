@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Database.Repositories;
 
@@ -10,12 +11,12 @@ namespace OpenSourceBlog.Test
     [TestClass]
     public class PostRepositoryTest : IRepositoryTest
     {
-        private PostRepository repo;
+        private IGenericRepository<Post, int> repo;
 
         [TestInitialize]
         public void TestSetup()
         {
-            repo = new PostRepository();
+            repo = new GenericRepository<Post, int>();
         }
         [TestMethod]
         public void GetAll()

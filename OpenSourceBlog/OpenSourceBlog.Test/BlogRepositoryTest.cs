@@ -9,11 +9,11 @@ namespace OpenSourceBlog.Test
     [TestClass]
     public class BlogRepositoryTest : IRepositoryTest
     {
-        private BlogRepository repo;
+        private GenericRepository<Blog, int> repo;
         [TestInitialize]
         public void TestSetup()
         {
-            repo = new BlogRepository();
+            repo = new GenericRepository<Blog, int>();
         }
         [TestMethod]
         public void GetAll()
