@@ -1,12 +1,11 @@
 @using PagedList.Mvc;
 @model OpenSourceBlog.Models.HomeViewModel
 
-
-
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     img.rounded-corners {
         border-radius: 50%
@@ -18,6 +17,11 @@
         margin-right: 3px;
         margin-top: 3px;
     }
+    
+    h2{
+        margin-top: 10px;
+    }
+
 </style>
 
 <article class="news-article">
@@ -59,12 +63,17 @@
             {
                 ViewData["BlogTitle"] = item.SettingValue;
             }
+            else if (item.SettingName.Equals("Blog Description"))
+            {
+                ViewData["BlogDesc"] = item.SettingValue;
+            }
         }
 
     }
 
 
-    <h2>@ViewData["BlogTitle"]</h2>
+    <h2 align="center">@ViewData["BlogTitle"]</h2>
+    <h3 align="center">@ViewData["BlogDesc"]</h3>
 
     <div class="row">
         @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
@@ -74,15 +83,6 @@
         @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
 
     </div>
-
-    @*
-        @using (Html.BeginForm())
-        {
-            <p>
-                Find by name: @Html.TextBox("SearchString")
-                <input type="submit" value="Search" />
-            </p>
-        }*@
 
 
     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
@@ -114,8 +114,8 @@
             @*<p>
                     Rating: @Html.DisplayFor(modelItem => item.Rating)
                 </p>*@
-            <p><p></p>
-            <i>@Html.DisplayFor(modelItem => item.Description)</i>
+            <p>
+                <i>@Html.DisplayFor(modelItem => item.Description)</i>
             </p>
             <hr>
             <p>
@@ -129,10 +129,7 @@
         </div>
     }
 
-    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
-
     Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
-    @Html.PagedListPager(Model.Post, page => Url.Action("Category", new { page }))
+    @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
-    @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
 </article>

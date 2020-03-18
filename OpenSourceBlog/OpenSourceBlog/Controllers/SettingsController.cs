@@ -72,11 +72,6 @@ namespace OpenSourceBlog.Controllers
                         }
                         
                     }
-                    else if (setting.SettingName.Equals("Blog Title"))
-                    {
-                        ViewData["BlogTitle"] = setting.SettingValue;
-
-                    }
                     else
                     {
                         _unitOfWork._settingsRepository.Update(setting);

@@ -16,17 +16,15 @@ namespace OpenSourceBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         public HomeController() 
         {
-            //this.repo = new GenericRepository<Post, int>();
         }
 
 
-        public HomeController(UnitOfWork unitOfWork)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            //this.repo = db;
             this._unitOfWork = unitOfWork;
         }
 
@@ -43,9 +41,7 @@ namespace OpenSourceBlog.Controllers
 
             ViewBag.CurrentFilter = searchString;
             
-            var model = new HomeViewModel();//added
-
-
+            var model = new HomeViewModel();
 
             var fullList =  _unitOfWork._postRepository.GetAll();
             List<Post> resultList = new List<Post>(); //TODO see if we can change List to inumerable
@@ -60,16 +56,17 @@ namespace OpenSourceBlog.Controllers
             for (int i = fullList.Count()-1; i > -1; i--)
                 if (fullList.ElementAt(i).IsPublished == true && fullList.ElementAt(i).BlogId == GlobalVars.BlogId)
                     resultList.Add(fullList.ElementAt(i));
-            //for (int i = 0; i < fullList.Count; i++)
-            //    if (fullList[i].IsPublished == true)
-            //        resultList.Add(fullList[i]);
 
-            int pageSize = 3; //TODO get from settings db
-            int pageNumber = (page ?? 1);
+
+            var settingList = (List<Setting>)_unitOfWork._settingsRepository.GetAll();
+            var setting = settingList[2];
+            int pageSize = Convert.ToInt32(setting.SettingValue);
+            int pageNumber = (page ?? 1); //uses page value if non-null, otherwise 1
+
             model.Post = resultList.ToPagedList(pageNumber, pageSize);
             model.Setting = (List<Setting>) _unitOfWork._settingsRepository.GetSettings();
             
-            return View(resultList.ToPagedList(pageNumber, pageSize)); //TODO pass in model
+            return View(model);
 
         }
 
