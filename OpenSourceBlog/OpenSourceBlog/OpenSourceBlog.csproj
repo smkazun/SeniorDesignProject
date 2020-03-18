@@ -211,6 +211,7 @@
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\IGenericRepository.cs" />
+    <Compile Include="Database\Interfaces\IPostRepository.cs" />
     <Compile Include="Database\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Database\Models\AspNetRole.cs" />
     <Compile Include="Database\Models\AspNetUser.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Database\Models\Setting.cs" />
     <Compile Include="Database\Models\StopWord.cs" />
     <Compile Include="Database\Repositories\GenericRepository.cs" />
+    <Compile Include="Database\Repositories\PostRepository.cs" />
     <Compile Include="Database\Repositories\SettingsRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -236,6 +238,7 @@
     <Compile Include="GlobalVars.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

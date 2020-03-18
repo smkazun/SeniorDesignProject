@@ -10,6 +10,7 @@ using OpenSourceBlog.Database.Repositories;
 using OpenSourceBlog.DAL;
 using System.Net;
 using PagedList;
+using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
 {
@@ -41,6 +42,10 @@ namespace OpenSourceBlog.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
+            
+            var model = new HomeViewModel();//added
+
+
 
             var fullList =  _unitOfWork._postRepository.GetAll();
             List<Post> resultList = new List<Post>(); //TODO see if we can change List to inumerable
@@ -59,11 +64,13 @@ namespace OpenSourceBlog.Controllers
             //    if (fullList[i].IsPublished == true)
             //        resultList.Add(fullList[i]);
 
-            //return View(resultList);
-
             int pageSize = 3; //TODO get from settings db
             int pageNumber = (page ?? 1);
-            return View(resultList.ToPagedList(pageNumber, pageSize));
+            model.Post = resultList.ToPagedList(pageNumber, pageSize);
+            model.Setting = (List<Setting>) _unitOfWork._settingsRepository.GetSettings();
+            
+            return View(resultList.ToPagedList(pageNumber, pageSize)); //TODO pass in model
+
         }
 
         public ActionResult Archive()

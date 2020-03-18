@@ -27,7 +27,7 @@ namespace OpenSourceBlog.Controllers
         // GET: Settings
         public ActionResult Index()
         {
-            return View("Index", _unitOfWork._settingsRepository.GetSettings()); 
+           return View("Index", _unitOfWork._settingsRepository.GetSettings()); 
         }
 
 
@@ -53,6 +53,7 @@ namespace OpenSourceBlog.Controllers
                         if(int.TryParse(setting.SettingValue, out int j))
                         {
                             _unitOfWork._settingsRepository.Update(setting);
+
                         }
                         else
                         {
@@ -70,6 +71,11 @@ namespace OpenSourceBlog.Controllers
                             ModelState.AddModelError("test","Must be a valid timezone format");
                         }
                         
+                    }
+                    else if (setting.SettingName.Equals("Blog Title"))
+                    {
+                        ViewData["BlogTitle"] = setting.SettingValue;
+
                     }
                     else
                     {

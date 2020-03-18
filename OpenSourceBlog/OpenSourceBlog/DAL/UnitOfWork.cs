@@ -21,7 +21,7 @@ namespace OpenSourceBlog.DAL
         public IGenericRepository<PostCategory, int> _postCategoryRepository => new GenericRepository<PostCategory, int>(_context);
         public IGenericRepository<PostComment, int> _postCommentRepository => new GenericRepository<PostComment, int>(_context);
         public IGenericRepository<PostNotify, int> _postNotifyRepository => new GenericRepository<PostNotify, int>(_context);
-        public IGenericRepository<Post, int> _postRepository => new GenericRepository<Post, int>(_context);
+        public IPostRepository _postRepository => new PostRepository(_context);
         public IGenericRepository<PostTag, int> _postTagRepository => new GenericRepository<PostTag, int>(_context);
         public IGenericRepository<Profile, int> _profileRepository => new GenericRepository<Profile, int>(_context);
         public IGenericRepository<Right, int> _rightRepository => new GenericRepository<Right, int>(_context);

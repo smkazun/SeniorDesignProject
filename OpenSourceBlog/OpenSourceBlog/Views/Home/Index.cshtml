@@ -1,8 +1,8 @@
-﻿@*@using OpenSourceBlog.Database.Models *@
-﻿@*@model IEnumerable<Post> *@
-
-@model PagedList.IPagedList<OpenSourceBlog.Database.Models.Post>
 @using PagedList.Mvc;
+@model OpenSourceBlog.Models.HomeViewModel
+
+
+
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -50,6 +50,22 @@
             });
         });
     </script>
+
+
+    @{
+        foreach (var item in Model.Setting)
+        {
+            if (item.SettingName.Equals("Blog Title"))
+            {
+                ViewData["BlogTitle"] = item.SettingValue;
+            }
+        }
+
+    }
+
+
+    <h2>@ViewData["BlogTitle"]</h2>
+
     <div class="row">
         @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
         <div class="verticalLine"></div>
@@ -58,6 +74,7 @@
         @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
 
     </div>
+
     @*
         @using (Html.BeginForm())
         {
@@ -67,6 +84,7 @@
             </p>
         }*@
 
+
     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
     {
         <p>
@@ -75,7 +93,7 @@
         </p>
     }
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Post)
     {
         <div class="Postbox">
             <h1>
@@ -101,6 +119,7 @@
             </p>
             <hr>
             <p>
+
                 @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
                 @if (item.PostContent.Length > 400)
                 {
@@ -110,7 +129,10 @@
         </div>
     }
 
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
+    @Html.PagedListPager(Model.Post, page => Url.Action("Category", new { page }))
+
+    @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
 </article>

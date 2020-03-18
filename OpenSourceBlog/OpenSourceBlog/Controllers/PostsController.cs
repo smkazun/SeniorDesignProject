@@ -30,13 +30,13 @@ namespace OpenSourceBlog.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View("~/Views/Admin/PostIndex.cshtml", _unitOfWork._postRepository.GetAll());
+            return View("~/Views/Admin/PostIndex.cshtml", _unitOfWork._postRepository.GetAll().Where(x => x.IsDeleted == false));
         }
         [Authorize(Roles = "Administrators,Editors")]
         // GET: Posts
         public ActionResult PartialIndex()
         {
-            return PartialView("~/Views/Admin/Posts/Index.cshtml", _unitOfWork._postRepository.GetAll());
+            return PartialView("~/Views/Admin/Posts/Index.cshtml", _unitOfWork._postRepository.GetAll().Where(x => x.IsDeleted == false));
         }
 
         // GET: Posts/Details/5
@@ -72,6 +72,7 @@ namespace OpenSourceBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.IsDeleted = false;
                 _unitOfWork._postRepository.Create(post);
                 _unitOfWork.Save();
                  return RedirectToAction("Index");
@@ -142,7 +143,7 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _unitOfWork._postRepository.Delete(id);
+            _unitOfWork._postRepository.DeletePost(id);
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
