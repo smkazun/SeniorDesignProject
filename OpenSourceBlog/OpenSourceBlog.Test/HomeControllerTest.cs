@@ -245,7 +245,7 @@ namespace OpenSourceBlog.Test
 
             var result = controller.Index("Most", null, null) as ViewResult;
 
-            //Assert.AreEqual("Most", result.ViewBag.CurrentFilter); //TODO
+            Assert.AreEqual("Most", result.ViewData["CurrentFilter"]);
         }
 
         [TestMethod]
