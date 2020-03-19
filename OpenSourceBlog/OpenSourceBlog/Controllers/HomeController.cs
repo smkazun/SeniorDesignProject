@@ -28,6 +28,8 @@ namespace OpenSourceBlog.Controllers
             this._unitOfWork = unitOfWork;
         }
 
+        //GET/POST
+        //Displays the posts for this blog, with paging and searching
         public ActionResult Index(string searchString, string currentFilter, int? page)
         {
             if (searchString != null)
@@ -58,18 +60,30 @@ namespace OpenSourceBlog.Controllers
                     resultList.Add(fullList.ElementAt(i));
 
 
-            var settingList = (List<Setting>)_unitOfWork._settingsRepository.GetAll();
-            var setting = settingList[2];
-            int pageSize = Convert.ToInt32(setting.SettingValue);
+            int pageSize = pageSizeHelper();
             int pageNumber = (page ?? 1); //uses page value if non-null, otherwise 1
 
             model.Post = resultList.ToPagedList(pageNumber, pageSize);
             model.Setting = (List<Setting>) _unitOfWork._settingsRepository.GetSettings();
-            
+
+            //populate viewdata
+            foreach (var item in model.Setting)
+            {
+                if (item.SettingName.Equals("Blog Title"))
+                {
+                    ViewData["BlogTitle"] = item.SettingValue;
+                }
+                else if (item.SettingName.Equals("Blog Description"))
+                {
+                    ViewData["BlogDesc"] = item.SettingValue;
+                }
+            }
+
             return View(model);
 
         }
 
+        //GET
         public ActionResult Archive()
         {
             List<Post> fullList = (List<Post>) _unitOfWork._postRepository.GetAll();
@@ -78,7 +92,7 @@ namespace OpenSourceBlog.Controllers
                 if (fullList[i].IsDeleted == true && fullList[i].BlogId == GlobalVars.BlogId)
                     resultList.Add(fullList[i]);
 
-            return View(resultList);
+            return View("Archive", resultList);
         }
 
         public ActionResult About()
@@ -98,7 +112,7 @@ namespace OpenSourceBlog.Controllers
 
 
         [HttpGet]
-        public ActionResult postSort(int? id) //TODO might need to move into index method
+        public ActionResult postSort(int? id)
         {
             int? page = 1; 
 
@@ -123,10 +137,21 @@ namespace OpenSourceBlog.Controllers
                 default: throw new ArgumentOutOfRangeException();
             }
 
-            int pageSize = 3; //TODO get from settings db
+
+            int pageSize = pageSizeHelper();
             int pageNumber = (page ?? 1);
             return View("Index", sortedList.ToPagedList(pageNumber, pageSize));
         }
+
+
+        //Helper Methods
+        private int pageSizeHelper()
+        {
+            var settingList = (List<Setting>)_unitOfWork._settingsRepository.GetSettings();
+            var setting = settingList[2];
+            return Convert.ToInt32(setting.SettingValue);
+        }
+
 
     }
 

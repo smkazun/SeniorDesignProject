@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="AccountControllerTest.cs" />
     <Compile Include="BlogRepositoryTest.cs" />
+    <Compile Include="HomeControllerTest.cs" />
     <Compile Include="IRepositoryTest.cs" />
     <Compile Include="PostRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

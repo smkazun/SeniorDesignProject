@@ -16,12 +16,11 @@ namespace OpenSourceBlog.Controllers
 {
     public class PostsController : Controller
     {
-        //private IGenericRepository<Post, int> repo;
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         public PostsController() { }
 
-        public PostsController(UnitOfWork unitOfWork)
+        public PostsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
