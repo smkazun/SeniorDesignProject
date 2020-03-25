@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Admin/Layout.cshtml";
+    //Layout = "~/Views/Admin/Layout.cshtml";
 }
 
 
@@ -50,7 +50,7 @@
     {
         <tr>
             <td>
-                @Html.CheckBoxFor(modelItem => item.IsChecked, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.CheckBoxFor(modelItem => item.IsChecked)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Role)

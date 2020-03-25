@@ -93,13 +93,13 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
+            return View("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
         }
 
         // GET: ManageUsers/Create
         public ActionResult Create()
         {
-            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml");
+            return View("~/Views/Admin/ManageUsers/Create.cshtml");
         }
 
         // POST: ManageUsers/Create
@@ -125,7 +125,7 @@ namespace OpenSourceBlog.Controllers
                 return RedirectToAction("Index");
             }
 
-            return PartialView("~/Views/Admin/ManageUsers/Create.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Create.cshtml", model);
         }
 
         // GET: ManageUsers/Edit/5
@@ -150,7 +150,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
         // POST: ManageUsers/Edit/5
@@ -179,7 +179,7 @@ namespace OpenSourceBlog.Controllers
 
                 return Index();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Edit.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
         // GET: ManageUsers/Delete/5
@@ -204,7 +204,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("~/Views/Admin/ManageUsers/Delete.cshtml", model);
+            return View("~/Views/Admin/ManageUsers/Delete.cshtml", model);
         }
 
         // POST: ManageUsers/Delete/5
