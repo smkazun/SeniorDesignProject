@@ -5,80 +5,96 @@
     //Layout = "~/Views/Admin/Layout.cshtml";
 }
 
+@using (Html.BeginForm("DeleteMultiple", "ManageUsers", FormMethod.Post))
+{
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-left pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Manage Users</h1>
+        @* <button type="button" class="btn btn-outline-danger dialog">Delete</button> *@
+        @* <button type="button" class="btn btn-outline-danger dialog partial-view" href="#" data-url='@Url.Action("Delete", "ManageUsers", new { users = Model.ToList() })'>Delete</button>
+        @Html.ActionLink(
+            "Delete",
+            "DeleteMultiple",
+            "ManageUsers",
+            new { onclick = "return confirm('Do you really want to delete these users?')", @class = "btn btn-outline-danger float-md-right" })*@
+        <button type="submit" value="Delete" class="btn btn-outline-danger float-md-right" onclick = "return confirm('Do you really want to delete these users?')">Delete</button>
+    </div>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-left pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Manage Users</h1>
-    @* <button type="button" class="btn btn-outline-danger dialog">Delete</button> *@
-    @* <button type="button" class="btn btn-outline-danger dialog partial-view" href="#" data-url='@Url.Action("Delete", "ManageUsers", new { users = Model.ToList() })'>Delete</button> *@
-    @Html.ActionLink(
-        "Delete",
-        "Delete",
-        "ManageUsers",
-        new { onclick = "return confirm('Do you really want to delete these users?')", @class = "btn btn-outline-danger float-md-right" })
-</div>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IsChecked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.EmailConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.PhoneNumberConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.TwoFactorEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.CheckBoxFor(modelItem => item.IsChecked)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.EmailConfirmed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.PhoneNumberConfirmed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.TwoFactorEnabled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.User.Id }, new { @class = "btn btn-secondary" })
-                @* @Html.ActionLink("Details", "Details", new { id = item.User.Id }, new { @class = "btn btn-secondary" }) *@
-                @Html.ActionLink("Delete", "Delete", new { id = item.User.Id }, new { @class = "btn btn-secondary" })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.IsChecked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.EmailConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.PhoneNumberConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.TwoFactorEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="ID" value="@item.User.Id" class="chkCheckBoxId">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.EmailConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.PhoneNumberConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.TwoFactorEnabled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.User.Id }, new { @class = "btn btn-secondary" })
+                    @* @Html.ActionLink("Details", "Details", new { id = item.User.Id }, new { @class = "btn btn-secondary" }) *@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.User.Id }, new { @class = "btn btn-secondary" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DataTable').DataTable();
+        $('#checkBoxAll').click(function () {
+            if ($(this).is(":checked")) {
+                $(".chkCheckBoxId").prop("checked", true)
+            }
+            else {
+                $(".chkCheckBoxId").prop("checked", false)
+            }
+        });
+    });
+</script>
