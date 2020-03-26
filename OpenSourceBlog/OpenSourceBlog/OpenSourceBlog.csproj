@@ -212,7 +212,9 @@
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\IGenericRepository.cs" />
     <Compile Include="Database\Interfaces\IPostRepository.cs" />
+    <Compile Include="Database\Interfaces\IProfileRepository.cs" />
     <Compile Include="Database\Interfaces\ISettingsRepository.cs" />
+    <Compile Include="Database\Interfaces\IUserRepository.cs" />
     <Compile Include="Database\Models\AspNetRole.cs" />
     <Compile Include="Database\Models\AspNetUser.cs" />
     <Compile Include="Database\Models\AspNetUserRole.cs" />
@@ -231,7 +233,9 @@
     <Compile Include="Database\Models\StopWord.cs" />
     <Compile Include="Database\Repositories\GenericRepository.cs" />
     <Compile Include="Database\Repositories\PostRepository.cs" />
+    <Compile Include="Database\Repositories\ProfileRepository.cs" />
     <Compile Include="Database\Repositories\SettingsRepository.cs" />
+    <Compile Include="Database\Repositories\UserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
