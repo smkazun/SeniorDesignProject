@@ -13,7 +13,7 @@
     @Scripts.Render("~/bundles/opensourceblog")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link href="~/Content/AdminNavBar.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/AdminArea.css" rel="stylesheet" type="text/css" />
+    <!--<link href="~/Content/AdminArea.css" rel="stylesheet" type="text/css" />-->
 </head>
 
 <body>
@@ -54,7 +54,7 @@
                             <a href="#"><span>Users</span></a>
                             <div class="sidebar-submenu">
                                 <ul>
-                                    <li class="nav-item"><a href="#" data-url='@Url.Action("Index", "ManageUsers")' class="nav-link">Manage Users</a></li>
+                                    <li class="nav-item">@Html.ActionLink("Manage Users", "Index", "ManageUsers")</li>
                                 </ul>
                             </div>
                         </li>
@@ -62,8 +62,7 @@
                             <a href="#"><span>Categories</span></a>
                             <div class="sidebar-submenu">
                                 <ul>
-                                    <li class="nav-item"><a href="#" data-url='@Url.Action("PartialIndex", "Categories")' class="nav-link">Categories</a></li>
-                                    <li class="nav-item"><a href="#" data-url='@Url.Action("Create", "Categories")' class="nav-link">Create Category</a></li>
+                                    <li class="nav-item">@Html.ActionLink("Categories", "Index", "Categories")</li>
                                 </ul>
                             </div>
                         </li>
