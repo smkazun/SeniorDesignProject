@@ -44,11 +44,8 @@
                 @Html.DisplayFor(modelItem => item.ParentId)
             </td>
             <td>
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Edit", "Categories", new {id = item.CategoryId})'>Edit</button>
-                @*
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Details", "Categories", new {id = item.CategoryId})'>Details</button>
-                *@
-                <button class="btn btn-secondary partial-view" href="#" data-url='@Url.Action("Delete", "Categories", new {id = item.CategoryId})'>Delete</button>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "btn btn-secondary" })
             </td>
         </tr>
     }
