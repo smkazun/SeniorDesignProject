@@ -2,20 +2,13 @@
 
 @{
     ViewBag.Title = "Index";
-    //Layout = "~/Views/Admin/Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminNavBar.cshtml";
 }
 
 @using (Html.BeginForm("DeleteMultiple", "ManageUsers", FormMethod.Post))
 {
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-left pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Manage Users</h1>
-        @* <button type="button" class="btn btn-outline-danger dialog">Delete</button> *@
-        @* <button type="button" class="btn btn-outline-danger dialog partial-view" href="#" data-url='@Url.Action("Delete", "ManageUsers", new { users = Model.ToList() })'>Delete</button>
-        @Html.ActionLink(
-            "Delete",
-            "DeleteMultiple",
-            "ManageUsers",
-            new { onclick = "return confirm('Do you really want to delete these users?')", @class = "btn btn-outline-danger float-md-right" })*@
         <button type="submit" value="Delete" class="btn btn-outline-danger float-md-right" onclick = "return confirm('Do you really want to delete these users?')">Delete</button>
     </div>
 
@@ -77,7 +70,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.User.Id }, new { @class = "btn btn-secondary" })
-                    @* @Html.ActionLink("Details", "Details", new { id = item.User.Id }, new { @class = "btn btn-secondary" }) *@
                     @Html.ActionLink("Delete", "Delete", new { id = item.User.Id }, new { @class = "btn btn-secondary" })
                 </td>
             </tr>

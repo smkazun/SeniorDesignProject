@@ -4,10 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
@@ -55,30 +57,6 @@ namespace OpenSourceBlog.Controllers
                 model.Add(u);
             }
             return View("~/Views/Admin/ManageUsers/Index.cshtml", model);
-        }
-
-        // GET: ManageUsers
-        public ActionResult PartialIndex()
-        {
-            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
-            List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
-
-            //Loop through ALL users
-            for (int i = 0; i < users.Count; i++)
-            {
-                ManageUsersViewModel u = new ManageUsersViewModel();
-                AspNetUser user = users[i];
-                u.User = user;
-
-                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
-                string roleId = userRole.RoleId;
-                u.Role = _unitOfWork._roleRepository.Get(roleId).Name;
-                
-                u.IsChecked = false;
-
-                model.Add(u);
-            }
-            return PartialView("~/Views/Admin/ManageUsers/Index.cshtml", model);
         }
 
         // GET: ManageUsers/Details/5
@@ -182,6 +160,21 @@ namespace OpenSourceBlog.Controllers
             return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
         }
 
+        [HttpPost]
+        public ActionResult DeleteMultiple(FormCollection form)
+        {
+            if (form.Count > 0)
+            {
+                string[] ids = form["ID"].Split(new char[] { ',' });
+                foreach (string id in ids)
+                {
+                    DeleteConfirmed(id);
+                }
+            }
+            
+            return Index();
+        }
+
         // GET: ManageUsers/Delete/5
         public ActionResult Delete(string id)
         {
@@ -212,8 +205,34 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            //ToDo delete the user using user manager
-            // db.Delete(id);
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = userManager.FindById(id);
+                var logins = user.Logins;
+                var rolesForUser = userManager.GetRoles(id);
+
+                foreach (var login in logins.ToList())
+                {
+                    userManager.RemoveLogin(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+
+                if (rolesForUser.Count > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        var result = userManager.RemoveFromRoles(user.Id, item);
+                    }
+                }
+
+                userManager.Delete(user);
+            }
             return RedirectToAction("Index");
         }
 
