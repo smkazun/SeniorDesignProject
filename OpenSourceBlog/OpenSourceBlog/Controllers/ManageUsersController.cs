@@ -213,7 +213,8 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View("Delete", model);
+
+            return DeleteConfirmed(id);
         }
 
         // POST: ManageUsers/Delete/5
