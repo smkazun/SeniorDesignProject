@@ -11,7 +11,7 @@
                 <li class="nav-item">@Html.ActionLink("Archive", "Archive", "Home", null, new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                @if (@User.IsInRole("Administrators"))
+                @if (@User.IsInRole("Administrators") || @User.IsInRole("Editors"))
                 {
                     <li class="nav-item">@Html.ActionLink("Admin", "Index", "Admin", null, new {@class = "nav-link"})</li>
                 }

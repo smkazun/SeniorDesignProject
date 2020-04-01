@@ -18,6 +18,7 @@ using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
 {
+    [Authorize(Roles="Administrators")]
     public class ManageUsersController : Controller
     {
 
@@ -148,12 +149,27 @@ namespace OpenSourceBlog.Controllers
 
                 //Remove user from ALL current roles
                 List<string> roles = userManager.GetRoles(model.User.Id).ToList();
-                for(int i = 0; i < roles.Count; i++)
+                //If the model role has changed
+                if (!roles.Contains(model.Role))
                 {
-                    userManager.RemoveFromRole(model.User.Id, roles[i]);
+                    for (int i = 0; i < roles.Count; i++)
+                    {
+                        userManager.RemoveFromRole(model.User.Id, roles[i]);
+                    }
+                    //Add user to new selected role
+                    userManager.AddToRole(model.User.Id, model.Role);
                 }
-                //Add user to new selected role
-                userManager.AddToRole(model.User.Id, model.Role);
+
+                //Pull the user's existing info and update anything that could have changed
+                AspNetUser user = _unitOfWork._userRepository.Get(model.User.Id);
+                user.Email = model.User.Email;
+                user.EmailConfirmed = model.User.EmailConfirmed;
+                user.PhoneNumber = model.User.PhoneNumber;
+                user.PhoneNumberConfirmed = model.User.PhoneNumberConfirmed;
+                user.TwoFactorEnabled = model.User.TwoFactorEnabled;
+                user.UserName = model.User.UserName;
+
+                _unitOfWork._userRepository.Update(user);
 
                 return Index();
             }
@@ -233,6 +249,7 @@ namespace OpenSourceBlog.Controllers
 
                 userManager.Delete(user);
             }
+
             return RedirectToAction("Index");
         }
 
