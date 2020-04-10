@@ -39,23 +39,22 @@ namespace OpenSourceBlog.Database.Repositories
         }
 
         public void Create(T entity)
-        {
-            _ctx.Set<T>().Add(entity);
-           // _ctx.SaveChanges();
+        { 
+            _ctx.Set<T>().Add(entity); 
+            _ctx.SaveChanges();
         }
 
         public void Update(T entity)
         {
             _ctx.Entry(entity).State = EntityState.Modified;
-            
-            // _ctx.SaveChanges();
+            _ctx.SaveChanges();
         }
 
         public void Delete(U id)
-        {
+        { 
             T existing = Get(id);
             _ctx.Set<T>().Remove(existing);
-           // _ctx.SaveChanges();
+            _ctx.SaveChanges();
         }
 
         //TODO: move

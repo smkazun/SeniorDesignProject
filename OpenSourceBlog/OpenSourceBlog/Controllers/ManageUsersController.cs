@@ -4,10 +4,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
@@ -16,6 +18,7 @@ using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
 {
+    [Authorize(Roles="Administrators")]
     public class ManageUsersController : Controller
     {
 
@@ -54,31 +57,7 @@ namespace OpenSourceBlog.Controllers
 
                 model.Add(u);
             }
-            return View("~/Views/Admin/ManageUsers/Index.cshtml", model);
-        }
-
-        // GET: ManageUsers
-        public ActionResult PartialIndex()
-        {
-            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
-            List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
-
-            //Loop through ALL users
-            for (int i = 0; i < users.Count; i++)
-            {
-                ManageUsersViewModel u = new ManageUsersViewModel();
-                AspNetUser user = users[i];
-                u.User = user;
-
-                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
-                string roleId = userRole.RoleId;
-                u.Role = _unitOfWork._roleRepository.Get(roleId).Name;
-                
-                u.IsChecked = false;
-
-                model.Add(u);
-            }
-            return PartialView("~/Views/Admin/ManageUsers/Index.cshtml", model);
+            return View("Index", model);
         }
 
         // GET: ManageUsers/Details/5
@@ -93,13 +72,13 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View("~/Views/Admin/ManageUsers/Details.cshtml", aspNetUser);
+            return View("Details", aspNetUser);
         }
 
         // GET: ManageUsers/Create
         public ActionResult Create()
         {
-            return View("~/Views/Admin/ManageUsers/Create.cshtml");
+            return View("Create");
         }
 
         // POST: ManageUsers/Create
@@ -125,7 +104,7 @@ namespace OpenSourceBlog.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("~/Views/Admin/ManageUsers/Create.cshtml", model);
+            return View("Create", model);
         }
 
         // GET: ManageUsers/Edit/5
@@ -150,7 +129,7 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
+            return View("Edit", model);
         }
 
         // POST: ManageUsers/Edit/5
@@ -170,16 +149,46 @@ namespace OpenSourceBlog.Controllers
 
                 //Remove user from ALL current roles
                 List<string> roles = userManager.GetRoles(model.User.Id).ToList();
-                for(int i = 0; i < roles.Count; i++)
+                //If the model role has changed
+                if (!roles.Contains(model.Role))
                 {
-                    userManager.RemoveFromRole(model.User.Id, roles[i]);
+                    for (int i = 0; i < roles.Count; i++)
+                    {
+                        userManager.RemoveFromRole(model.User.Id, roles[i]);
+                    }
+                    //Add user to new selected role
+                    userManager.AddToRole(model.User.Id, model.Role);
                 }
-                //Add user to new selected role
-                userManager.AddToRole(model.User.Id, model.Role);
+
+                //Pull the user's existing info and update anything that could have changed
+                AspNetUser user = _unitOfWork._userRepository.Get(model.User.Id);
+                user.Email = model.User.Email;
+                user.EmailConfirmed = model.User.EmailConfirmed;
+                user.PhoneNumber = model.User.PhoneNumber;
+                user.PhoneNumberConfirmed = model.User.PhoneNumberConfirmed;
+                user.TwoFactorEnabled = model.User.TwoFactorEnabled;
+                user.UserName = model.User.UserName;
+
+                _unitOfWork._userRepository.Update(user);
 
                 return Index();
             }
-            return View("~/Views/Admin/ManageUsers/Edit.cshtml", model);
+            return View("Edit", model);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteMultiple(FormCollection form)
+        {
+            if (form.Count > 0)
+            {
+                string[] ids = form["ID"].Split(new char[] { ',' });
+                foreach (string id in ids)
+                {
+                    DeleteConfirmed(id);
+                }
+            }
+            
+            return Index();
         }
 
         // GET: ManageUsers/Delete/5
@@ -204,7 +213,8 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
-            return View("~/Views/Admin/ManageUsers/Delete.cshtml", model);
+
+            return DeleteConfirmed(id);
         }
 
         // POST: ManageUsers/Delete/5
@@ -212,8 +222,35 @@ namespace OpenSourceBlog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            //ToDo delete the user using user manager
-            // db.Delete(id);
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = userManager.FindById(id);
+                var logins = user.Logins;
+                var rolesForUser = userManager.GetRoles(id);
+
+                foreach (var login in logins.ToList())
+                {
+                    userManager.RemoveLogin(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+
+                if (rolesForUser.Count > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        var result = userManager.RemoveFromRoles(user.Id, item);
+                    }
+                }
+
+                userManager.Delete(user);
+            }
+
             return RedirectToAction("Index");
         }
 

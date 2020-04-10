@@ -212,7 +212,9 @@
     <Compile Include="Database\ApplicationContext.cs" />
     <Compile Include="Database\Interfaces\IGenericRepository.cs" />
     <Compile Include="Database\Interfaces\IPostRepository.cs" />
+    <Compile Include="Database\Interfaces\IProfileRepository.cs" />
     <Compile Include="Database\Interfaces\ISettingsRepository.cs" />
+    <Compile Include="Database\Interfaces\IUserRepository.cs" />
     <Compile Include="Database\Models\AspNetRole.cs" />
     <Compile Include="Database\Models\AspNetUser.cs" />
     <Compile Include="Database\Models\AspNetUserRole.cs" />
@@ -231,7 +233,9 @@
     <Compile Include="Database\Models\StopWord.cs" />
     <Compile Include="Database\Repositories\GenericRepository.cs" />
     <Compile Include="Database\Repositories\PostRepository.cs" />
+    <Compile Include="Database\Repositories\ProfileRepository.cs" />
     <Compile Include="Database\Repositories\SettingsRepository.cs" />
+    <Compile Include="Database\Repositories\UserRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,6 +245,7 @@
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -253,8 +258,14 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ExternalLoginListPartial.css" />
+    <Content Include="Content\ForgotPassword.css" />
+    <Content Include="Content\ForgotPasswordConfirmation.css" />
+    <Content Include="Content\Login.css" />
     <Content Include="Content\NavBar.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Register.css" />
+    <Content Include="Content\sidebar.css" />
     <Content Include="Database\setup.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -697,8 +708,8 @@
     <Content Include="Views\Admin\Posts\Edit.cshtml" />
     <Content Include="Views\Admin\Posts\Details.cshtml" />
     <Content Include="Views\Admin\Posts\Delete.cshtml" />
-    <Content Include="Views\Admin\ManageUsers\Index.cshtml" />
-    <Content Include="Views\Admin\ManageUsers\Edit.cshtml" />
+    <Content Include="Views\ManageUsers\Index.cshtml" />
+    <Content Include="Views\ManageUsers\Edit.cshtml" />
     <Content Include="Views\Admin\PostIndex.cshtml" />
     <Content Include="Views\Admin\Themes\AdminSidebar.cshtml" />
     <Content Include="Views\Admin\Themes\Layout.cshtml" />
@@ -706,10 +717,19 @@
     <Content Include="Views\Settings\ManageSettings.cshtml" />
     <Content Include="Views\Admin\layout.cshtml" />
     <Content Include="Views\Admin\sidebar.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Profiles\Details.cshtml" />
+    <Content Include="Views\Profiles\Index.cshtml" />
+    <Content Include="Views\Shared\_PostCreate.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Admin\CreatePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Categories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

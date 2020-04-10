@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <style>
     img.rounded-corners {
         border-radius: 50%
@@ -20,6 +22,37 @@
     
     h2{
         margin-top: 10px;
+    }
+    
+    .homenav{
+        padding-left:3px;
+        padding-right:3px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .homenav a {
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        border-bottom: 3px solid transparent;
+    }
+
+    .homenav a:hover {
+        border-bottom: 3px solid black;
+    }
+
+    .homenav a.active {
+        border-bottom: 3px solid black;
+    }
+
+    ul.nav li.dropdown:hover ul.dropdown-menu { 
+        display: block; 
+        padding-left:3px;
+        padding-right:3px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
 </style>
@@ -71,33 +104,53 @@
 
     }*@
 
-
+    <br>
     <h2 align="center">@ViewData["BlogTitle"]</h2>
     <h3 align="center">@ViewData["BlogDesc"]</h3>
 
-    <div class="row">
-        @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
-        <div class="verticalLine"></div>
-        @Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)
-        <div class="verticalLine"></div>
-        @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
+        @*
+        <div class="row">
+            @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
+            <div class="verticalLine"></div>
+            @Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)
+            <div class="verticalLine"></div>
+            @Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)
+        </div>*@
 
-    </div>
+    <br>
+    <nav class="homenav navbar-expand-sm border border-right-0 border-left-0">
+        <div class="container">
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Category<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
 
-
-    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-    {
-        <p>
-            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-            <input type="submit" value="Search" />
-        </p>
-    }
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Sort<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)</a></li>
+                            <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)</a></li>
+                            <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                        <input type="submit" value="Search" placeholder="Search"/>
+                }
+            </div>
+        </div>
+    </nav>
 
     @foreach (var item in Model.Post)
     {
         <div class="Postbox">
             <h1>
-                <a href="#" style="color:#000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
+                <a href="#" style=" color: #000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
             </h1>
             <div>
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
@@ -119,18 +172,18 @@
             </p>
             <hr>
             <p>
-
-                @*Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
-        @if (item.PostContent.Length > 400)
-        {
-
-            <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
-        }*@
+                @if (item.PostContent != null)
+                {
+                    @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent);
+                }
+                @if (item.PostContent != null && item.PostContent.Length > 400)
+                {
+                    <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                }
             </p>
         </div>
     }
 
     Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
     @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
 </article>
