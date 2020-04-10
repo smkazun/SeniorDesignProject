@@ -65,6 +65,7 @@ namespace OpenSourceBlog.Controllers
 
             model.Post = resultList.ToPagedList(pageNumber, pageSize);
             model.Setting = (List<Setting>) _unitOfWork._settingsRepository.GetSettings();
+            TempData["Model"] = model;
 
             //populate viewdata
             foreach (var item in model.Setting)
@@ -114,9 +115,10 @@ namespace OpenSourceBlog.Controllers
         [HttpGet]
         public ActionResult postSort(int? id)
         {
-            int? page = 1; 
+            int? page = 1;
+            var model = (HomeViewModel) TempData["Model"];
 
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -137,10 +139,12 @@ namespace OpenSourceBlog.Controllers
                 default: throw new ArgumentOutOfRangeException();
             }
 
-
+            
             int pageSize = pageSizeHelper();
             int pageNumber = (page ?? 1);
-            return View("Index", sortedList.ToPagedList(pageNumber, pageSize));
+            model.Post = sortedList.ToPagedList(pageNumber, pageSize);
+            TempData.Keep();
+            return View("Index", model);
         }
 
 

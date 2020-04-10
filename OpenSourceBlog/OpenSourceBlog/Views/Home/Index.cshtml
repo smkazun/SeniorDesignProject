@@ -55,6 +55,34 @@
         padding-bottom: 10px;
     }
 
+    .Postbox {
+        background-color: white;
+        border-radius: 20px;
+        padding: 20px;
+        height: auto;
+        width: auto;
+        border: 1px solid grey;
+        /*box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);*/
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+    }
+
+    .pagination .active {
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
 </style>
 
 <article class="news-article">
@@ -185,5 +213,5 @@
     }
 
     Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
-    @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, @class = "paging" }))
 </article>
