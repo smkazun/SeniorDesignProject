@@ -1,65 +1,43 @@
 ﻿@model IEnumerable<OpenSourceBlog.Database.Models.Post>
 
-@{
+    @{
     ViewBag.Title = "Index";
-}
+    }
 
+    <div style="text-align:center; margin-bottom:30px">
+        <h1 class="display-4">Blog Posts</h1><hr />
+    </div>
 
-<h2>Admin/Posts/Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div class="table-responsive">
-    <table class="table">
-        <tr class="row2">
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th></th><th></th><th></th>
-        </tr>
-        @{ bool color_switch = false;}
+    <div class="big-container">
         @foreach (var item in Model)
         {
-            <tr @if (color_switch == false) { @: class="row1"
-                color_switch = true; } else { @: class="row2"
-                color_switch = false; }>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPublished)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                </td>
-                <td>
-                    <button class="btn btn-secondary partial-view index_btns" href="#" data-url='@Url.Action("Edit", "Posts", new {id = item.PostRowId})'>Edit</button>
-                </td>
-                <td>
-                    <button class="btn btn-secondary partial-view index_btns" href="#" data-url='@Url.Action("Details", "Posts", new {id = item.PostRowId})'>Details</button>
-                    </td>
-                <td>
-                    <button class="btn btn-secondary partial-view index_btns" href="#" data-url='@Url.Action("Delete", "Posts", new {id = item.PostRowId})'>Delete</button>
-                </td>
-            </tr>
+        <div class="flex-container">
+            <div class="title-row">
+                <label>Title:</label>
+                @Html.DisplayFor(modelItem => item.Title)
+            </div>
+            <div class="author-row">
+                <label>Author:</label>
+                @Html.DisplayFor(modelItem => item.Author)
+            </div>
+            <div class="publish-row">
+                <label>Published:</label>
+                @item.IsPublished
+            </div>
+            <div class="deleted-row">
+                <label>Deleted:</label>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </div>
+            <div class="button-row btn-group">
+                <button class="btn btn-outline-secondary partial-view index_btns" href="#" data-url='@Url.Action("Edit", "Posts", new {id = item.PostRowId})'>Edit</button>
+                <button class="btn btn-outline-secondary partial-view index_btns" href="#" data-url='@Url.Action("Details", "Posts", new {id = item.PostRowId})'>Details</button>
+                <button class="btn btn-outline-secondary partial-view index_btns" href="#" data-url='@Url.Action("Delete", "Posts", new {id = item.PostRowId})'>Delete</button>
+            </div>
+        </div>
         }
 
-    </table>
-</div>
-<script>
+    </div>
+    <script>
     $('.partial-view').on('click', function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
@@ -71,4 +49,4 @@
             $detailDiv.html(data);
         });
     });
-</script>
+    </script>

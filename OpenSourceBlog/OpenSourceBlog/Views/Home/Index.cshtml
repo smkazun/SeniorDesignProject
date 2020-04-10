@@ -120,11 +120,12 @@
             <hr>
             <p>
 
-                @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
-                @if (item.PostContent.Length > 400)
-                {
-                    <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
-                }
+                @*Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent)
+        @if (item.PostContent.Length > 400)
+        {
+
+            <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+        }*@
             </p>
         </div>
     }
