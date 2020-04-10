@@ -1,9 +1,130 @@
 ﻿@using OpenSourceBlog.Database.Models
-﻿@model OpenSourceBlog.Database.Models.Profile
+@model OpenSourceBlog.Database.Models.Profile
+﻿@*model OpenSourceBlog.Models.ProfileViewModel*@
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-<h3>@Html.DisplayFor(model => model.UserName)</h3>
 
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<style>
+    p.small {
+        line-height: 0;
+    }
+
+    img.rounded-corners {
+        margin: -95px 10px 0px 50px;
+        z-index: 9;
+        width: 15%;
+        border: 10px solid white;
+        border: 10px solid white;
+        border-radius: 50%
+    }
+
+    .homenav {
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .homenav a {
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        border-bottom: 3px solid transparent;
+    }
+
+    .homenav a:hover {
+        border-bottom: 3px solid black;
+    }
+
+    .homenav a.active {
+        border-bottom: 3px solid black;
+    }
+
+    .profile img.image-lg
+    {
+    z-index: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    }
+
+    .first-column {
+        width: 65%;
+        padding: 0 10px 0 0;
+        float: left;
+    }
+
+    .second-column {
+        width: 15%;
+        padding: 0 10px 0 0;
+        float: right;
+    }
+</style>
+
+
+<nav class="homenav navbar-expand-sm border border-right-0 border-left-0">
+    <div class="container">
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav mr-auto">
+                <li>
+                    <a href="#" onclick="goBack()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Back<span class="caret"></span></a>
+
+                </li>
+            </ul>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+            {
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" placeholder="Search" />
+            }
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="container">
+        <div class="profile">
+            <img align="left" class="image-lg" src="https://i.pinimg.com/originals/60/bf/7c/60bf7c84a3f4bb95b2a4d0697bbedbae.jpg" />
+            <img class="rounded-corners" align="left" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.UserName)');">
+            <div class="Postbox">
+                <div class="row">
+                    <div class="first-column">
+                        <p class="small">
+                            <h1>@Html.DisplayFor(model => model.SettingName)</h1>
+                            @Html.DisplayFor(model => model.UserName)
+                        </p>
+                    </div>
+                    <div class="second-column">
+                        <p class="small">
+                            <center>
+                                <h3><strong>4</strong></h3>
+                                Posts
+                            </center>
+                        </p>
+                    </div>
+                    <div class="second-column">
+                        <p class="small">
+                            <center>
+                                <h3><strong>0</strong></h3>
+                                Comments
+                            </center>
+                        </p>
+                    </div>
+                </div>
+                <hr />
+                Admin at OpenSourceBlog. This is a sample description
+            </div>
+            @*if this user is admin/editor
+        <h2>Latest posts from @Html.DisplayFor(model => model.SettingName)</h2>*@
+
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using OpenSourceBlog.Database.Interfaces;
@@ -6,7 +7,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Repositories
 {
-    public class ProfileRepository : IGenericRepository<Profile, string>
+    public class ProfileRepository : IGenericRepository<Profile, int>
     {
         private readonly ApplicationContext ctx = new ApplicationContext();
         public IEnumerable<Profile> GetAll()
@@ -14,7 +15,7 @@ namespace OpenSourceBlog.Database.Repositories
             return ctx.Profiles.ToList();
         }
 
-        public Profile Get(string id)
+        public Profile Get(int id)
         {
             return ctx.Profiles.Find(id);
         }
@@ -30,7 +31,7 @@ namespace OpenSourceBlog.Database.Repositories
             ctx.SaveChanges();
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             Profile p = Get(id);
             ctx.Profiles.Remove(p);

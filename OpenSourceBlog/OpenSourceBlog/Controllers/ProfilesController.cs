@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.Database.Models;
@@ -18,12 +19,19 @@ namespace OpenSourceBlog.Controllers
         private IProfileRepository profiledb;
         private IUserRepository userdb;
         private IPostRepository postdb;
+        private IUnitOfWork _unitOfWork;
 
+        public ProfilesController() { }
         public ProfilesController(IProfileRepository profiledb, IUserRepository userdb, IPostRepository postdb)
         {
             this.profiledb = profiledb;
             this.userdb = userdb;
             this.postdb = postdb;
+        }
+
+        public ProfilesController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Profiles
@@ -35,28 +43,28 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Profiles/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Profile profile = db.Get(id);
-            Profile profile = profiledb.Get(1);
+            Profile profile = _unitOfWork._profileRepository.Get(Convert.ToInt32(id));
             if (profile == null)
             {
                 return HttpNotFound();
             }
-            return View("~/Views/Profiles/Details.cshtml", profile);
+            return View("Details", profile);
         }
 
-        public ActionResult getAuthorId(string email)
+        /*public ActionResult getAuthorId(string email)
         {
             AspNetUser user = userdb.FindByUserName(email);
             //return Details(user.Id);
             return Details(1);
         }
-        /*
+        
         // GET: Profiles/Create
         public ActionResult Create()
         {

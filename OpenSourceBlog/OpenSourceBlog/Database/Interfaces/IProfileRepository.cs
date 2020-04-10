@@ -7,12 +7,12 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Database.Interfaces
 {
-    public interface IProfileRepository
+    public interface IProfileRepository : IGenericRepository<Profile, int>
     {
-        IEnumerable<Profile> GetAll();
-        Profile Get(String id);
-        void Create(Profile entity);
-        void Update(Profile entity);
-        void Delete(String id);
+        //IEnumerable<Profile> GetAll();
+        //Profile Get(int id);
+        //void Create(Profile entity);
+        //void Update(Profile entity);
+        //void Delete(int id);
     }
 }
