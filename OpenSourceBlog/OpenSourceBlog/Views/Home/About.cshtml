@@ -2,7 +2,55 @@
     ViewBag.Title = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<style>
+    h1{
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+</style>
+
+
+
+<h1>@ViewBag.Title</h1>
+
+<div class="container">
+    <div class="container">
+        <h2>Open Source .NET Blog</h2>
+        <p>
+            We are designing an Open Source .NET Blog for Cylosoft Inc. based in Ames, IA. They have been using a previous .NET 
+            blogging application, but it is outdated and missing some features. This is where our project comes in. We are 
+            designing a blogging system based off .NET Framework 4.8, using an MVC setup, and are required to include: 
+            Bootstrap 4.3, CKEditor, Microsoft Identity, MSSQL, and Razor pages.
+
+            The functionality of our application will include the following. A main home page which will show the most recent 
+            blog posts. These posts will also be sortable based on categories/tags. An archive page which will show posts marked
+            as deleted, but are still present on the database. The admin panel will contain the driving power behind the 
+            application. From this panel you will be able to Create, Read, Update, and Delete (CRUD) ALL posts. Be able to 
+            view all comments and approve/deny them. CRUD the categories/tags. Manage users/profiles across the application 
+            and change their roles. CRUD rights, which determine certain abilities that the Administrators, Editors, or Users 
+            can do. Finally, site settings which includes things like changing themes, which email messages get sent to, etc.
+        </p>
+    </div>
+       
+    <br />
+
+    <div class="container">
+
+        <h3>Developers</h3>
+        <ul>
+            <li>Peter DeBisschop - Project Manager</li>
+            <li>Cole Mulligan - Backend Developer</li>
+            <li>Thien Nguyen - Frontend Developer</li>
+            <li>Sebastian Kazun - Backend Developer</li>
+            <li>Carter Cahill - Frontend Developer</li>
+        </ul>
+        <address>
+            <strong>Team Website:</strong> <a href="http://sdmay20-34.sd.ece.iastate.edu/">Team 34</a>
+            <br />
+            <strong>Team Email:</strong> <a href="mailto:sdmay20-34@gmail.com">sdmay20-34@gmail.com</a>
+        </address>
+    </div>
+</div>
