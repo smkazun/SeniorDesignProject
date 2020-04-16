@@ -7,14 +7,17 @@
 }
 <script>
     function auto_grow(element) {
-            element.style.height = "5px";
-            element.style.height = (element.scrollHeight)+"px";
-        }
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+    }
+    function goBack() {
+        window.history.back();
+    }
 </script>
 <style>
     img.rounded-corners {
         border-radius: 50%
-    } 
+    }
     textarea {
         resize: none;
         overflow: hidden;
@@ -22,40 +25,81 @@
         max-height: 100px;
         width: 2000px;
     }
-    .sidenav {
+    @*.sidenav {
         right: 0%;
         width: 25%;
         position: fixed;
     }
     .leftcontent{
         width: 75%;
+    }*@
+    .homenav {
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
+    .homenav a {
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        border-bottom: 3px solid transparent;
+    }
+
+    .homenav a:hover {
+        border-bottom: 3px solid black;
+    }
+
+    .homenav a.active {
+        border-bottom: 3px solid black;
+    }
 </style>
+
 <div class="container">
-    <aside class="sidenav">
-        <div>
-            <div>
+    @*<aside class="sidenav">
+                <div>
+                    <div>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                        {
+                            <h5>Search Posts</h5>
+                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                            <input type="submit" value="Search" />
+                        }
+                    </div>
+                    <p></p>
+                <div>
+                    <h5>Top Rated Posts</h5>
+
+                </div>
+                <p></p>
+                <div>
+                    <h5>Most Recent Posts</h5>
+
+                </div>
+        </div>
+            </aside>*@
+
+    <nav class="homenav navbar-expand-sm border border-right-0 border-left-0">
+        <div class="container">
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav mr-auto">
+                    <li>
+                        <a href="#" onclick="goBack()" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Back<span class="caret"></span></a>
+
+                    </li>
+                </ul>
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                 {
-                    <h5>Search Posts</h5>
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                        <input type="submit" value="Search" />
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" placeholder="Search" />
                 }
             </div>
-            <p></p>
-            <div>
-                <h5>Top Rated Posts</h5>
-
-            </div>
-            <p></p>
-            <div>
-                <h5>Most Recent Posts</h5>
-
-            </div>
         </div>
-    </aside>
-    <section class="leftcontent">
+    </nav>
+
+    <section>
         <div class="Postbox">
             <h1>
                 @Html.DisplayFor(model => model.Title)
@@ -64,11 +108,12 @@
                 <div>
                     <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model=>model.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
                     By @Html.DisplayFor(model => model.Author)  <i>@Html.DisplayFor(model => model.DateCreated)</i>
+                    @*@Html.ActionLink((Model=>Model.author), "Details", "Profiles", new { id = 1 }, null)*@
                     @*if the modified time is not empty then display it
-                        @if (!(model.DateModified.ToString().Equals(String.Empty)))
-                        {
-                            <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
-                        }*@
+        @if (!(model.DateModified.ToString().Equals(String.Empty)))
+        {
+            <i>| Edited: @Html.DisplayFor(model => model.DateModified)</i>
+        }*@
                 </div>
             </p>
             @*<p>
@@ -83,8 +128,8 @@
             </p>
             <hr>
             <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.Author)');" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:100px">
-                @Html.DisplayFor(model => model.Author)
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.Author)');" id="grav_icon" class="rounded-corners" alt="Avatar" style="width:100px"> <h5>@Html.DisplayFor(model => model.Author)</h5>
+                @*@Html.ActionLink((Model=>Model.author), "Details", "Profiles", new { id = 1 }, null)*@
             </div>
 
         </div>

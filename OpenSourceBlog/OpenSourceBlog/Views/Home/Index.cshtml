@@ -183,7 +183,7 @@
             <div>
                 <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
                 @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
-                By @Html.ActionLink(item.Author, "getAuthorId", "Profiles")
+                By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
 
                 <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                 @*if the modified time is not empty then display it*@

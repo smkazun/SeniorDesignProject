@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
