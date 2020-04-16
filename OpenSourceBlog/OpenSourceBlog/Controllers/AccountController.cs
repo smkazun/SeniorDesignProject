@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
@@ -12,6 +13,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using OpenSourceBlog.DAL;
+using OpenSourceBlog.Database.Models;
 using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
@@ -27,7 +30,7 @@ namespace OpenSourceBlog.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager appRoleManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager appRoleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -197,7 +200,7 @@ namespace OpenSourceBlog.Controllers
 
                     ViewBag.Message = "To log in, you must check your email and confirm your account.";
 
-                    return View("Info");
+                    return View("BlogSetup");
                     //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -527,7 +530,6 @@ namespace OpenSourceBlog.Controllers
 
             return callbackUrl;
         }
-
 
         #endregion
     }

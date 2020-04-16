@@ -5,6 +5,7 @@ using OpenSourceBlog.Database.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,7 @@ namespace OpenSourceBlog.DAL
     {
         private ApplicationContext _context;
 
-        public IGenericRepository<Blog, int> _blogRepository => new GenericRepository<Blog, int>(_context);
+        public IBlogRepository _blogRepository => new BlogRepository(_context);
         public IGenericRepository<Category, int> _categoryRepository => new GenericRepository<Category, int>(_context);
 
         public IGenericRepository<Page, int> _pageRepository => new GenericRepository<Page, int>(_context);
@@ -60,6 +61,16 @@ namespace OpenSourceBlog.DAL
 
                     // Update the values of the entity that failed to save from the store
                     ex.Entries.Single().Reload();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
                 }
 
             } while (saveFailed);

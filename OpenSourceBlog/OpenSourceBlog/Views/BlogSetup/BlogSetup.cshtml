@@ -1,0 +1,106 @@
+﻿@model OpenSourceBlog.Models.BlogSetupViewModel
+@{
+    ViewBag.Title = "BlogSetup";
+}
+
+<style>
+
+    body {
+        background: #6c7b88;
+    }
+
+    h1 {
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 150%;
+        padding: 0px 20px 0px 20px;
+    }
+
+    .btn-block {
+        border-color: #555555;
+        margin-top: 10px;
+        width: 15%;
+        max-height: 50px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid #965F06;
+        -moz-box-shadow: 0px 1px 1px rgba(000,000,000,0.5), inset 1px 2px 0px rgba(255,255,255,0.4);
+        box-shadow: 0px 1px 1px rgba(000,000,000,0.5), inset 1px 2px 0px rgba(255,255,255,0.4);
+        background-color: papayawhip;
+        text-align: center;
+    }
+
+    .vertical-center {
+        text-align: center;
+        min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+        min-height: 100vh; /* These two lines are counted as one :-)       */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .align-self-center {
+        border-color: black;
+        border-style: solid;
+
+        background-color: #b8bfce;
+        color: black;
+        margin: 0 auto;
+        margin-top: 90px;
+        padding: 10px 50px 10px;
+        width: 40%;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid #965F06;
+        -moz-box-shadow: 0px 1px 1px rgba(000,000,000,0.5), inset 1px 2px 0px rgba(255,255,255,0.4);
+        box-shadow: 0px 1px 1px rgba(000,000,000,0.5), inset 1px 2px 0px rgba(255,255,255,0.4);
+    }
+
+    .innerContainer{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+
+</style>
+
+@*<h2>BlogSetup</h2>*@
+
+<div class="jumbotron vertical-center">
+    <div class="d-flex w-100 justify-content-center align-self-center">
+
+            <h1>Almost done...</h1>
+            <h1>We just need a couple more things to finish setting up your blog!</h1>
+
+            @using (Html.BeginForm("BlogSetup", "BlogSetup", FormMethod.Post, new { @class = "form-horizontal settingsForm", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+
+                foreach (var item in Model.settings)
+                {
+                    if (item.SettingName.Equals("Blog Title") || item.SettingName.Equals("Blog Description") || item.SettingName.Equals("Theme"))
+                    {
+                        <div class="innerContainer">
+                            <div class="col-md-2" align="center">
+                                @Html.DisplayFor(m => item.SettingName, new { htmlAttributes = new { @class = "form-control displayName" } })
+                            </div>
+
+                            <div class="col-md-10" align="center">
+                                @Html.EditorFor(m => item.SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required" } })
+                            </div>
+                        </div>
+                    }
+                }
+
+
+                <div class="form-group submitForm" align="center">
+                    <input type="submit" id="saveButton" value="Submit" class="btn btn-success btn-block" /><br />
+                </div>
+            }
+
+    </div>
+</div>
+

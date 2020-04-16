@@ -13,7 +13,7 @@ namespace OpenSourceBlog.DAL
         void Save();
         void Dispose();
 
-        IGenericRepository<Blog, int> _blogRepository { get; }
+        IBlogRepository _blogRepository { get; }
         IGenericRepository<Category, int> _categoryRepository { get; }
 
         IGenericRepository<Page, int> _pageRepository { get; }

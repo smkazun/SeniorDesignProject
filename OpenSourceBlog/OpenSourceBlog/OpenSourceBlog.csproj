@@ -201,6 +201,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BlogSetupController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Database\ApplicationContext.cs" />
+    <Compile Include="Database\Interfaces\IBlogRepository.cs" />
     <Compile Include="Database\Interfaces\IGenericRepository.cs" />
     <Compile Include="Database\Interfaces\IPostRepository.cs" />
     <Compile Include="Database\Interfaces\IProfileRepository.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Database\Models\RightRole.cs" />
     <Compile Include="Database\Models\Setting.cs" />
     <Compile Include="Database\Models\StopWord.cs" />
+    <Compile Include="Database\Repositories\BlogRepository.cs" />
     <Compile Include="Database\Repositories\GenericRepository.cs" />
     <Compile Include="Database\Repositories\PostRepository.cs" />
     <Compile Include="Database\Repositories\ProfileRepository.cs" />
@@ -243,6 +246,7 @@
     <Compile Include="GlobalVars.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\BlogSetupViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -728,6 +732,7 @@
     <Content Include="Views\Shared\_PostCreate.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Admin\CreatePost.cshtml" />
+    <Content Include="Views\BlogSetup\BlogSetup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

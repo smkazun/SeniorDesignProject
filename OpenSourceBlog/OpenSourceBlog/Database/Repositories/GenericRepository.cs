@@ -6,6 +6,7 @@ using System.Web;
 using OpenSourceBlog.Database.Interfaces;
 using OpenSourceBlog.DAL;
 using OpenSourceBlog.Database.Models;
+using System.Data.Entity.Validation;
 
 namespace OpenSourceBlog.Database.Repositories
 {
@@ -40,8 +41,21 @@ namespace OpenSourceBlog.Database.Repositories
 
         public void Create(T entity)
         { 
-            _ctx.Set<T>().Add(entity); 
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.Set<T>().Add(entity);
+                _ctx.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
         }
 
         public void Update(T entity)
