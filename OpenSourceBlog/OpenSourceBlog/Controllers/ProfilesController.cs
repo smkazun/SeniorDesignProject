@@ -58,6 +58,26 @@ namespace OpenSourceBlog.Controllers
             return View("Details", profile);
         }
 
+        // GET: Profiles/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Profile profile = _unitOfWork._profileRepository.Get(Convert.ToInt32(id));
+            if (profile == null)
+            {
+                return HttpNotFound();
+            }
+            return View("~/Views/Profiles/Details.cshtml", profile);
+        }
+
+
+
         /*public ActionResult getAuthorId(string email)
         {
             AspNetUser user = userdb.FindByUserName(email);
@@ -88,20 +108,6 @@ namespace OpenSourceBlog.Controllers
             return View(profile);
         }
 
-        // GET: Profiles/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Profile profile = db.Profiles.Find(id);
-            if (profile == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profile);
-        }
 
         // POST: Profiles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

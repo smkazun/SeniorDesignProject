@@ -19,38 +19,38 @@
         margin-right: 3px;
         margin-top: 3px;
     }
-    
-    h2{
+
+    h2 {
         margin-top: 10px;
     }
-    
-    .homenav{
-        padding-left:3px;
-        padding-right:3px;
+
+    .homenav {
+        padding-left: 3px;
+        padding-right: 3px;
         padding-top: 10px;
         padding-bottom: 10px;
     }
 
-    .homenav a {
-        padding-left: 5px;
-        padding-right: 5px;
-        margin-left: 2px;
-        margin-right: 2px;
-        border-bottom: 3px solid transparent;
-    }
+        .homenav a {
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-left: 2px;
+            margin-right: 2px;
+            border-bottom: 3px solid transparent;
+        }
 
-    .homenav a:hover {
-        border-bottom: 3px solid black;
-    }
+            .homenav a:hover {
+                border-bottom: 3px solid black;
+            }
 
-    .homenav a.active {
-        border-bottom: 3px solid black;
-    }
+            .homenav a.active {
+                border-bottom: 3px solid black;
+            }
 
-    ul.nav li.dropdown:hover ul.dropdown-menu { 
-        display: block; 
-        padding-left:3px;
-        padding-right:3px;
+    ul.nav li.dropdown:hover ul.dropdown-menu {
+        display: block;
+        padding-left: 3px;
+        padding-right: 3px;
         padding-top: 10px;
         padding-bottom: 10px;
     }
@@ -82,61 +82,31 @@
     .pagination a:hover:not(.active) {
         background-color: #ddd;
     }
-
 </style>
 
 <article class="news-article">
-    <script>
-        function redirectURL(identifier, targetID) {
-            if (identifier == 1)
-                window.location = createPostURL(targetID);
-            if (identifier == 2)
-                window.location = createAuthorURL(targetID);
-        }
-
-        function createPostURL(targetID) {
-            var URL = "/posts/details/" + targetID;
-            return URL;
-        }
-
-        function createAuthorURL(targetID) {
-            var URL = "/profiles/details/" + targetID;
-            return URL;
-        }
-        $('.nav-link').on('click', function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-
-            var $detailDiv = $('#main_page_content'),
-                url = $(this).data('url');
-
-            $.get(url, function (data) {
-                $detailDiv.html(data);
-            });
-        });
-    </script>
 
     @*
-    @{
-        foreach (var item in Model.Setting)
-        {
-            if (item.SettingName.Equals("Blog Title"))
+        @{
+            foreach (var item in Model.Setting)
             {
-                ViewData["BlogTitle"] = item.SettingValue;
+                if (item.SettingName.Equals("Blog Title"))
+                {
+                    ViewData["BlogTitle"] = item.SettingValue;
+                }
+                else if (item.SettingName.Equals("Blog Description"))
+                {
+                    ViewData["BlogDesc"] = item.SettingValue;
+                }
             }
-            else if (item.SettingName.Equals("Blog Description"))
-            {
-                ViewData["BlogDesc"] = item.SettingValue;
-            }
-        }
 
-    }*@
+        }*@
 
     <br>
     <h2 align="center">@ViewData["BlogTitle"]</h2>
     <h3 align="center">@ViewData["BlogDesc"]</h3>
 
-        @*
+    @*
         <div class="row">
             @Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)
             <div class="verticalLine"></div>
@@ -153,7 +123,6 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Category<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -167,8 +136,8 @@
                 </ul>
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
                 {
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                        <input type="submit" value="Search" placeholder="Search"/>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" placeholder="Search" />
                 }
             </div>
         </div>
@@ -215,3 +184,34 @@
     Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
     @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, @class = "paging" }))
 </article>
+
+
+<script>
+    function redirectURL(identifier, targetID) {
+        if (identifier == 1)
+            window.location = createPostURL(targetID);
+        if (identifier == 2)
+            window.location = createAuthorURL(targetID);
+    }
+
+    function createPostURL(targetID) {
+        var URL = "/posts/details/" + targetID;
+        return URL;
+    }
+
+    function createAuthorURL(targetID) {
+        var URL = "/profiles/details/" + targetID;
+        return URL;
+    }
+    $('.nav-link').on('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+        var $detailDiv = $('#main_page_content'),
+            url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $detailDiv.html(data);
+        });
+    });
+</script>

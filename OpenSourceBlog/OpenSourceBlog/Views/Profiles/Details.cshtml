@@ -7,12 +7,6 @@
 }
 
 
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
-
 <style>
     p.small {
         line-height: 0;
@@ -50,11 +44,10 @@
         border-bottom: 3px solid black;
     }
 
-    .profile img.image-lg
-    {
-    z-index: 0;
-    width: 100%;
-    margin-bottom: 10px;
+    .profile img.image-lg {
+        z-index: 0;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .first-column {
@@ -63,10 +56,44 @@
         float: left;
     }
 
+    .button-column {
+        width: 5%;
+        padding: 0 10px 0 0;
+        float: right;
+    }
+
     .second-column {
         width: 15%;
         padding: 0 10px 0 0;
         float: right;
+    }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 20%; /* Location of the box */
+        left: 0%;
+        top: 0%;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto;
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
     }
 </style>
 
@@ -118,13 +145,58 @@
                             </center>
                         </p>
                     </div>
-                </div>
+                    <div class="button-column">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <button style="border: 0; background: transparent" id="editBtn"><img src="~/Scripts/ckeditor/plugins/widget/images/handle.png" width="15" height="15" alt="submit" /></button>
+                        }
+                    </div>
+                        <div id="editModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                @using (Html.BeginForm("Details", "Profiles"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <center>
+                                        @Html.LabelFor(model => model.SettingName, htmlAttributes: new { @class = "control-label" })
+                                        @Html.EditorFor(model => model.SettingName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SettingValue, "", new { @class = "text-danger" })
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </center>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 <hr />
                 Admin at OpenSourceBlog. This is a sample description
             </div>
             @*if this user is admin/editor
-        <h2>Latest posts from @Html.DisplayFor(model => model.SettingName)</h2>*@
+                <h2>Latest posts from @Html.DisplayFor(model => model.SettingName)</h2>*@
 
         </div>
     </div>
 </div>
+
+
+<script>
+    var modal = document.getElementById("editModal");
+    var btn = document.getElementById("editBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    function goBack() {
+        window.history.back();
+    }
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
