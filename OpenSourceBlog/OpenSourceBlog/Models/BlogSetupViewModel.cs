@@ -17,5 +17,7 @@ namespace OpenSourceBlog.Models
         public string BlogDescription { get; set; }
 
         public List<Setting> settings { get; set; }
+
+        public Blog blog { get; set; }
     }
 }

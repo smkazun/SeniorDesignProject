@@ -23,7 +23,7 @@ namespace OpenSourceBlog.Controllers
         public ActionResult BlogSetup()
         {
             BlogSetupViewModel test = new BlogSetupViewModel();
-            test.settings = new List<Setting>();//(List<Setting>)uow._settingsRepository.GetSettings(); //fix
+            test.settings = new List<Setting>();//empty settings list
 
             return View("BlogSetup", test);
         }
@@ -32,13 +32,11 @@ namespace OpenSourceBlog.Controllers
         [HttpPost]
         public ActionResult BlogSetup(BlogSetupViewModel model)
         {
-
-            //TODO:
             //create new blogid, new settings, etc.
             var NewBlogId = GlobalVars.CreateBlogId;
 
-            var blog = new Blog() {
-                BlogRowId = 2, //fix
+            var newBlog = new Blog()
+            {
                 BlogId = NewBlogId,
                 BlogName = model.BlogTitle,
                 Hostname = "",
@@ -50,8 +48,8 @@ namespace OpenSourceBlog.Controllers
                 IsSiteAggregation = false,
 
             };
-            
-            var settings = new List<Setting>() {
+
+            var newSettings = new List<Setting>() {
 
                 new Setting(){
                     BlogId = NewBlogId,
@@ -81,7 +79,7 @@ namespace OpenSourceBlog.Controllers
                     BlogId = NewBlogId,
                     SettingRowId = 10, //TODO: fix
                     SettingName = "Timezone",
-                    SettingValue = TimeZone.CurrentTimeZone.ToString(), //TODO: ??
+                    SettingValue = TimeZone.CurrentTimeZone.ToString(), //TODO: 
                 },
                new Setting(){
                     BlogId = NewBlogId,
@@ -92,22 +90,26 @@ namespace OpenSourceBlog.Controllers
 
             };
 
+            model.blog = newBlog;
+            model.settings = newSettings;
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 /*
                 foreach(var setting in settings)
                 {
                     uow._settingsRepository.Create(setting);
                 }*/
 
-                uow._blogRepository.Create(blog);
+                uow._blogRepository.Create(newBlog);
+
+                
                 //uow.Save();
 
                 return RedirectToAction("Index", "Home");
-            }
+            //}
 
-            return View();
+            //return View();
         }
 
        

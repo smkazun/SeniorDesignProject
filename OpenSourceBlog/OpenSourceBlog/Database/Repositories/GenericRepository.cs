@@ -44,6 +44,7 @@ namespace OpenSourceBlog.Database.Repositories
             try
             {
                 _ctx.Set<T>().Add(entity);
+               // _ctx.Entry(entity).State = EntityState.Added;
                 _ctx.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)

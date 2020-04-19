@@ -65,41 +65,57 @@
 
 </style>
 
+
 @*<h2>BlogSetup</h2>*@
 
 <div class="jumbotron vertical-center">
     <div class="d-flex w-100 justify-content-center align-self-center">
 
-            <h1>Almost done...</h1>
-            <h1>We just need a couple more things to finish setting up your blog!</h1>
+        <h1>Almost done...</h1>
+        <h1>We just need a couple more things to finish setting up your blog!</h1>
 
-            @using (Html.BeginForm("BlogSetup", "BlogSetup", FormMethod.Post, new { @class = "form-horizontal settingsForm", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @using (Html.BeginForm("BlogSetup", "BlogSetup", FormMethod.Post, new { @class = "form-horizontal settingsForm", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-
-                foreach (var item in Model.settings)
-                {
-                    if (item.SettingName.Equals("Blog Title") || item.SettingName.Equals("Blog Description") || item.SettingName.Equals("Theme"))
-                    {
-                        <div class="innerContainer">
-                            <div class="col-md-2" align="center">
-                                @Html.DisplayFor(m => item.SettingName, new { htmlAttributes = new { @class = "form-control displayName" } })
-                            </div>
-
-                            <div class="col-md-10" align="center">
-                                @Html.EditorFor(m => item.SettingValue, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required" } })
-                            </div>
-                        </div>
-                    }
-                }
+            @Html.HiddenFor(model => model.settings, new { @Value = "0" })
+            @Html.HiddenFor(model => model.blog.BlogName, new { @Value = "0" })
+            @Html.HiddenFor(model => model.blog.BlogRowId, new { @Value = "0" })
+            @Html.HiddenFor(model => model.blog.Hostname, new { @Value = "0" })
+            @Html.HiddenFor(model => model.blog.IsActive, new { @Value = false })
+            @Html.HiddenFor(model => model.blog.IsAnyTextBeforeHostnameAccepted, new { @Value = false })
+            @Html.HiddenFor(model => model.blog.IsPrimary, new { @Value = false })
+            @Html.HiddenFor(model => model.blog.IsSiteAggregation, new { @Value = false })
+            @Html.HiddenFor(model => model.blog.StorageContainerName, new { @Value = "0" })
+            @Html.HiddenFor(model => model.blog.VirtualPath, new { @Value = "0" })
 
 
-                <div class="form-group submitForm" align="center">
-                    <input type="submit" id="saveButton" value="Submit" class="btn btn-success btn-block" /><br />
+            <div class="innerContainer">
+                <div class="col-md-2">
+                    @Html.Label("Blog Title", new { htmlAttributes = new { @class = "form-control displayName", required = "required" } })
                 </div>
-            }
+
+                <div class="col-md-10" align="center">
+                    @Html.EditorFor(m => Model.BlogTitle, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required" } })
+                </div>
+            </div>
+
+            <div class="innerContainer">
+                <div class="col-md-2">
+                    @Html.Label("Blog Description", new { htmlAttributes = new { @class = "form-control displayName", required = "required" } })
+                </div>
+
+                <div class="col-md-10" align="center">
+                    @Html.EditorFor(m => Model.BlogDescription, new { htmlAttributes = new { @class = "form-group row form-control settingValue", @style = "width: 60%; max-width: 100%;", required = "required" } })
+                </div>
+            </div>
+
+
+            <div class="form-group submitForm" align="center">
+                <input type="submit" id="saveButton" value="Submit" class="btn btn-success btn-block" /><br />
+            </div>
+        }
 
     </div>
 </div>
