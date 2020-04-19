@@ -12,6 +12,7 @@ using OpenSourceBlog.Database.Models;
 
 namespace OpenSourceBlog.Controllers
 {
+    [Authorize(Roles = "Administrators,Editors")]
     public class PostTagsController : Controller
     {
         //private ApplicationContext db = new ApplicationContext();

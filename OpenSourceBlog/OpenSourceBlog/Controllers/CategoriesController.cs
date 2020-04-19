@@ -13,6 +13,7 @@ using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
 {
+    [Authorize(Roles = "Administrators,Editors")]
     public class CategoriesController : Controller
     {
         //        private ApplicationDbContext db = new ApplicationDbContext();
