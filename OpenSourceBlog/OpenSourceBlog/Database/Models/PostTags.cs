@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenSourceBlog.Database.Models
 {
-    public class PostTag
+    public class PostTags
     {
         [Key]
         [Required]

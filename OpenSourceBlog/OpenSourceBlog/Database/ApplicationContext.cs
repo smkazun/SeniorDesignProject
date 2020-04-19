@@ -17,7 +17,7 @@ namespace OpenSourceBlog.Database
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostComment> PostComments { get; set; }
         public DbSet<PostNotify> PostNotifies { get; set; }
-        public DbSet<PostTag> PostTags { get; set; }
+        public DbSet<PostTags> PostTags { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Right> Rights { get; set; }
         public DbSet<RightRole> RightRoles { get; set; }

@@ -3,16 +3,16 @@
 @{Layout = "~/Views/Shared/_AdminNavBar.cshtml";}
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-light"})
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.BlogId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CategoryName)
         </th>
@@ -28,12 +28,12 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.BlogId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
@@ -44,8 +44,8 @@
                 @Html.DisplayFor(modelItem => item.ParentId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new { @class = "btn btn-secondary" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryRowId }, new { @class = "btn btn-secondary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryRowId }, new { @class = "btn btn-secondary" })
             </td>
         </tr>
     }

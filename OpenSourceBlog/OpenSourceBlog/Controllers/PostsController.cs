@@ -67,7 +67,7 @@ namespace OpenSourceBlog.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrators,Editors")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
+        public ActionResult Create([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,Image,FileType,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace OpenSourceBlog.Controllers
         [Authorize(Roles = "Administrators,Editors")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
+        public ActionResult Edit([Bind(Include = "PostRowId,BlogId,PostId,Title,Description,PostContent,Image,FileType,DateCreated,DateModified,Author,IsPublished,IsCommentEnabled,Raters,Rating,Slug,IsDeleted")] Post post)
         {
             if (ModelState.IsValid)
             {

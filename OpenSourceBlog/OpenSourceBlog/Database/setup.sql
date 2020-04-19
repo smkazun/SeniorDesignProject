@@ -131,6 +131,8 @@ CREATE TABLE [dbo].[Posts](
 	[Title] [nvarchar](255) NULL,
 	[Description] [nvarchar](max) NULL,
 	[PostContent] [nvarchar](max) NULL,
+	[Image] [varbinary](max) NULL,
+    [FileType] [nvarchar](10) NULL,
 	[DateCreated] [datetime] NULL,
 	[DateModified] [datetime] NULL,
 	[Author] [nvarchar](50) NULL,
@@ -149,7 +151,7 @@ CREATE TABLE [dbo].[Posts](
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[PostTag](
+CREATE TABLE [dbo].[PostTags](
 	[PostTagId] [int] IDENTITY(1,1) NOT NULL,
 	[BlogId] [uniqueidentifier] NOT NULL,
 	[PostId] [uniqueidentifier] NOT NULL,
@@ -292,13 +294,13 @@ N'<p>If you see this post it means that BlogEngine.NET is running and the hard p
 GO
 SET IDENTITY_INSERT [dbo].[Posts] OFF
 GO
-SET IDENTITY_INSERT [dbo].[PostTag] ON 
+SET IDENTITY_INSERT [dbo].[PostTags] ON 
 GO
-INSERT [dbo].[PostTag] ([PostTagID], [BlogID], [PostID], [Tag]) VALUES (1, N'71acc52b-040c-4456-8820-dd21f6122fbc', N'f50d9b47-ed25-4925-a03a-3dab5fd45b28', N'blog')
+INSERT [dbo].[PostTags] ([PostTagID], [BlogID], [PostID], [Tag]) VALUES (1, N'71acc52b-040c-4456-8820-dd21f6122fbc', N'f50d9b47-ed25-4925-a03a-3dab5fd45b28', N'blog')
 GO
-INSERT [dbo].[PostTag] ([PostTagID], [BlogID], [PostID], [Tag]) VALUES (2, N'71acc52b-040c-4456-8820-dd21f6122fbc', N'f50d9b47-ed25-4925-a03a-3dab5fd45b28', N'welcome')
+INSERT [dbo].[PostTags] ([PostTagID], [BlogID], [PostID], [Tag]) VALUES (2, N'71acc52b-040c-4456-8820-dd21f6122fbc', N'f50d9b47-ed25-4925-a03a-3dab5fd45b28', N'welcome')
 GO
-SET IDENTITY_INSERT [dbo].[PostTag] OFF
+SET IDENTITY_INSERT [dbo].[PostTags] OFF
 
 --Insert initial values into RightRoles
 GO

@@ -262,75 +262,55 @@ namespace OpenSourceBlog.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
             List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
 
             switch (id)
-            {
+            { 
+                case 0: //All users
+                    model = sortUsers("All");
+                    break;
                 case 1: //Administrators
                     //Loop through ALL users and find Administrators
-                    for (int i = 0; i < users.Count; i++)
-                    {
-                        ManageUsersViewModel u = new ManageUsersViewModel();
-                        AspNetUser user = users[i];
-                        
-                        AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
-                        string roleId = userRole.RoleId;
-                        string roleName = _unitOfWork._roleRepository.Get(roleId).Name;
-
-                        if (roleName.Equals("Administrators"))
-                        {
-                            u.User = user;
-                            u.Role = roleName;
-                            u.IsChecked = false;
-                            model.Add(u);
-                        }
-                    }
+                    model = sortUsers("Administrators");
                     break;
                 case 2: //Editors
                     //Loop through ALL users and find Editors
-                    for (int i = 0; i < users.Count; i++)
-                    {
-                        ManageUsersViewModel u = new ManageUsersViewModel();
-                        AspNetUser user = users[i];
-
-                        AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
-                        string roleId = userRole.RoleId;
-                        string roleName = _unitOfWork._roleRepository.Get(roleId).Name;
-
-                        if (roleName.Equals("Editors"))
-                        {
-                            u.User = user;
-                            u.Role = roleName;
-                            u.IsChecked = false;
-                            model.Add(u);
-                        }
-                    }
+                    model = sortUsers("Editors");
                     break;
                 case 3: //Users
                     //Loop through ALL users and find Users
-                    for (int i = 0; i < users.Count; i++)
-                    {
-                        ManageUsersViewModel u = new ManageUsersViewModel();
-                        AspNetUser user = users[i];
-
-                        AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
-                        string roleId = userRole.RoleId;
-                        string roleName = _unitOfWork._roleRepository.Get(roleId).Name;
-
-                        if (roleName.Equals("Users"))
-                        {
-                            u.User = user;
-                            u.Role = roleName;
-                            u.IsChecked = false;
-                            model.Add(u);
-                        }
-                    }
+                    model = sortUsers("Users");
                     break;
                 default: throw new ArgumentOutOfRangeException();
             }
 
             return View("Index", model);
+        }
+
+        private List<ManageUsersViewModel> sortUsers(string role)
+        {
+            List<AspNetUser> users = (List<AspNetUser>)_unitOfWork._userRepository.GetAll();
+            List<ManageUsersViewModel> model = new List<ManageUsersViewModel>();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                ManageUsersViewModel u = new ManageUsersViewModel();
+                AspNetUser user = users[i];
+
+                AspNetUserRole userRole = _unitOfWork._userRoleRepository.Get(users[i].Id);
+                string roleId = userRole.RoleId;
+                string roleName = _unitOfWork._roleRepository.Get(roleId).Name;
+
+                if (roleName.Equals(role) || role.Equals("All"))
+                {
+                    u.User = user;
+                    u.Role = roleName;
+                    u.IsChecked = false;
+                    model.Add(u);
+                }
+            }
+
+            return model;
         }
 
             protected override void Dispose(bool disposing)

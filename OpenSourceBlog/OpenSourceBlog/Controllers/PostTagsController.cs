@@ -7,121 +7,119 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OpenSourceBlog.DAL;
-using OpenSourceBlog.Database.Interfaces;
+using OpenSourceBlog.Database;
 using OpenSourceBlog.Database.Models;
-using OpenSourceBlog.Models;
 
 namespace OpenSourceBlog.Controllers
 {
     [Authorize(Roles = "Administrators,Editors")]
-    public class CategoriesController : Controller
+    public class PostTagsController : Controller
     {
-        //        private ApplicationDbContext db = new ApplicationDbContext();
-        //private IGenericRepository<Category, int> repo;
+        //private ApplicationContext db = new ApplicationContext();
         private UnitOfWork _unitOfWork;
 
-        public CategoriesController(UnitOfWork unitOfWork)
+        public PostTagsController(UnitOfWork unitOfWork)
         {
-            //this.repo = db;
             this._unitOfWork = unitOfWork;
         }
 
-        // GET: Categories
+        // GET: PostTags
         public ActionResult Index()
         {
-            return View(_unitOfWork._categoryRepository.GetAll());
+            return View(_unitOfWork._postTagRepository.GetAll());
         }
 
-        // GET: Categories/Details/5
+        // GET: PostTags/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
-            if (category == null)
+            PostTags postTag = _unitOfWork._postTagRepository.Get(Convert.ToInt32(id));
+            if (postTag == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(postTag);
         }
 
-        // GET: Categories/Create
+        // GET: PostTags/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: PostTags/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryRowId,BlogId,CategoryId,CategoryName,Description,ParentId")] Category category)
+        public ActionResult Create([Bind(Include = "PostTagId,BlogId,PostId,Tag")] PostTags postTag)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork._categoryRepository.Create(category);
+                _unitOfWork._postTagRepository.Create(postTag);
                 _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(postTag);
         }
 
-        // GET: Categories/Edit/5
+        // GET: PostTags/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
-            if (category == null)
+
+            PostTags postTag = _unitOfWork._postTagRepository.Get(Convert.ToInt32(id));
+            if (postTag == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(postTag);
         }
 
-        // POST: Categories/Edit/5
+        // POST: PostTags/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryRowId,BlogId,CategoryId,CategoryName,Description,ParentId")] Category category)
+        public ActionResult Edit([Bind(Include = "PostTagId,BlogId,PostId,Tag")] PostTags postTag)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork._categoryRepository.Update(category);
+                _unitOfWork._postTagRepository.Update(postTag);
                 _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(postTag);
         }
 
-        // GET: Categories/Delete/5
+        // GET: PostTags/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _unitOfWork._categoryRepository.Get(Convert.ToInt32(id));
-            if (category == null)
+            PostTags postTag = _unitOfWork._postTagRepository.Get(Convert.ToInt32(id));
+            if (postTag == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(postTag);
         }
 
-        // POST: Categories/Delete/5
+        // POST: PostTags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _unitOfWork._categoryRepository.Delete(id);
+            _unitOfWork._postTagRepository.Delete(id);
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
