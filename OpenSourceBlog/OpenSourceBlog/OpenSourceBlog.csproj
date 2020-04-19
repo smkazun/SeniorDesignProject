@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\PostTagsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
@@ -226,7 +227,7 @@
     <Compile Include="Database\Models\PostCategory.cs" />
     <Compile Include="Database\Models\PostComment.cs" />
     <Compile Include="Database\Models\PostNotify.cs" />
-    <Compile Include="Database\Models\PostTag.cs" />
+    <Compile Include="Database\Models\PostTags.cs" />
     <Compile Include="Database\Models\Profile.cs" />
     <Compile Include="Database\Models\Right.cs" />
     <Compile Include="Database\Models\RightRole.cs" />
@@ -728,6 +729,11 @@
     <Content Include="Views\Shared\_PostCreate.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Admin\CreatePost.cshtml" />
+    <Content Include="Views\PostTags\Create.cshtml" />
+    <Content Include="Views\PostTags\Delete.cshtml" />
+    <Content Include="Views\PostTags\Details.cshtml" />
+    <Content Include="Views\PostTags\Edit.cshtml" />
+    <Content Include="Views\PostTags\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

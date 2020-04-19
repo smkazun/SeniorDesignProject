@@ -21,7 +21,7 @@ namespace OpenSourceBlog.DAL
         IGenericRepository<PostComment, int> _postCommentRepository { get; }
         IGenericRepository<PostNotify, int> _postNotifyRepository { get; }
         IPostRepository _postRepository { get; }
-        IGenericRepository<PostTag, int> _postTagRepository { get; }
+        IGenericRepository<PostTags, int> _postTagRepository { get; }
         IGenericRepository<Profile, int> _profileRepository { get; }
         IGenericRepository<Right, int> _rightRepository { get; }
         IGenericRepository<RightRole, int> _rightRoleRepository { get; }

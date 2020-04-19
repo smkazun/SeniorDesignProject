@@ -61,7 +61,7 @@ namespace OpenSourceBlog
             container.RegisterType<IGenericRepository<PostComment, int>, GenericRepository<PostComment, int>>();
             container.RegisterType<IGenericRepository<PostNotify, int>, GenericRepository<PostNotify, int>>();
             container.RegisterType<IGenericRepository<Post, int>, GenericRepository<Post, int>>();
-            container.RegisterType<IGenericRepository<PostTag, int>, GenericRepository<PostTag, int>>();
+            container.RegisterType<IGenericRepository<PostTags, int>, GenericRepository<PostTags, int>>();
             container.RegisterType<IGenericRepository<Profile, int>, GenericRepository<Profile, int>>();
             container.RegisterType<IGenericRepository<Right, int>, GenericRepository<Right, int>>();
             container.RegisterType<IGenericRepository<RightRole, int>, GenericRepository<RightRole, int>>();
