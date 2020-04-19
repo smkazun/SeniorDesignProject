@@ -18,6 +18,8 @@ namespace OpenSourceBlog.Database.Models
         public string Description { get; set; }
         [AllowHtml]
         public string PostContent { get; set; }
+        public byte[] Image { get; set; }
+        public string FileType { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         [MaxLength(50)]
