@@ -131,6 +131,8 @@ CREATE TABLE [dbo].[Posts](
 	[Title] [nvarchar](255) NULL,
 	[Description] [nvarchar](max) NULL,
 	[PostContent] [nvarchar](max) NULL,
+	[Image] [varbinary](max) NULL,
+    [FileType] [nvarchar](10) NULL,
 	[DateCreated] [datetime] NULL,
 	[DateModified] [datetime] NULL,
 	[Author] [nvarchar](50) NULL,
