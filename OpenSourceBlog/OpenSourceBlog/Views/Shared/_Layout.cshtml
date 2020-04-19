@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - OpenSourceBlog</title>
     @Styles.Render("~/Content/css")
+    @if (Session["theme"] != null)
+    {
+        string file = "/Content/themes/" + Session["theme"].ToString();
+        <link href=@file rel="stylesheet" type="text/css" />
+    }
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/header")
 

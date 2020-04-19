@@ -1,0 +1,21 @@
+﻿body, body *, #SearchString, input {
+    background-color: #181d27;
+}
+
+.Postbox {
+    background-color: #181d27 !important;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+body * {
+    color: white !important;
+}
+
+.nav-link:hover {
+    color: #525252 !important;
+}
+
+.navbar * {
+    background-color: #343a40 !important;
+}

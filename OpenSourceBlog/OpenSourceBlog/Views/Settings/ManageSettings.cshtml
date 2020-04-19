@@ -102,6 +102,20 @@
                     @* @Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
 
                 }
+                else if (Model[i].SettingName == "Theme")
+                {
+                    string folderPath = Server.MapPath("~/Content/themes");
+                    string[] files = Directory.GetFiles(folderPath);
+                    var themes = new List<SelectListItem> { };
+
+                    foreach (string item in files)
+                    {
+                        themes.Add(new SelectListItem { Text = Path.GetFileName(item), Value = Path.GetFileName(item) });
+                    }
+                    @Html.DropDownListFor(m => m[i].SettingValue, themes, "Select Theme", new { @class = "form-control row form-control settingValue", @style = "width: 60%; max-width: 100%;" })
+
+                    @*@Html.ValidationMessageFor(m => m[i].SettingValue, "", new { @class = "text-danger" })*@
+                }
                 else
                 {
                     //defualt

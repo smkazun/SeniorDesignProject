@@ -1,0 +1,8 @@
+﻿@model IEnumerable<string>
+<ul>
+    @foreach (var fullPath in Model)
+    {
+        var fileName = Path.GetFileName(fullPath);
+        <li>@fileName</li>
+    }
+</ul>

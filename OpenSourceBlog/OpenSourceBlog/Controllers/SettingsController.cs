@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -35,6 +36,12 @@ namespace OpenSourceBlog.Controllers
         public ActionResult ManageSettings()
         {
             return View("ManageSettings", _unitOfWork._settingsRepository.GetSettings());
+        }
+        // GET: Settings/ManageSettings
+        public IEnumerable<string> GetThemes()
+        {
+            return Directory.EnumerateFiles(Server.MapPath(Server.MapPath("~/Content/themes")));
+
         }
 
         // POST: Settings/ManageSettings

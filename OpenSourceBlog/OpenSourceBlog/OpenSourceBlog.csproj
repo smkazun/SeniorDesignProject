@@ -267,6 +267,8 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Register.css" />
     <Content Include="Content\sidebar.css" />
+    <Content Include="Content\themes\darkmode.css" />
+    <Content Include="Content\themes\spring.css" />
     <Content Include="Database\setup.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -728,6 +730,7 @@
     <Content Include="Views\Shared\_PostCreate.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Admin\CreatePost.cshtml" />
+    <Content Include="Views\Settings\_Theme.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

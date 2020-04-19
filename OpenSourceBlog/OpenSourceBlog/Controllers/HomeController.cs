@@ -32,6 +32,7 @@ namespace OpenSourceBlog.Controllers
         //Displays the posts for this blog, with paging and searching
         public ActionResult Index(string searchString, string currentFilter, int? page)
         {
+            themeSetter();
             if (searchString != null)
             {
                 page = 1;
@@ -87,6 +88,7 @@ namespace OpenSourceBlog.Controllers
         //GET
         public ActionResult Archive()
         {
+            themeSetter();
             List<Post> fullList = (List<Post>) _unitOfWork._postRepository.GetAll();
             List<Post> resultList = new List<Post>();
             for (int i = fullList.Count - 1; i > -1; i--)
@@ -98,6 +100,7 @@ namespace OpenSourceBlog.Controllers
 
         public ActionResult About()
         {
+            themeSetter();
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -106,6 +109,7 @@ namespace OpenSourceBlog.Controllers
         //[Authorize]
         public ActionResult Contact()
         {
+            themeSetter();
             ViewBag.Message = "Your contact page.";
 
             return View();
@@ -115,6 +119,7 @@ namespace OpenSourceBlog.Controllers
         [HttpGet]
         public ActionResult postSort(int? id)
         {
+            themeSetter();
             int? page = 1;
             var model = (HomeViewModel) TempData["Model"];
 
@@ -154,6 +159,11 @@ namespace OpenSourceBlog.Controllers
             var settingList = (List<Setting>)_unitOfWork._settingsRepository.GetSettings();
             var setting = settingList[2];
             return Convert.ToInt32(setting.SettingValue);
+        }
+        private void themeSetter()
+        {
+            var settingList = (List<Setting>)_unitOfWork._settingsRepository.GetSettings();
+            Session["theme"] = settingList[5].SettingValue;
         }
 
 
