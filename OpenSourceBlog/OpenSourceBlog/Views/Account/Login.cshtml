@@ -5,9 +5,9 @@
     ViewBag.Title = "Login";
 }
 
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
-
-
 
 
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -17,19 +17,26 @@
     <h2 align="center">@ViewBag.Title</h2>
 
     <div class="form-group" align="center">
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="input-icons">
+                <i class="fa fa-envelope fa-lg"></i>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input", placeholder = "Email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
     <br style="line-height: 8px;" />
 
     <div class="form-group" align="center">
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="input-icons">
+                <i class="fa fa-lock fa-lg"></i>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control input", placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
+
     <div class="form-group" align="center">
         <div class="col-md-offset-2 col-md-10">
             <div class="checkbox">
@@ -38,6 +45,7 @@
             </div>
         </div>
     </div>
+
     <div class="form-group" align="center">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Login" class="btn btn-lg loginBtn" />
@@ -46,20 +54,19 @@
     <br />
 
     <div align="center">
-
         @Html.ActionLink("Register as a new user", "Register")
         <br />
         @Html.ActionLink("Forgot your password?", "ForgotPassword")
         <br />
     </div>
-    
-}
 
-<div class="row">
-    <section id="socialLoginForm">
+    <h4>Use another service to log in</h4>
+    <div class="row justify-content-center">
+
         @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-    </section>
-</div>
+
+    </div>
+}
 
 
 @section Scripts {
