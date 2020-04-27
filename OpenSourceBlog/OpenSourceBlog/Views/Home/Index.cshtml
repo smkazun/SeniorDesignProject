@@ -6,9 +6,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style>
+
+    .parentContainer {
+       
+    }
+
+    .leftContainer{
+        width: 60%;
+
+    }
+
+    .rightContainer {
+        float: right;
+        margin-left: 75%;
+    }
+
+
+
+   
+
     img.rounded-corners {
         border-radius: 50%
     }
@@ -31,21 +50,21 @@
         padding-bottom: 10px;
     }
 
-        .homenav a {
-            padding-left: 5px;
-            padding-right: 5px;
-            margin-left: 2px;
-            margin-right: 2px;
-            border-bottom: 3px solid transparent;
-        }
+    .homenav a {
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-left: 2px;
+        margin-right: 2px;
+        border-bottom: 3px solid transparent;
+    }
 
-            .homenav a:hover {
-                border-bottom: 3px solid black;
-            }
+    .homenav a:hover {
+        border-bottom: 3px solid black;
+    }
 
-            .homenav a.active {
-                border-bottom: 3px solid black;
-            }
+    .homenav a.active {
+        border-bottom: 3px solid black;
+    }
 
     ul.nav li.dropdown:hover ul.dropdown-menu {
         display: block;
@@ -57,11 +76,10 @@
 
     .Postbox {
         background-color: white;
-        border-radius: 20px;
-        padding: 20px;
+        padding: 10px;
         height: auto;
         width: auto;
-        border: 1px solid grey;
+        border-bottom: 1px solid grey;
         /*box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 15px 0 rgba(0, 0, 0, 0.19);*/
     }
 
@@ -86,25 +104,10 @@
 
 <article class="news-article">
 
-    @*
-        @{
-            foreach (var item in Model.Setting)
-            {
-                if (item.SettingName.Equals("Blog Title"))
-                {
-                    ViewData["BlogTitle"] = item.SettingValue;
-                }
-                else if (item.SettingName.Equals("Blog Description"))
-                {
-                    ViewData["BlogDesc"] = item.SettingValue;
-                }
-            }
-
-        }*@
-
     <br>
     <h2 align="center">@ViewData["BlogTitle"]</h2>
     <h3 align="center">@ViewData["BlogDesc"]</h3>
+    <hr style="width: 70%" />
 
     @*
         <div class="row">
@@ -116,70 +119,92 @@
         </div>*@
 
     <br>
-    <nav class="homenav navbar-expand-sm border border-right-0 border-left-0">
-        <div class="container">
+    <section class="parentContainer">
+
+        <nav class="homenav navbar-expand-sm">
+
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Category<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Sort<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)</a></li>
-                            <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)</a></li>
-                            <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-                {
-                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                    <input type="submit" value="Search" placeholder="Search" />
-                }
-            </div>
-        </div>
-    </nav>
+                <div class=" rightContainer">
 
-    @foreach (var item in Model.Post)
-    {
-        <div class="Postbox">
-            <h1>
-                <a href="#" style=" color: #000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
-            </h1>
-            <div>
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
-                @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
-                By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
+                     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                     {
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search" })
 
-                <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
-                @*if the modified time is not empty then display it*@
-                @if (!item.DateModified.ToString().Equals(String.Empty))
-                {
-                    <i>| Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
-                }
+                            <div class="input-group-append">
+                                <span class="input-group-text red lighten-3" id="basic-text1">
+                                    <i class="fa fa-search text-grey" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                     }
+
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Category<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #000000; text-decoration: none">Sort<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Most Recent", "postSort", new { id = 1 }, null)</a></li>
+                                <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Least Recent", "postSort", new { id = 2 }, null)</a></li>
+                                <li><a href="#" style="color: #000000; text-decoration: none">@Html.ActionLink("Highest Rated", "postSort", new { id = 3 }, null)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            @*<p>
-                    Rating: @Html.DisplayFor(modelItem => item.Rating)
-                </p>*@
-            <p>
-                <i>@Html.DisplayFor(modelItem => item.Description)</i>
-            </p>
-            <hr>
-            <p>
-                @if (item.PostContent != null)
-                {
-                    @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent);
-                }
-                @if (item.PostContent != null && item.PostContent.Length > 400)
-                {
-                    <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
-                }
-            </p>
+        </nav>
+
+
+        <div class="leftContainer">
+            @foreach (var item in Model.Post)
+            {
+                <div class="Postbox">
+                    <h1>
+                        <a href="#" style=" color: #000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
+                    </h1>
+                    <div>
+                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
+                        @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
+                        <p style="color:lightgrey" ;>
+                            By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
+
+                            <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+                            @*if the modified time is not empty then display it*@
+                            @if (!item.DateModified.ToString().Equals(String.Empty))
+                            {
+                                <i>| Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
+                            }
+                        </p>
+                    </div>
+                    @*<p>
+                            Rating: @Html.DisplayFor(modelItem => item.Rating)
+                        </p>*@
+                    <p style="color:lightgrey" ;>
+                        <i>@Html.DisplayFor(modelItem => item.Description)</i>
+                    </p>
+
+                    <p>
+                        @if (item.PostContent != null)
+                        {
+                            @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent);
+                        }
+                        @if (item.PostContent != null && item.PostContent.Length > 400)
+                        {
+                            <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                        }
+                    </p>
+                </div>
+            }
         </div>
-    }
+    </section>
 
     Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
     @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, @class = "paging" }))

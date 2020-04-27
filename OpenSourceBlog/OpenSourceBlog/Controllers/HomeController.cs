@@ -52,14 +52,15 @@ namespace OpenSourceBlog.Controllers
             //searching
             if (!String.IsNullOrEmpty(searchString))
             {
-                fullList = fullList.Where(s => s.Title.ToUpper().Contains(searchString.ToUpper()));
+                fullList = fullList.Where(m => m.Title.ToUpper().Contains(searchString.ToUpper()));
             }
-           
-            //display published posts only
-            for (int i = fullList.Count()-1; i > -1; i--)
-                if (fullList.ElementAt(i).IsPublished == true && fullList.ElementAt(i).BlogId == GlobalVars.BlogId)
-                    resultList.Add(fullList.ElementAt(i));
+            
 
+            //display published posts only
+            for (int i = fullList.Count() - 1; i > -1; i--)
+            if (fullList.ElementAt(i).IsPublished == true && fullList.ElementAt(i).BlogId == GlobalVars.BlogId)
+                resultList.Add(fullList.ElementAt(i));
+            
 
             int pageSize = pageSizeHelper();
             int pageNumber = (page ?? 1); //uses page value if non-null, otherwise 1
@@ -144,7 +145,18 @@ namespace OpenSourceBlog.Controllers
                 default: throw new ArgumentOutOfRangeException();
             }
 
-            
+            foreach (var item in model.Setting)
+            {
+                if (item.SettingName.Equals("Blog Title"))
+                {
+                    ViewData["BlogTitle"] = item.SettingValue;
+                }
+                else if (item.SettingName.Equals("Blog Description"))
+                {
+                    ViewData["BlogDesc"] = item.SettingValue;
+                }
+            }
+
             int pageSize = pageSizeHelper();
             int pageNumber = (page ?? 1);
             model.Post = sortedList.ToPagedList(pageNumber, pageSize);
@@ -165,7 +177,6 @@ namespace OpenSourceBlog.Controllers
             var settingList = (List<Setting>)_unitOfWork._settingsRepository.GetSettings();
             Session["theme"] = settingList[5].SettingValue;
         }
-
 
     }
 
