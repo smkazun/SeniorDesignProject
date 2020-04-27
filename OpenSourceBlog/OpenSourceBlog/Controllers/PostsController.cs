@@ -51,6 +51,8 @@ namespace OpenSourceBlog.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Comments = _unitOfWork._postCommentRepository.GetAll().Where(x => x.PostId == post.PostId).OrderByDescending(x => x.CommentDate).ToList();
+
             return View("~/Views/Admin/Posts/Details.cshtml",post);
         }
 
@@ -154,5 +156,7 @@ namespace OpenSourceBlog.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }
