@@ -20,6 +20,7 @@ namespace OpenSourceBlog.Controllers
         private IUserRepository userdb;
         private IPostRepository postdb;
         private IUnitOfWork _unitOfWork;
+        private IEnumerable<Profile> all;
 
         public ProfilesController() { }
         public ProfilesController(IProfileRepository profiledb, IUserRepository userdb, IPostRepository postdb)
@@ -43,19 +44,33 @@ namespace OpenSourceBlog.Controllers
         }
 
         // GET: Profiles/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult Details(int? id)//string name
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Profile profile = db.Get(id);
+            //int id = getProfileId(name);
             Profile profile = _unitOfWork._profileRepository.Get(Convert.ToInt32(id));
+                System.Diagnostics.Debug.WriteLine(id);
             if (profile == null)
             {
                 return HttpNotFound();
             }
             return View("Details", profile);
+        }
+
+        //Helper for details
+        private int getProfileId(string name)
+        {
+            int id = 0;
+            all = _unitOfWork._profileRepository.GetAll();
+            for (int i = 0; i < all.Count(); i++)
+                if (all.ElementAt(i).SettingName.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    id = all.ElementAt(i).ProfileId;
+            return id;
         }
 
         // GET: Profiles/Edit/5
@@ -75,17 +90,8 @@ namespace OpenSourceBlog.Controllers
             }
             return View("~/Views/Profiles/Details.cshtml", profile);
         }
-
-
-
-        /*public ActionResult getAuthorId(string email)
-        {
-            AspNetUser user = userdb.FindByUserName(email);
-            //return Details(user.Id);
-            return Details(1);
-        }
         
-        // GET: Profiles/Create
+        /*// GET: Profiles/Create
         public ActionResult Create()
         {
             return View();

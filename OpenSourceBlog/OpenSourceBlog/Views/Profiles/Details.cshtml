@@ -1,6 +1,6 @@
 ﻿@using OpenSourceBlog.Database.Models
 @model OpenSourceBlog.Database.Models.Profile
-﻿@*model OpenSourceBlog.Models.ProfileViewModel*@
+﻿@*model OpenSourceBlog.Models.ProfileViewModel *@
 @{
     ViewBag.Title = "User";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -89,12 +89,12 @@
         font-weight: bold;
     }
 
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
 </style>
 
 
@@ -120,15 +120,16 @@
     <div class="container">
         <div class="profile">
             <img align="left" class="image-lg" src="https://i.pinimg.com/originals/60/bf/7c/60bf7c84a3f4bb95b2a4d0697bbedbae.jpg" />
-            <img class="rounded-corners" align="left" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(model => model.UserName)');">
+            <img class="rounded-corners" align="left" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@Html.DisplayFor(m => m.UserName)');">
             <div class="Postbox">
                 <div class="row">
                     <div class="first-column">
                         <p class="small">
-                            <h1>@Html.DisplayFor(model => model.SettingName)</h1>
-                            @Html.DisplayFor(model => model.UserName)
+                            <h1>@Html.DisplayFor(m => m.SettingName)</h1>
+                            @Html.DisplayFor(m => m.UserName)
                         </p>
                     </div>
+                    @*
                     <div class="second-column">
                         <p class="small">
                             <center>
@@ -151,24 +152,22 @@
                             <button style="border: 0; background: transparent" id="editBtn"><img src="~/Scripts/ckeditor/plugins/widget/images/handle.png" width="15" height="15" alt="submit" /></button>
                         }
                     </div>
-                        <div id="editModal" class="modal">
-                            <div class="modal-content">
-                                <span class="close">&times;</span>
-                                @using (Html.BeginForm("Details", "Profiles"))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <center>
-                                        @Html.LabelFor(model => model.SettingName, htmlAttributes: new { @class = "control-label" })
-                                        @Html.EditorFor(model => model.SettingName, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.SettingValue, "", new { @class = "text-danger" })
-                                        <input type="submit" value="Save" class="btn btn-primary" />
-                                    </center>
-                                }
-                            </div>
+                    <div id="editModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            @using (Html.BeginForm("Details", "Profiles"))
+                            {
+                                @Html.AntiForgeryToken()
+                                <center>
+                                    @Html.LabelFor(m => m.SettingName, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(m => m.SettingName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(m => m.SettingValue, "", new { @class = "text-danger" })
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </center>
+                            }
                         </div>
-                    </div>
-                <hr />
-                Admin at OpenSourceBlog. This is a sample description
+                    </div>*@
+                </div>
             </div>
             @*if this user is admin/editor
                 <h2>Latest posts from @Html.DisplayFor(model => model.SettingName)</h2>*@

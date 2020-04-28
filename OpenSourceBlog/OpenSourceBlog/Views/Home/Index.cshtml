@@ -131,10 +131,9 @@
                         <a href="#" style=" color: #000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
                     </h1>
                     <div>
-                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
-                        @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
                         <p style="color:lightgrey" ;>
-                            By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
+                            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px"> By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
+                            @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
 
                             <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
                             @*if the modified time is not empty then display it*@

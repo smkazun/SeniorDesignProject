@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using OpenSourceBlog.Database.Models;
-using PagedList;
+//using PagedList;
 
 namespace OpenSourceBlog.Models
 {
@@ -11,6 +11,6 @@ namespace OpenSourceBlog.Models
     {
         public AspNetUser User { get; set; }
         public Profile Profile { get; set; }
-        public IPagedList<Post> Post { get; set; }
+        //public IPagedList<Post> Post { get; set; }
     }
 }
