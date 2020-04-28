@@ -11,22 +11,19 @@
 <style>
 
     .parentContainer {
-       
+       display: flex;
     }
 
     .leftContainer{
-        width: 60%;
-
+        width: 70%;
     }
 
     .rightContainer {
-        float: right;
-        margin-left: 75%;
+        flex: 1;
+        margin-top: 15%;
+        
     }
 
-
-
-   
 
     img.rounded-corners {
         border-radius: 50%
@@ -100,6 +97,8 @@
     .pagination a:hover:not(.active) {
         background-color: #ddd;
     }
+
+
 </style>
 
 <article class="news-article">
@@ -121,15 +120,57 @@
     <br>
     <section class="parentContainer">
 
+        <div class="leftContainer">
+            @foreach (var item in Model.Post)
+            {
+                <div class="Postbox">
+                    <h1>
+                        <a href="#" style=" color: #000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
+                    </h1>
+                    <div>
+                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
+                        @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
+                        <p style="color:lightgrey" ;>
+                            By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
+
+                            <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
+                            @*if the modified time is not empty then display it*@
+                            @if (!item.DateModified.ToString().Equals(String.Empty))
+                            {
+                                <i>| Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
+                            }
+                        </p>
+                    </div>
+                    @*<p>
+                        Rating: @Html.DisplayFor(modelItem => item.Rating)
+                    </p>*@
+                    <p style="color:lightgrey" ;>
+                        <i>@Html.DisplayFor(modelItem => item.Description)</i>
+                    </p>
+
+                    <p>
+                        @if (item.PostContent != null)
+                        {
+                            @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent);
+                        }
+                        @if (item.PostContent != null && item.PostContent.Length > 400)
+                        {
+                            <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
+                        }
+                    </p>
+                </div>
+            }
+        </div>
+
         <nav class="homenav navbar-expand-sm">
 
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <div class=" rightContainer">
 
-                     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-                     {
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                    {
                         <div class="input-group md-form form-sm form-2 pl-0">
-                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search" })
+                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control my-0 py-1 red-border", placeholder = "Search" })
 
                             <div class="input-group-append">
                                 <span class="input-group-text red lighten-3" id="basic-text1">
@@ -137,7 +178,7 @@
                                 </span>
                             </div>
                         </div>
-                     }
+                    }
 
                     <ul class="nav navbar-nav mr-auto">
                         <li class="dropdown">
@@ -162,52 +203,14 @@
             </div>
         </nav>
 
-
-        <div class="leftContainer">
-            @foreach (var item in Model.Post)
-            {
-                <div class="Postbox">
-                    <h1>
-                        <a href="#" style=" color: #000000;" onclick="redirectURL(1,@(item.PostRowId)); return false;">@Html.DisplayFor(modelItem => item.Title)</a>
-                    </h1>
-                    <div>
-                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=200" onload="this.onload=null; this.src=getIconUrl('@(item.Author)');" class="rounded-corners" alt="Avatar" style="width:30px">
-                        @*<a href="#" data-url='@Url.Action("getAuthorId","Profiles", new { email = item.Author })' class="nav-link">*@
-                        <p style="color:lightgrey" ;>
-                            By @Html.ActionLink(item.Author, "Details", "Profiles", new { id = 1 }, null)
-
-                            <i>@Html.DisplayFor(modelItem => item.DateCreated)</i>
-                            @*if the modified time is not empty then display it*@
-                            @if (!item.DateModified.ToString().Equals(String.Empty))
-                            {
-                                <i>| Edited: @Html.DisplayFor(modelItem => item.DateModified)</i>
-                            }
-                        </p>
-                    </div>
-                    @*<p>
-                            Rating: @Html.DisplayFor(modelItem => item.Rating)
-                        </p>*@
-                    <p style="color:lightgrey" ;>
-                        <i>@Html.DisplayFor(modelItem => item.Description)</i>
-                    </p>
-
-                    <p>
-                        @if (item.PostContent != null)
-                        {
-                            @Html.Raw(item.PostContent.Length > 400 ? item.PostContent.Substring(0, 400) : item.PostContent);
-                        }
-                        @if (item.PostContent != null && item.PostContent.Length > 400)
-                        {
-                            <a href="#" class="font-weight-bold" onclick="redirectURL(1,@(item.PostRowId)); return false;"> ...Continue Reading</a>
-                        }
-                    </p>
-                </div>
-            }
-        </div>
     </section>
-
-    Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
-    @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, @class = "paging" }))
+    <div class=" row justify-content-center">
+        Page @(Model.Post.PageCount < Model.Post.PageNumber ? 0 : Model.Post.PageNumber) of @Model.Post.PageCount
+        
+    </div>
+    <div class=" row justify-content-center">
+        @Html.PagedListPager(Model.Post, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, @class = "paging" }))
+    </div>
 </article>
 
 
