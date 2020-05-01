@@ -1,4 +1,6 @@
-This repository provides the latest soure code for our Open Source Blog built using the .NET 4.8 Framework. This product is being built for Cylosoft Inc. by PJ D, Sebastian K, Thien N, and Cole M.
+This repository provides the latest soure code for our Open Source Blog built using the .NET 4.8 Framework. This product is being built for Cylosoft Inc. by PJ D, Sebastian K, Thien N, Carter C, and Cole M.
+
+Team Website: [Website](http://sdmay20-34.sd.ece.iastate.edu/)
 
 # Features
 
